@@ -19,6 +19,12 @@
                         <div class="col-lg-12">
                             <form id="login-form" action="login" method="post" role="form"
                                   style="display: block;">
+
+                                <div id="flash-error-register" class="alert alert-danger hidden">
+                                    <ul id="error-login">
+                                    </ul>
+                                </div>
+
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control"
                                            placeholder="Username" value="">
@@ -54,7 +60,7 @@
                                   role="form" style="display: none;">
                                 {{csrf_field()}}
                                 <div id="flash-error-register" class="alert alert-danger hidden">
-                                    <ul id="errors">
+                                    <ul id="error-register">
                                     </ul>
                                 </div>
                                 <div class="form-group">
@@ -92,7 +98,8 @@
                                            class="form-control" placeholder="Password" value="">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password_confirmation" id="confirm-password" tabindex="2"
+                                    <input type="password" name="password_confirmation" id="confirm-password"
+                                           tabindex="2"
                                            class="form-control" placeholder="Confirm Password">
                                 </div>
                                 <div class="form-group">
@@ -116,9 +123,28 @@
     function redirect(url) {
         window.location = url;
     }
+
+    $('#login-submit').click(function(e){
+        e.preventDefault();
+        $('#error-login').text('');
+        var data = $('#login-form').serializeArray();
+        var url = $('#login-form').attr('action');
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: data,
+            dataType: 'json',
+            success: function () {
+                redirect(window.location.href);
+            },
+            error: function () {
+
+            }
+        })
+    });
     $('#register-submit').click(function (e) {
         e.preventDefault();
-        $('#errors').text('');
+        $('#error-regiter').text('');
         var data = $('#register-form').serializeArray();
         var url = $('#register-form').attr('action');
         $.ajax({
@@ -127,13 +153,13 @@
             data: data,
             dataType: 'json',
             success: function (data) {
-                redirect('/');
+                window.redirect(window.location.href);
             },
             error: function (data) {
                 errors = $.parseJSON(data.responseText);
                 $('#flash-error-register').removeClass('hidden');
-                $.each(errors,function (index,value) {
-                    $('#errors').append("<li>" +value+ "</li>")
+                $.each(errors, function (index, value) {
+                    $('#errors').append("<li>" + value + "</li>")
                 })
             }
         });

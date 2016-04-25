@@ -69,7 +69,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li><a href="">Direct Delivery</a></li>
                             </ul>
                         </li>
-                        <li><a href="mail.html">Mail Us</a></li>
+                        <li><a href="">Mail Us</a></li>
 
                     </ul>
                 </nav>
@@ -105,12 +105,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button"
    title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span
             class="glyphicon glyphicon-chevron-up"></span></a>
-
 <!-- footer -->
 <?php echo $__env->make('partial.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <!-- //footer -->
 <!-- for bootstrap working -->
-<script src="js/bootstrap.js"></script>
+<script src="<?php echo e(asset('js/bootstrap.js')); ?>"></script>
 <!-- //for bootstrap working -->
-</body>
+
 </html>

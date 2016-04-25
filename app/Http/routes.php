@@ -19,12 +19,10 @@ Route::get('/', function () {
 Route::get('recipeoftheday', 'AjaxController@recipeOfTheDay');
 
 Route::post('register','AjaxController@postRegister');
-Route::get('register/{token}',[
-    'as' => 'confirmToken',
-    'uses' => 'Auth\AuthController@confirmToken' 
-]);
-Route::get('logout',function() {
-    Auth::logout();
-    return redirect()->back();
+Route::get('register/{token}','Auth\AuthController@confirmToken');
+Route::get('logout','Auth\AuthController@logout');
+
+Route::get('event',function(){
+    return view('index');
 });
 
