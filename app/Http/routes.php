@@ -20,6 +20,7 @@ Route::get('recipeoftheday', 'AjaxController@recipeOfTheDay');
 
 Route::post('register','AjaxController@postRegister');
 Route::get('register/{token}','Auth\AuthController@confirmToken');
+Route::post('login','AjaxController@postLogin');
 Route::get('logout','Auth\AuthController@logout');
 
 Route::get('event',function(){

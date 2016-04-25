@@ -6,6 +6,8 @@ use App\Eatnshare\Request\RegisterPostForm;
 use App\Events\UserHasRegistered;
 use App\Http\Requests;
 use Carbon\Carbon;
+use Auth;
+use Illuminate\Http\Request;
 
 class AjaxController extends Controller
 {
@@ -24,5 +26,19 @@ class AjaxController extends Controller
         event(new UserHasRegistered($user_registered));
 
         return response()->json('success');
+    }
+
+    public function postLogin(Request $request){
+        $credentials = [
+            'username' => $request->get('username'),
+            'password' => $request->get('password')
+        ];
+
+        if(Auth::attempt($credentials)){
+            return 'success';
+        }
+
+        return 'fail';
+
     }
 }

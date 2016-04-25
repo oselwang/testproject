@@ -40,7 +40,7 @@
             $this->mailer->queue('email.confirmation', $data, function ($message) use ($data) {
                 $message->to($data['email'])
                     ->subject('Confirmation Email');
-            }, 'Report');
+            }, 'Email');
 
         }
     }

@@ -67,7 +67,7 @@ ul.nav.navbar-nav li a.active {
     min-width: 130px;
     padding:10px 0;
     margin: 0;
-    background-color: #f89406;
+    background-color: #1D1811;
 }
 .dropdown-menu > li > a:before{
 	display:none;

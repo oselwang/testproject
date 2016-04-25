@@ -81,11 +81,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <li role="presentation" class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="true" aria-expanded="false">
-                                    Hello, <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
+                                    Hello, <?php echo e(Auth::user()->firstname); ?> <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="">Door Delivery</a></li>
-                                    <li><a href="">Direct Delivery</a></li>
+                                    <li><a href=""><span class="glyphicon glyphicon-pencil" style="margin-right: 20px"></span>Write Recipe</a></li>
+                                    <li><a href=""><span class="glyphicon glyphicon-list-alt" style="margin-right: 20px"></span>Your Recipe</a></li>
+                                    <li><a href=""><span class="glyphicon glyphicon-tasks" style="margin-right: 20px"></span>Order</a></li>
+                                    <li><a href=""><span class="glyphicon glyphicon-user" style="margin-right: 20px"></span>Account</a></li>
+                                    <li><a href="logout"><span class="glyphicon glyphicon-off" style="margin-right: 20px"></span>Logout</a></li>
                                 </ul>
                             </li>
                     </ul>

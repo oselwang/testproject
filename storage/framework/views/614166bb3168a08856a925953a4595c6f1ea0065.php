@@ -19,7 +19,7 @@
                         <div class="col-lg-12">
                             <form id="login-form" action="login" method="post" role="form"
                                   style="display: block;">
-                                <input type="hidden" name="_token" value="{{str_random(40)}}">
+                                <input type="hidden" name="_token" value="<?php echo e(str_random(40)); ?>">
                                 <div id="flash-error-login" class="alert alert-danger hidden">
                                     <ul id="error-login">
                                     </ul>
@@ -58,26 +58,26 @@
                             </form>
                             <form id="register-form" action="register" method="post"
                                   role="form" style="display: none;">
-                                <input type="hidden" name="_token" value="{{str_random(40)}}">
+                                <input type="hidden" name="_token" value="<?php echo e(str_random(40)); ?>">
                                 <div id="flash-error-login" class="alert alert-danger hidden">
                                     <ul id="error-register">
                                     </ul>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="firstname" tabindex="1" class="form-control"
-                                           placeholder="Firstname" value="{{old('firstname')}}">
+                                           placeholder="Firstname" value="<?php echo e(old('firstname')); ?>">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="lastname" tabindex="1" class="form-control"
-                                           placeholder="Lastname" value="{{old('lastname')}}">
+                                           placeholder="Lastname" value="<?php echo e(old('lastname')); ?>">
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" tabindex="1" class="form-control"
-                                           placeholder="Email Address" value="{{old('email')}}">
+                                           placeholder="Email Address" value="<?php echo e(old('email')); ?>">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="phone" id="phone" tabindex="1" class="form-control"
-                                           placeholder="Phone" value="{{old('phone')}}">
+                                           placeholder="Phone" value="<?php echo e(old('phone')); ?>">
                                 </div>
 
                                 <div class="form-group" data-toggle="buttons">
@@ -95,7 +95,7 @@
 
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control"
-                                           placeholder="Username" value="{{old('username')}}">
+                                           placeholder="Username" value="<?php echo e(old('username')); ?>">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="1"

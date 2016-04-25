@@ -55,7 +55,7 @@
 
         public function logout()
         {
-            $this->logout();
+            Auth::logout();
 
             return redirect()->back();
         }

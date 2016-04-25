@@ -15,7 +15,8 @@ class RegisterPostForm extends Form
 {
     protected $rules = [
         'username' => 'required|min:8|unique:users',
-        'name' => 'required',
+        'firstname' => 'required',
+        'lastname' => 'required',
         'password' => 'required|min:8|alpha_num|confirmed',
         'phone' => 'numeric',
         'email' => 'email|unique:users'
@@ -27,7 +28,8 @@ class RegisterPostForm extends Form
         if ($this->isValid()) {
             
             $user_registered = $user->create([
-                'name' => $this->fields('name'),
+                'firstname' => $this->fields('firstname'),
+                'lastname' => $this->fields('lastname'),
                 'email' => $this->fields('email'),
                 'username' => $this->fields('username'),
                 'password' => bcrypt($this->fields('password')),
