@@ -16,8 +16,11 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserHasRegistered' => [
             'App\Listeners\SendConfirmationEmail',
         ],
+        'App\Events\UserForgotPassword' => [
+          'App\Listeners\SendNewPassword'
+        ],
     ];
-
+    
     /**
      * Register any other events for your application.
      *

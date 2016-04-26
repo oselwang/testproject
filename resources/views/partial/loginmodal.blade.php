@@ -1,15 +1,18 @@
-<div class="container modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true" style="display: none;">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-login">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-xs-4">
                             <a href="#" class="active" id="login-form-link">Login</a>
                         </div>
-                        <div class="col-xs-6">
+                        <div class="col-xs-4">
                             <a href="#" id="register-form-link">Register</a>
+                        </div>
+                        <div class="col-xs-4">
+                            <a href="#" id="forgot-form-link">Forgot Password</a>
                         </div>
                     </div>
                     <hr>
@@ -116,6 +119,35 @@
                                     </div>
                                 </div>
                             </form>
+                            <form id="forgot-form" action="forgot" method="post" role="form"
+                                  style="display: none;">
+                                <input type="hidden" name="_token" value="{{str_random(40)}}">
+                                <div id="flash-success-forgot" class="alert alert-success hidden">
+                                    <ul id="success-forgot">
+                                    </ul>
+                                </div>
+                                <div id="flash-error-forgot" class="alert alert-danger hidden">
+                                    <ul id="error-forgot">
+                                    </ul>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username" tabindex="1" class="form-control"
+                                           placeholder="Username" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" tabindex="1" class="form-control"
+                                           placeholder="Email Address" value="{{old('email')}}">
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="forgot-submit" id="forgot-submit" tabindex="4"
+                                                   class="form-control btn btn-login" value="Resend Password">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -133,14 +165,19 @@
         $('#error-login').text('');
         var data = $('#login-form').serializeArray();
         var url = $('#login-form').attr('action');
-        $.post(url, data,function(data){
-            if(data == 'success'){
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: data,
+            dataType: 'json',
+            success: function (data) {
                 redirect(window.location.href);
-            }else{
+            },
+            error: function (data) {
                 $('#flash-error-login').removeClass('hidden');
                 $('#error-login').append("<li>We cannot identify these credentials</li>");
             }
-        })
+        });
     });
     $('#register-submit').click(function (e) {
         e.preventDefault();
@@ -153,7 +190,7 @@
             data: data,
             dataType: 'json',
             success: function (data) {
-                window.redirect(window.location.href);
+                redirect(window.location.href);
             },
             error: function (data) {
                 errors = $.parseJSON(data.responseText);
@@ -161,6 +198,29 @@
                 $.each(errors, function (index, value) {
                     $('#errors').append("<li>" + value + "</li>")
                 })
+            }
+        });
+    });
+
+    $('#forgot-submit').click(function(e){
+       e.preventDefault();
+        $('#flash-error-forgot').addClass('hidden');
+        $('#error-forgot').text('');
+        $('#flash-success-forgot').addClass('hidden');
+        var data = $('#forgot-form').serializeArray();
+        var url = $('#forgot-form').attr('action');
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+                $('#flash-success-forgot').removeClass('hidden');
+                $('#success-forgot').text('Please check your email for new password');
+            },
+            error: function (data) {
+                $('#flash-error-forgot').removeClass('hidden');
+                $('#error-forgot').append("<li>We cannot identify these credentials</li>");
             }
         });
     });

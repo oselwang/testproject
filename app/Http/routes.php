@@ -1,29 +1,36 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+    /*
+    |--------------------------------------------------------------------------
+    | Application Routes
+    |--------------------------------------------------------------------------
+    |
+    | Here is where you can register all of the routes for an application.
+    | It's a breeze. Simply tell Laravel the URIs it should respond to
+    | and give it the controller to call when that URI is requested.
+    |
+    */
 
 
-Route::get('/', function () {
-    return view('index');
-});
+    /*
+     * Post Request
+     */
+    Route::post('forgot','AjaxController@forgotPassword');
+    Route::post('login', 'AjaxController@postLogin');
+    Route::post('register', 'AjaxController@postRegister');
 
-Route::get('recipeoftheday', 'AjaxController@recipeOfTheDay');
 
-Route::post('register','AjaxController@postRegister');
-Route::get('register/{token}','Auth\AuthController@confirmToken');
-Route::post('login','AjaxController@postLogin');
-Route::get('logout','Auth\AuthController@logout');
 
-Route::get('event',function(){
-    return view('index');
-});
+    /*
+     * Get Request
+     */
+    Route::get('/', function () {
+        return view('index');
+    });
+    Route::get('account',function(){
+       return view('account');
+    });
+    Route::get('recipeoftheday', 'AjaxController@recipeOfTheDay');
+    Route::get('register/{token}', 'Auth\AuthController@confirmToken');
+    Route::get('logout', 'Auth\AuthController@logout');
 

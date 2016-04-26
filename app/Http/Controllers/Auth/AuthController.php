@@ -59,6 +59,10 @@
 
             return redirect()->back();
         }
+
+        public function getAccount(){
+            return view('account.blade');
+        }
         
 
 
