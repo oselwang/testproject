@@ -2,14 +2,12 @@
 
 namespace App\Events;
 
-use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserForgotPassword extends Event
 {
     use SerializesModels;
-    
+
     public $user;
 
     /**

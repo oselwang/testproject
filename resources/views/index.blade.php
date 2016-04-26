@@ -180,7 +180,7 @@
     $(document).ready();
     {
         $.get('recipeoftheday', function (data) {
-            if(data == false){
+            if (data == false) {
             }
             $("#getting-started").countdown(data, function (event) {
                 $(this).text(event.strftime('%H:%M:%S'));

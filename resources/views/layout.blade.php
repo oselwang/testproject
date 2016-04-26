@@ -85,11 +85,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     Hello, {{Auth::user()->firstname}} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href=""><span class="glyphicon glyphicon-pencil" style="margin-right: 20px"></span>Write Recipe</a></li>
-                                    <li><a href=""><span class="glyphicon glyphicon-list-alt" style="margin-right: 20px"></span>Your Recipe</a></li>
-                                    <li><a href=""><span class="glyphicon glyphicon-tasks" style="margin-right: 20px"></span>Order</a></li>
-                                    <li><a href="account" {{(Request::is('account') ? 'class=active' : '')}}><span class="glyphicon glyphicon-user" style="margin-right: 20px"></span>Account</a></li>
-                                    <li><a href="logout"><span class="glyphicon glyphicon-off" style="margin-right: 20px"></span>Logout</a></li>
+                                    <li><a href=""><span class="glyphicon glyphicon-pencil"
+                                                         style="margin-right: 20px"></span>Write Recipe</a></li>
+                                    <li><a href=""><span class="glyphicon glyphicon-list-alt"
+                                                         style="margin-right: 20px"></span>Your Recipe</a></li>
+                                    <li><a href=""><span class="glyphicon glyphicon-tasks"
+                                                         style="margin-right: 20px"></span>Order</a></li>
+                                    <li><a href="account" {{(Request::is('account') ? 'class=active' : '')}}><span
+                                                    class="glyphicon glyphicon-user" style="margin-right: 20px"></span>Account</a>
+                                    </li>
+                                    <li><a href="logout"><span class="glyphicon glyphicon-off"
+                                                               style="margin-right: 20px"></span>Logout</a></li>
                                 </ul>
                             </li>
                     </ul>
@@ -102,7 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 </div>
 @include('partial.loginmodal')
-<!-- header -->
+        <!-- header -->
 <body>
 @yield('content')
 </body>

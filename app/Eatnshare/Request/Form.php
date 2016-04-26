@@ -33,7 +33,7 @@ abstract class Form
     {
 
         $this->validate($this->request, $this->rules);
-        
+
         return true;
     }
 

@@ -26,7 +26,7 @@ class RegisterPostForm extends Form
     {
         $user = New User;
         if ($this->isValid()) {
-            
+
             $user_registered = $user->create([
                 'firstname' => $this->fields('firstname'),
                 'lastname' => $this->fields('lastname'),
@@ -40,7 +40,7 @@ class RegisterPostForm extends Form
             ]);
 
             return $user_registered;
-            
+
         } else return false;
 
 

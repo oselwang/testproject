@@ -1,7 +1,5 @@
-
-
 <?php $__env->startSection('content'); ?>
-        <!-- banner -->
+<!-- banner -->
 <div class="banner">
     <div class="container">
         <div class="banner-info">
@@ -180,7 +178,7 @@
     $(document).ready();
     {
         $.get('recipeoftheday', function (data) {
-            if(data == false){
+            if (data == false) {
             }
             $("#getting-started").countdown(data, function (event) {
                 $(this).text(event.strftime('%H:%M:%S'));
@@ -193,6 +191,6 @@
     }
 </script>
 <?php $__env->stopSection(); ?>
-        <!-- //newsletter-bottom -->
+<!-- //newsletter-bottom -->
 
 <?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

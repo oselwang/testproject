@@ -160,7 +160,7 @@
         window.location = url;
     }
 
-    $('#login-submit').click(function(e){
+    $('#login-submit').click(function (e) {
         e.preventDefault();
         $('#error-login').text('');
         var data = $('#login-form').serializeArray();
@@ -202,8 +202,8 @@
         });
     });
 
-    $('#forgot-submit').click(function(e){
-       e.preventDefault();
+    $('#forgot-submit').click(function (e) {
+        e.preventDefault();
         $('#flash-error-forgot').addClass('hidden');
         $('#error-forgot').text('');
         $('#flash-success-forgot').addClass('hidden');

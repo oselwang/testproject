@@ -4,13 +4,12 @@ namespace App\Listeners;
 
 use App\Events\UserForgotPassword;
 use Illuminate\Mail\Mailer;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendNewPassword
 {
 
     protected $mailer;
+
     /**
      * Create the event listener.
      * @param $mailer
@@ -23,13 +22,13 @@ class SendNewPassword
     /**
      * Handle the event.
      *
-     * @param  UserForgotPassword  $event
+     * @param  UserForgotPassword $event
      * @return string
      */
     public function handle(UserForgotPassword $event)
     {
         $user = $event->user['attributes'];
-        
+
         $data = [
             'password' => str_random(7),
             'email' => $user['email']
@@ -39,7 +38,7 @@ class SendNewPassword
             $message->to($data['email'])
                 ->subject('Confirmation Email');
         }, 'Email');
-        
+
         return $data['password'];
     }
 }

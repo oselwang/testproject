@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
     $(window).scroll(function () {
         if ($(this).scrollTop() > 50) {
             $('#back-to-top').fadeIn();
@@ -6,7 +6,7 @@ $(document).ready(function(){
             $('#back-to-top').fadeOut();
         }
     });
-    
+
     $('#back-to-top').click(function () {
         $('#back-to-top').tooltip('hide');
         $('body,html').animate({
@@ -14,7 +14,7 @@ $(document).ready(function(){
         }, 800);
         return false;
     });
-    
+
     $('#back-to-top').tooltip('show');
 
 });

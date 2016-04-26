@@ -76,22 +76,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </nav>
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav right">
-                        <?php if(!Auth::check()): ?>
+                        <?php if (!Auth::check()): ?>
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
-                        <?php elseif(Auth::check()): ?>
-                            <li role="presentation" class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    Hello, <?php echo e(Auth::user()->firstname); ?> <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href=""><span class="glyphicon glyphicon-pencil" style="margin-right: 20px"></span>Write Recipe</a></li>
-                                    <li><a href=""><span class="glyphicon glyphicon-list-alt" style="margin-right: 20px"></span>Your Recipe</a></li>
-                                    <li><a href=""><span class="glyphicon glyphicon-tasks" style="margin-right: 20px"></span>Order</a></li>
-                                    <li><a href="account" <?php echo e((Request::is('account') ? 'class=active' : '')); ?>><span class="glyphicon glyphicon-user" style="margin-right: 20px"></span>Account</a></li>
-                                    <li><a href="logout"><span class="glyphicon glyphicon-off" style="margin-right: 20px"></span>Logout</a></li>
-                                </ul>
-                            </li>
+                        <?php elseif (Auth::check()): ?>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                Hello, <?php echo e(Auth::user()->firstname); ?> <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href=""><span class="glyphicon glyphicon-pencil"
+                                                     style="margin-right: 20px"></span>Write Recipe</a></li>
+                                <li><a href=""><span class="glyphicon glyphicon-list-alt"
+                                                     style="margin-right: 20px"></span>Your Recipe</a></li>
+                                <li><a href=""><span class="glyphicon glyphicon-tasks"
+                                                     style="margin-right: 20px"></span>Order</a></li>
+                                <li>
+                                    <a href="account" <?php echo e((Request::is('account') ? 'class=active' : '')); ?>><span
+                                            class="glyphicon glyphicon-user"
+                                            style="margin-right: 20px"></span>Account</a></li>
+                                <li><a href="logout"><span class="glyphicon glyphicon-off"
+                                                           style="margin-right: 20px"></span>Logout</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <?php endif; ?>
@@ -108,10 +115,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </body>
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button"
    title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span
-            class="glyphicon glyphicon-chevron-up"></span></a>
+        class="glyphicon glyphicon-chevron-up"></span></a>
 <!-- footer -->
 <?php echo $__env->make('partial.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-        <!-- //footer -->
+<!-- //footer -->
 <!-- for bootstrap working -->
 <script src="<?php echo e(asset('js/bootstrap.js')); ?>"></script>
 <!-- //for bootstrap working -->

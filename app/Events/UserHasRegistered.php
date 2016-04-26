@@ -2,16 +2,14 @@
 
 namespace App\Events;
 
-use App\Events\Event;
-use App\User;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserHasRegistered extends Event
 {
     use SerializesModels;
 
     public $user;
+
     /**
      * Create a new event instance.
      *
@@ -21,5 +19,5 @@ class UserHasRegistered extends Event
     {
         $this->user = $user;
     }
-    
+
 }
