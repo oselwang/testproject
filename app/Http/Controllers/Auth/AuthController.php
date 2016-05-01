@@ -57,13 +57,7 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        return redirect()->back();
+        return redirect($this->redirectTo);
     }
-
-    public function getAccount()
-    {
-        return view('account.blade');
-    }
-
 
 }

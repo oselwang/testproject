@@ -62,7 +62,6 @@
                     });
                 </script>
                 <script src="{{asset('js/jquery.countdown.min.js')}}"></script>
-                <script type="text/javascript" src="{{asset('js/jquery.flexisel.js')}}"></script>
                 <div class="more wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <a href="single.html" class="hvr-curl-bottom-right">Read More</a>
                 </div>

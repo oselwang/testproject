@@ -26,9 +26,7 @@ Route::post('register', 'AjaxController@postRegister');
 Route::get('/', function () {
     return view('index');
 });
-Route::get('account', function () {
-    return view('account');
-});
+Route::get('account', 'AccountController@getAccountPage');
 Route::get('recipeoftheday', 'AjaxController@recipeOfTheDay');
 Route::get('register/{token}', 'Auth\AuthController@confirmToken');
 Route::get('logout', 'Auth\AuthController@logout');

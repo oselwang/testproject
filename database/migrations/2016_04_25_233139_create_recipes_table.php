@@ -15,16 +15,13 @@ class CreateRecipesTable extends Migration
         Schema::create('recipes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('recipe_name');
-            $table->string('portion');
-            $table->string('preparation');
-            $table->string('duration');
-            $table->boolean('difficulty');
-            $table->string('token')->unique();
-            $table->string('email')->unique();
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('recipe_name')->index();
+            $table->integer('portion');
+            $table->integer('duration');
+            $table->string('difficulty');
+            $table->string('description');
+            $table->float('rating')->nullable();
+            $table->integer('preparation');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

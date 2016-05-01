@@ -1,27 +1,42 @@
 <?php
 
-namespace App;
+    namespace App;
 
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+    use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
-{
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'firstname', 'lastname', 'email', 'password', 'phone', 'gender', 'username', 'confirmed', 'token'
-    ];
+    class User extends Authenticatable
+    {
+        /**
+         * The attributes that are mass assignable.
+         *
+         * @var array
+         */
+        protected $fillable = [
+            'firstname', 'lastname', 'email', 'password', 'phone', 'gender', 'username', 'confirmed', 'token'
+        ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-}
+        /**
+         * The attributes that should be hidden for arrays.
+         *
+         * @var array
+         */
+        protected $hidden = [
+            'password', 'remember_token',
+        ];
+
+        public function recipe()
+        {
+            return $this->hasMany(Recipe::class);
+        }
+
+        public function profilephoto()
+        {
+            return $this->hasOne(ProfilePhoto::class);
+        }
+
+        public function coverphoto()
+        {
+            return $this->hasOne(CoverPhoto::class);
+        }
+    }

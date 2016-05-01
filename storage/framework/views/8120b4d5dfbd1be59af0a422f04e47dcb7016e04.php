@@ -1,5 +1,7 @@
+
+
 <?php $__env->startSection('content'); ?>
-<!-- banner -->
+        <!-- banner -->
 <div class="banner">
     <div class="container">
         <div class="banner-info">
@@ -60,7 +62,6 @@
                     });
                 </script>
                 <script src="<?php echo e(asset('js/jquery.countdown.min.js')); ?>"></script>
-                <script type="text/javascript" src="<?php echo e(asset('js/jquery.flexisel.js')); ?>"></script>
                 <div class="more wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <a href="single.html" class="hvr-curl-bottom-right">Read More</a>
                 </div>
@@ -191,6 +192,6 @@
     }
 </script>
 <?php $__env->stopSection(); ?>
-<!-- //newsletter-bottom -->
+        <!-- //newsletter-bottom -->
 
 <?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

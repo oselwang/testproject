@@ -17,14 +17,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('css/loginmodal.css')}}" rel="stylesheet" type="text/css" media="all"/>
+    <link href="{{asset('css/combobox-bootstrap.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <!-- js -->
     <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
     <!-- //js -->
     <!-- animation-effect -->
-    <link href="{{asset('css/animate.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/animate.css')}}" rel="stylesheet">
     <script src="{{asset('js/wow.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/jquery.flexisel.js')}}"></script>
     <script src="{{asset('js/script.js')}}"></script>
     <script src="{{asset('js/loginmodal.js')}}"></script>
+    <script src="{{asset('js/combobox-bootstrap.js')}}"></script>
     <script>
         new WOW().init();
     </script>
@@ -33,6 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
           rel='stylesheet' type='text/css'>
     @yield('style')
+    @yield('script')
 </head>
 
 <!-- header -->
@@ -85,8 +89,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     Hello, {{Auth::user()->firstname}} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href=""><span class="glyphicon glyphicon-pencil"
-                                                         style="margin-right: 20px"></span>Write Recipe</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target='#recipe-modal'><span
+                                                    class="glyphicon glyphicon-pencil"
+                                                    style="margin-right: 20px"></span>Write Recipe</a></li>
                                     <li><a href=""><span class="glyphicon glyphicon-list-alt"
                                                          style="margin-right: 20px"></span>Your Recipe</a></li>
                                     <li><a href=""><span class="glyphicon glyphicon-tasks"
@@ -107,7 +112,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </nav>
     </div>
 </div>
+@if(!Auth::check())
 @include('partial.loginmodal')
+@else
+@include('partial.recipemodal')
+@endif
         <!-- header -->
 <body>
 @yield('content')
