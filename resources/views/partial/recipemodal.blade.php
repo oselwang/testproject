@@ -17,16 +17,37 @@
                             <form id="recipe-form" action="addrecipe" method="post"
                                   role="form" style="display: block;">
                                 <input type="hidden" name="_token" value="{{str_random(40)}}">
-                                <div id="flash-error-login" class="alert alert-danger hidden">
-                                    <ul id="error-register">
+
+                                <div id="flash-error-recipe" class="alert alert-danger hidden">
+                                    <ul id="error-recipe" style="margin-left: 1em">
                                     </ul>
                                 </div>
-                                <div class="form-group">
+
+                                <div class="input-group image-preview" style="margin-bottom:30px;" id="image-preview">
+                                    <input type="text" class="form-control image-preview-filename" disabled="disabled"
+                                           style="height: 34px;" placeholder="Profile Photo" id="image-preview-filename">
+                                        <span class="input-group-btn">
+                                            <!-- image-preview-clear button -->
+                                            <button type="button" class="btn btn-default image-preview-clear"
+                                                    style="display:none;" id="image-preview-clear">
+                                                <span class="glyphicon glyphicon-remove"></span> Clear
+                                            </button>
+                                            <!-- image-preview-input -->
+                                            <div class="btn btn-default image-preview-input" id="image-preview-input">
+                                                <span class="glyphicon glyphicon-folder-open"></span>
+                                                <span class="image-preview-input-title" id="image-preview-input-title">Browse</span>
+                                                <input type="file" accept="image/png, image/jpeg, image/gif" name="profilephoto">
+                                                <!-- rename it -->
+                                            </div>
+                                        </span>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom:30px;">
                                     <input type="text" name="recipename" tabindex="1" class="form-control"
                                            placeholder="Recipe Name" value="{{old('recipename')}}">
                                 </div>
                                 <div class="form-group" style="display: inline-block;width:49%;">
-                                    <select class="form-control" name="portion">
+                                    <select class="form-control" name="portion" tabindex="1">
                                         <option value="">Portion</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -40,7 +61,7 @@
                                 </div>
 
                                 <div class="form-group" style="display:inline-block;width:49%;">
-                                    <select class="form-control" name="difficulty">
+                                    <select class="form-control" name="difficulty" tabindex="1" >
                                         <option value="">Difficulty</option>
                                         <option value="easy">Easy</option>
                                         <option value="medium">Medium</option>
@@ -49,7 +70,7 @@
                                 </div>
 
                                 <div class="form-group" style="display:inline-block;width:49%;">
-                                    <select class="form-control" name="duration">
+                                    <select class="form-control" name="duration" tabindex="1" >
                                         <option value="">Duration(Minute)</option>
                                         <option value="10">10</option>
                                         <option value="15">15</option>
@@ -63,7 +84,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group" style="display:inline-block;width:49%;">
+                                <div class="form-group" style="display:inline-block;width:49%;" tabindex="1" >
                                     <select class="form-control" name="preparation">
                                         <option value="">Preparation(Minute)</option>
                                         <option value="5">5</option>
@@ -76,12 +97,14 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group">
-                                    <input type="text" name="ingredient[]" maxlength="50" id="ingredient" class="form-control"
-                                              placeholder="Ingredient" style="display:inline-block;width:44%;">
+                                <div class="form-group" style="margin-bottom:30px;">
+                                    <input type="text" name="ingredient[]" maxlength="50" id="ingredient"
+                                           class="form-control" tabindex="1"
+                                           placeholder="Ingredient" style="display:inline-block;width:44%;">
                                     <input type="text" name="amount[]" maxlength="50" id="amount" class="form-control"
-                                           placeholder="Amount" style="display:inline-block;width:44%;">
-                                    <button type="button" class="btn btn-success" data-type="plus" id="plusingredient" style="display:inline-block;width:10%;padding:0.7em">
+                                           placeholder="Amount" style="display:inline-block;width:44%;" tabindex="1" >
+                                    <button type="button" class="btn btn-success" data-type="plus" id="plusingredient"
+                                            style="display:inline-block;width:10%;padding:0.7em">
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
                                     <div id="ingredienttemp">
@@ -91,8 +114,10 @@
 
                                 <div class="form-group">
                                     <textarea name="instruction[]" maxlength="50" id="instruction" class="form-control"
-                                              placeholder="Instruction" style="display:inline-block;width:88.5%;"></textarea>
-                                    <button type="button" class="btn btn-success" data-type="plus" id="plusinstruction" style="display:inline-block;width:10%;margin-bottom: 30px;padding:0.7em">
+                                              placeholder="Instruction" tabindex="1"
+                                              style="display:inline-block;width:88.5%;"></textarea>
+                                    <button type="button" class="btn btn-success" data-type="plus" id="plusinstruction"
+                                            style="display:inline-block;width:10%;margin-bottom: 30px;padding:0.7em">
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
                                     <div id="instructiontemp">
@@ -100,18 +125,17 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="register-submit" id="register-submit"
+                                            <input type="submit" id="create-recipe"
                                                    tabindex="4" class="form-control btn btn-register"
-                                                   value="Register Now">
+                                                   value="Create Recipe">
                                         </div>
                                     </div>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -133,5 +157,38 @@
 
     $('#instructiontemp').on('click', '#minusinstruction', function () {
         $(this).parent().remove();
+    });
+
+    $('#plusingredient').click(function () {
+        $('#ingredienttemp').append('<div id="deleteingredient"><input type="text" name="ingredient[]" maxlength="50" id="ingredient" class="form-control"placeholder="Ingredient" style="display:inline-block;width:44%;"> <input type="text" name="amount[]" maxlength="50" id="amount" class="form-control" placeholder="Amount" style="display:inline-block;width:44%;"><button type="button" class="btn btn-danger" data-type="plus" id="minusingredient" style="display:inline-block;width:10%;margin-left: 3px;padding: 0.7em"> <span class="glyphicon glyphicon-minus"></span></button></div>');
+    });
+
+    $('#ingredienttemp').on('click', '#minusingredient', function () {
+        $(this).parent().remove();
+    });
+
+    $('#recipe-form').submit(function (e) {
+        e.preventDefault();
+        var url = $('#recipe-form').attr('action');
+        $('#error-recipe').text('');
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+                redirect(window.location.href);
+            },
+            error: function (data) {
+                errors = $.parseJSON(data.responseText);
+                $('#flash-error-recipe').removeClass('hidden');
+                $.each(errors, function (index, value) {
+                    $('#error-recipe').append("<li>" + value + "</li>")
+                })
+            }
+        });
     })
 </script>

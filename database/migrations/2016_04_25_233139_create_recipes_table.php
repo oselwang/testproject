@@ -36,6 +36,7 @@ class CreateRecipesTable extends Migration
      */
     public function down()
     {
+            
         Schema::drop('recipes');
     }
 }

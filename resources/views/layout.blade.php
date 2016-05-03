@@ -18,6 +18,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('css/loginmodal.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('css/combobox-bootstrap.css')}}" rel="stylesheet" type="text/css" media="all"/>
+    <link href="{{asset('css/dropzone.css')}}" rel="stylesheet" media="all" type="text/css"/>
     <!-- js -->
     <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
     <!-- //js -->
@@ -28,6 +29,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{asset('js/script.js')}}"></script>
     <script src="{{asset('js/loginmodal.js')}}"></script>
     <script src="{{asset('js/combobox-bootstrap.js')}}"></script>
+    <script src="{{asset('js/dropzone.js')}}"></script>
     <script>
         new WOW().init();
     </script>
@@ -92,8 +94,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <li><a href="#" data-toggle="modal" data-target='#recipe-modal'><span
                                                     class="glyphicon glyphicon-pencil"
                                                     style="margin-right: 20px"></span>Write Recipe</a></li>
-                                    <li><a href=""><span class="glyphicon glyphicon-list-alt"
-                                                         style="margin-right: 20px"></span>Your Recipe</a></li>
                                     <li><a href=""><span class="glyphicon glyphicon-tasks"
                                                          style="margin-right: 20px"></span>Order</a></li>
                                     <li><a href="account" {{(Request::is('account') ? 'class=active' : '')}}><span
@@ -121,6 +121,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 @yield('content')
 </body>
+@if(Session::has('flash_notification.message'))
+    <div id="flash-pop-up" class="flash-pop-up btn-success btn">{{Session::get('flash_notification.message')}}</div>
+@endif
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button"
    title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span
             class="glyphicon glyphicon-chevron-up"></span></a>

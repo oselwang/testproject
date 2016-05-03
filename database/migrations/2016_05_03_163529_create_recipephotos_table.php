@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecipecategoriesTable extends Migration
+class CreateRecipephotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,14 @@ class CreateRecipecategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('recipecategories', function (Blueprint $table) {
+        Schema::create('recipephotos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('recipe_id')->unsigned();
-            $table->string('category_name')->index();
+            $table->string('photo_name');
             $table->timestamps();
 
-            $table->foreign('recipe_id')->references('id')->on('recipes')->delete('cascade');
+            $table->foreign('recipe_id')->references('id')->on('recipes');
+
         });
     }
 
@@ -29,6 +30,6 @@ class CreateRecipecategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('recipecategories');
+        Schema::drop('recipephotos');
     }
 }

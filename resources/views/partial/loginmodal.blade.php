@@ -24,7 +24,7 @@
                                   style="display: block;">
                                 <input type="hidden" name="_token" value="{{str_random(40)}}">
                                 <div id="flash-error-login" class="alert alert-danger hidden">
-                                    <ul id="error-login">
+                                    <ul id="error-login" style="margin-left: 1em">
                                     </ul>
                                 </div>
 
@@ -62,8 +62,8 @@
                             <form id="register-form" action="register" method="post"
                                   role="form" style="display: none;">
                                 <input type="hidden" name="_token" value="{{str_random(40)}}">
-                                <div id="flash-error-login" class="alert alert-danger hidden">
-                                    <ul id="error-register">
+                                <div id="flash-error-register" class="alert alert-danger hidden">
+                                    <ul id="error-register" style="margin-left: 1em">
                                     </ul>
                                 </div>
                                 <div class="form-group">
@@ -123,7 +123,7 @@
                                   style="display: none;">
                                 <input type="hidden" name="_token" value="{{str_random(40)}}">
                                 <div id="flash-success-forgot" class="alert alert-success hidden">
-                                    <ul id="success-forgot">
+                                    <ul id="success-forgot" style="margin-left: 1em">
                                     </ul>
                                 </div>
                                 <div id="flash-error-forgot" class="alert alert-danger hidden">
@@ -196,7 +196,7 @@
                 errors = $.parseJSON(data.responseText);
                 $('#flash-error-register').removeClass('hidden');
                 $.each(errors, function (index, value) {
-                    $('#errors').append("<li>" + value + "</li>")
+                    $('#error-register').append("<li>" + value + "</li>")
                 })
             }
         });

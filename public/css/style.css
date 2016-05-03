@@ -527,6 +527,29 @@ nav.cl-effect-13 a {
     display: inline-block;
 }
 
+.image-preview-input {
+    position: relative;
+    overflow: hidden;
+    margin: 0px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.image-preview-input input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+
 .newsletter-info input[type="submit"] {
     color: #fff;
     padding: 10px 0;
@@ -548,6 +571,14 @@ nav.cl-effect-13 a {
     bottom: 80px;
     right: 20px;
     display: none;
+}
+
+.flash-pop-up{
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    cursor: default;
 }
 
 .newsletter-info input[type="submit"]:hover {

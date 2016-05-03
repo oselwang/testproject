@@ -48,6 +48,7 @@ class AuthController extends Controller
         $user->token = null;
         $user->save();
 
+        flash('Welcome to ___, start creating your own recipe !');
         Auth::login($user);
 
         return redirect($this->redirectTo);
@@ -56,7 +57,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-
+        flash("See you");
         return redirect($this->redirectTo);
     }
 

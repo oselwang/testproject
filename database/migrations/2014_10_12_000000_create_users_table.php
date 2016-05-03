@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->string('gender');
             $table->boolean('confirmed');
-            $table->string('token')->unique();
+            $table->string('token');
             $table->string('email')->unique();
             $table->string('username')->unique();
             $table->string('password');

@@ -1,45 +1,50 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: oselwang
- * Date: 4/24/16
- * Time: 1:40 AM
- */
+    /**
+     * Created by PhpStorm.
+     * User: oselwang
+     * Date: 4/24/16
+     * Time: 1:40 AM
+     */
 
-namespace App\Eatnshare\Request;
-
-
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\Request;
-
-abstract class Form
-{
-
-    use ValidatesRequests;
-
-    protected $request;
-
-    protected $rules;
-
-    abstract function create();
+    namespace App\Eatnshare\Request;
 
 
-    public function __construct(Request $request = null)
-    {
-        $this->request = $request ?: request();
-    }
+    use Illuminate\Foundation\Validation\ValidatesRequests;
+    use Illuminate\Http\Request;
 
-    public function isValid()
+    abstract class Form
     {
 
-        $this->validate($this->request, $this->rules);
+        use ValidatesRequests;
 
-        return true;
+        protected $request;
+
+        protected $rules;
+
+        abstract function create();
+
+
+        public function __construct(Request $request = null)
+        {
+            $this->request = $request ?: request();
+        }
+
+        public function isValid()
+        {
+
+            $this->validate($this->request, $this->rules);
+
+            return true;
+        }
+
+        public function file($property)
+        {
+            return $this->request->file($property);
+        }
+
+        public function fields($property)
+        {
+            return $this->request->get($property);
+        }
+
     }
-
-    public function fields($property)
-    {
-        return $this->request->get($property);
-    }
-
-}
