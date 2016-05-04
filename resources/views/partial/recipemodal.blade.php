@@ -1,3 +1,7 @@
+@section('script')
+    <script src="{{asset('js/recipemodal.js')}}"></script>
+@stop
+
 <div class="modal fade" id="recipe-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true" style="display: none;">
     <div class="row">
@@ -23,20 +27,21 @@
                                     </ul>
                                 </div>
 
-                                <div class="input-group image-preview" style="margin-bottom:30px;" id="image-preview">
+                                <div class="input-group image-preview" style="margin-bottom:30px;">
                                     <input type="text" class="form-control image-preview-filename" disabled="disabled"
-                                           style="height: 34px;" placeholder="Profile Photo" id="image-preview-filename">
+                                           style="height: 34px;" placeholder="Profile Photo">
                                         <span class="input-group-btn">
                                             <!-- image-preview-clear button -->
                                             <button type="button" class="btn btn-default image-preview-clear"
-                                                    style="display:none;" id="image-preview-clear">
+                                                    style="display:none;">
                                                 <span class="glyphicon glyphicon-remove"></span> Clear
                                             </button>
                                             <!-- image-preview-input -->
-                                            <div class="btn btn-default image-preview-input" id="image-preview-input">
+                                            <div class="btn btn-default image-preview-input">
                                                 <span class="glyphicon glyphicon-folder-open"></span>
                                                 <span class="image-preview-input-title" id="image-preview-input-title">Browse</span>
-                                                <input type="file" accept="image/png, image/jpeg, image/gif" name="profilephoto">
+                                                <input type="file" accept="image/png, image/jpeg, image/gif"
+                                                       name="profilephoto">
                                                 <!-- rename it -->
                                             </div>
                                         </span>
@@ -62,7 +67,7 @@
                                 </div>
 
                                 <div class="form-group" style="display:inline-block;width:49%;">
-                                    <select class="form-control" name="difficulty" tabindex="1" >
+                                    <select class="form-control" name="difficulty" tabindex="1">
                                         <option value="">Difficulty</option>
                                         <option value="easy">Easy</option>
                                         <option value="medium">Medium</option>
@@ -71,7 +76,7 @@
                                 </div>
 
                                 <div class="form-group" style="display:inline-block;width:49%;">
-                                    <select class="form-control" name="duration" tabindex="1" >
+                                    <select class="form-control" name="duration" tabindex="1">
                                         <option value="">Duration(Minute)</option>
                                         <option value="10">10</option>
                                         <option value="15">15</option>
@@ -103,7 +108,7 @@
                                            class="form-control" tabindex="1"
                                            placeholder="Ingredient" style="display:inline-block;width:44%;">
                                     <input type="text" name="amount[]" maxlength="50" id="amount" class="form-control"
-                                           placeholder="Amount" style="display:inline-block;width:44%;" tabindex="1" >
+                                           placeholder="Amount" style="display:inline-block;width:44%;" tabindex="1">
                                     <button type="button" class="btn btn-success" data-type="plus" id="plusingredient"
                                             style="display:inline-block;width:10%;padding:0.7em">
                                         <span class="glyphicon glyphicon-plus"></span>
@@ -145,51 +150,3 @@
         </div>
     </div>
 </div>
-<script>
-    function redirect(url) {
-        window.location = url;
-    }
-
-    $('#recipe-form').find('[name="difficulty"], [name="portion"],[name="duration"],[name="preparation"]').combobox().end();
-
-    $('#plusinstruction').click(function () {
-        $('#instructiontemp').append('<div id="textarea"><textarea name="instruction[]" maxlength="50" class="form-control" placeholder="Instruction" style="display:inline-block;width:88.5%;"></textarea><button type="button" class="btn btn-danger" data-type="plus" id="minusinstruction" style="display:inline-block;width:10%;margin-bottom: 30px;margin-left: 3px;padding: 0.7em"> <span class="glyphicon glyphicon-minus"></span></button></div>');
-    });
-
-    $('#instructiontemp').on('click', '#minusinstruction', function () {
-        $(this).parent().remove();
-    });
-
-    $('#plusingredient').click(function () {
-        $('#ingredienttemp').append('<div id="deleteingredient"><input type="text" name="ingredient[]" maxlength="50" id="ingredient" class="form-control"placeholder="Ingredient" style="display:inline-block;width:44%;"> <input type="text" name="amount[]" maxlength="50" id="amount" class="form-control" placeholder="Amount" style="display:inline-block;width:44%;"><button type="button" class="btn btn-danger" data-type="plus" id="minusingredient" style="display:inline-block;width:10%;margin-left: 3px;padding: 0.7em"> <span class="glyphicon glyphicon-minus"></span></button></div>');
-    });
-
-    $('#ingredienttemp').on('click', '#minusingredient', function () {
-        $(this).parent().remove();
-    });
-
-    $('#recipe-form').submit(function (e) {
-        e.preventDefault();
-        var url = $('#recipe-form').attr('action');
-        $('#error-recipe').text('');
-        $.ajax({
-            type: 'post',
-            url: url,
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            async: true,
-            dataType: 'json',
-            success: function (data) {
-                redirect(window.location.href);
-            },
-            error: function (data) {
-                errors = $.parseJSON(data.responseText);
-                $('#flash-error-recipe').removeClass('hidden');
-                $.each(errors, function (index, value) {
-                    $('#error-recipe').append("<li>" + value + "</li>")
-                })
-            }
-        });
-    })
-</script>

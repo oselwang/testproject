@@ -4,6 +4,7 @@
 
     use App\Eatnshare\Request\AddRecipeForm;
     use App\Eatnshare\Request\RegisterPostForm;
+    use App\Eatnshare\Services\UserService;
     use App\Events\UserForgotPassword;
     use App\Events\UserHasRegistered;
     use App\Http\Requests;
@@ -17,11 +18,13 @@
 
         protected $request;
         protected $user;
+        protected $user_service;
 
-        public function __construct(Request $request, User $user)
+        public function __construct(Request $request, User $user, UserService $user_service)
         {
             $this->request = $request;
             $this->user = $user;
+            $this->user_service = $user_service;
         }
 
         public function recipeOfTheDay()
@@ -86,5 +89,13 @@
             flash('Your recipe successfully created, edit it in your recipe menu');
 
             return response()->json('success');
+        }
+
+        public function changeProfilePhoto()
+        {
+            $profilephoto = $this->user_service->changeProfilePhoto();
+            
+            return response()->json('success');
+
         }
     }

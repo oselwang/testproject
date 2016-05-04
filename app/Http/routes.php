@@ -19,6 +19,7 @@ Route::post('forgot', 'AjaxController@forgotPassword');
 Route::post('login', 'AjaxController@postLogin');
 Route::post('register', 'AjaxController@postRegister');
     Route::post('addrecipe','AjaxController@addRecipe');
+    Route::post('changeprofilephoto','AjaxController@changeProfilePhoto');
 
 
 /*

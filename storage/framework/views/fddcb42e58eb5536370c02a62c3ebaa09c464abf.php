@@ -8,7 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="<?php echo e(asset('js/jquery.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/bootstrap.min.js')); ?>"></script>
-    <script type="text/javascript" src="<?php echo e(asset('js/script.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('js/backtotop.js')); ?>"></script>
     <title>Share n Eat</title>
 </head>
 

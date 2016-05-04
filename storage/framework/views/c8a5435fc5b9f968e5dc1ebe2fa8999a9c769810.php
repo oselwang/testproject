@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+    <?php echo $__env->yieldContent('style'); ?>
+
     <title>Cooks a Hotels and Restaurants Category Flat Bootstrap Responsive Website Template | Events ::
         w3layouts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +28,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="<?php echo e(asset('css/animate.css')); ?>" rel="stylesheet">
     <script src="<?php echo e(asset('js/wow.min.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/jquery.flexisel.js')); ?>"></script>
-    <script src="<?php echo e(asset('js/script.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/backtotop.js')); ?>"></script>
     <script src="<?php echo e(asset('js/loginmodal.js')); ?>"></script>
     <script src="<?php echo e(asset('js/combobox-bootstrap.js')); ?>"></script>
     <script src="<?php echo e(asset('js/dropzone.js')); ?>"></script>
+
     <script>
         new WOW().init();
     </script>
@@ -37,8 +40,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href='//fonts.googleapis.com/css?family=Alex+Brush' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
           rel='stylesheet' type='text/css'>
-    <?php echo $__env->yieldContent('style'); ?>
-    <?php echo $__env->yieldContent('script'); ?>
 </head>
 
 <!-- header -->
@@ -119,6 +120,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <?php endif; ?>
         <!-- header -->
 <body>
+
 <?php echo $__env->yieldContent('content'); ?>
 </body>
 <?php if(Session::has('flash_notification.message')): ?>
@@ -135,3 +137,4 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //for bootstrap working -->
 
 </html>
+
