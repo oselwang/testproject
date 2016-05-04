@@ -46,6 +46,7 @@
                                     <input type="text" name="recipename" tabindex="1" class="form-control"
                                            placeholder="Recipe Name" value="{{old('recipename')}}">
                                 </div>
+
                                 <div class="form-group" style="display: inline-block;width:49%;">
                                     <select class="form-control" name="portion" tabindex="1">
                                         <option value="">Portion</option>
@@ -84,8 +85,8 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group" style="display:inline-block;width:49%;" tabindex="1" >
-                                    <select class="form-control" name="preparation">
+                                <div class="form-group" style="display:inline-block;width:49%;">
+                                    <select class="form-control" name="preparation" tabindex="1">
                                         <option value="">Preparation(Minute)</option>
                                         <option value="5">5</option>
                                         <option value="10">10</option>

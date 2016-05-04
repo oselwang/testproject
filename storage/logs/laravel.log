@@ -7237,3 +7237,33 @@ Stack trace:
 #26 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(107): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
 #27 /home/vagrant/Code/testproject/artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
 #28 {main}  
+[2016-05-03 21:15:17] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Laracasts\Flash\FlashServiceProvider' not found' in /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php:146
+Stack trace:
+#0 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(133): Symfony\Component\Debug\Exception\FatalErrorException->__construct()
+#1 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(118): Illuminate\Foundation\Bootstrap\HandleExceptions->fatalExceptionFromError()
+#2 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(0): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#3 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(74): Illuminate\Foundation\ProviderRepository->createProvider()
+#4 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(530): Illuminate\Foundation\ProviderRepository->load()
+#5 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\Foundation\Application->registerConfiguredProviders()
+#6 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(203): Illuminate\Foundation\Bootstrap\RegisterProviders->bootstrap()
+#7 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(232): Illuminate\Foundation\Application->bootstrapWith()
+#8 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(127): Illuminate\Foundation\Http\Kernel->bootstrap()
+#9 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(99): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#10 /home/vagrant/Code/testproject/public/index.php(54): Illuminate\Foundation\Http\Kernel->handle()
+#11 /home/vagrant/Code/testproject/public/index.php(0): {main}()
+#12 {main}  
+[2016-05-03 21:15:17] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Laracasts\Flash\FlashServiceProvider' not found' in /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php:146
+Stack trace:
+#0 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(133): Symfony\Component\Debug\Exception\FatalErrorException->__construct()
+#1 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(118): Illuminate\Foundation\Bootstrap\HandleExceptions->fatalExceptionFromError()
+#2 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(0): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#3 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(74): Illuminate\Foundation\ProviderRepository->createProvider()
+#4 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(530): Illuminate\Foundation\ProviderRepository->load()
+#5 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\Foundation\Application->registerConfiguredProviders()
+#6 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(203): Illuminate\Foundation\Bootstrap\RegisterProviders->bootstrap()
+#7 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(232): Illuminate\Foundation\Application->bootstrapWith()
+#8 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(127): Illuminate\Foundation\Http\Kernel->bootstrap()
+#9 /home/vagrant/Code/testproject/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(99): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#10 /home/vagrant/Code/testproject/public/index.php(54): Illuminate\Foundation\Http\Kernel->handle()
+#11 /home/vagrant/Code/testproject/public/index.php(0): {main}()
+#12 {main}  

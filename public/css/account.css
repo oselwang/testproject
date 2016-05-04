@@ -1,8 +1,7 @@
 .current-profile .user-bg {
     background-position: bottom center;
+    background-size: cover;
     height: 280px;
-    width: 1300px;
-    position: relative;
 }
 
 .current-profile .user-pic {
