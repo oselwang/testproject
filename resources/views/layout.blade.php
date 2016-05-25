@@ -16,8 +16,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             window.scrollTo(0, 1);
         } </script>
     <!-- Custom Theme files -->
+    <link href='//fonts.googleapis.com/css?family=Alex+Brush' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
+          rel='stylesheet' type='text/css'>
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css" media="all"/>
+    <link href="{{asset('font-awesome/css/font-awesome.min.css')}}" type="text/css" media="all" rel="stylesheet">
     <link href="{{asset('css/loginmodal.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('css/combobox-bootstrap.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('css/dropzone.css')}}" rel="stylesheet" media="all" type="text/css"/>
@@ -37,9 +41,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         new WOW().init();
     </script>
     <!-- //animation-effect -->
-    <link href='//fonts.googleapis.com/css?family=Alex+Brush' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
-          rel='stylesheet' type='text/css'>
 </head>
 
 <!-- header -->
@@ -98,8 +99,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <li><a href=""><span class="glyphicon glyphicon-tasks"
                                                          style="margin-right: 20px"></span>Order</a></li>
                                     <li><a href="account" {{(Request::is('account') ? 'class=active' : '')}}><span
-                                                    class="glyphicon glyphicon-user" style="margin-right: 20px"></span>Account</a>
-                                    </li>
+                                                    class="fa fa-user" style="margin-right: 20px"></span>Account</a></li>
                                     <li><a href="logout"><span class="glyphicon glyphicon-off"
                                                                style="margin-right: 20px"></span>Logout</a></li>
                                 </ul>
@@ -123,6 +123,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 @yield('content')
 </body>
+
 @if(Session::has('flash_notification.message'))
     <div id="flash-pop-up" class="flash-pop-up btn-success btn">{{Session::get('flash_notification.message')}}</div>
 @endif

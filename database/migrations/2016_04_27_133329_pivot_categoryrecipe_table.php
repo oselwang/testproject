@@ -18,8 +18,8 @@ class PivotCategoryrecipeTable extends Migration
             $table->integer('category_id')->unsigned()->index();
             $table->timestamps();
 
-            $table->foreign('recipe_id')->references('id')->on('recipes');
-            $table->foreign('category_id')->references('id')->on('recipecategories');
+            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('recipecategories')->onDelete('cascade');
         });
     }
 

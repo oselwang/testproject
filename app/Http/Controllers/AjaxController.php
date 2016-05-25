@@ -93,8 +93,13 @@
 
         public function changeProfilePhoto()
         {
-            $profilephoto = $this->user_service->changeProfilePhoto();
+
+            $profilephoto = $this->request->file('profilephoto');
             
+            $this->user_service->changeProfilePhoto($profilephoto);
+            
+            flash('Profile Photo successfully changed');
+
             return response()->json('success');
 
         }

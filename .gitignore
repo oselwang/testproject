@@ -5,3 +5,4 @@ composer.lock
 .idea/
 /storage
 /public/Recipe
+/public/User

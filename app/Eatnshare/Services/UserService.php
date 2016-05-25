@@ -5,6 +5,8 @@
 
     use App\Eatnshare\Repositories\UserRepository;
 
+    use Auth;
+    use Image;
     class UserService
     {
         protected $user_repository;
@@ -14,9 +16,9 @@
             $this->user_repository = $user_repository;
         }
 
-        public function changeProfilePhoto()
+        public function changeProfilePhoto($profile_photo)
         {
-            return  $this->user_repository->changeProfilePhoto();
+            return  $this->user_repository->changeProfilePhoto($profile_photo);
         }
 
     }

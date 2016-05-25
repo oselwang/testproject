@@ -28,6 +28,7 @@ Route::post('register', 'AjaxController@postRegister');
 Route::get('/', function () {
     return view('index');
 });
+    Route::post('headline','AccountController@editHeadline');
 Route::get('account', 'AccountController@getAccountPage');
 Route::get('recipeoftheday', 'AjaxController@recipeOfTheDay');
 Route::get('register/{token}', 'Auth\AuthController@confirmToken');

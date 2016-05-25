@@ -3,6 +3,7 @@
     namespace App;
 
 
+    use App\Eatnshare\Presenter\UserPresenter;
     use Illuminate\Foundation\Auth\User as Authenticatable;
 
     class User extends Authenticatable
@@ -24,6 +25,10 @@
         protected $hidden = [
             'password', 'remember_token',
         ];
+        
+        public function present(){
+            return new UserPresenter($this);
+        }
 
         public function recipe()
         {

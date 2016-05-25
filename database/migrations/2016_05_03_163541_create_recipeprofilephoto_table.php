@@ -18,7 +18,7 @@ class CreateRecipeprofilephotoTable extends Migration
             $table->string('photo_name');
             $table->timestamps();
 
-            $table->foreign('recipe_id')->references('id')->on('recipes');
+            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
 
         });
     }

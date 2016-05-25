@@ -18,7 +18,7 @@ class CreateRecipecategoriesTable extends Migration
             $table->string('category_name')->index();
             $table->timestamps();
 
-            $table->foreign('recipe_id')->references('id')->on('recipes')->delete('cascade');
+            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
         });
     }
 

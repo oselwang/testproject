@@ -18,7 +18,7 @@ class CreateInstructionsTable extends Migration
             $table->string('instruction')->index();
             $table->timestamps();
 
-            $table->foreign('recipe_id')->references('id')->on('recipes')->delete('cascade');
+            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
         });
     }
 
