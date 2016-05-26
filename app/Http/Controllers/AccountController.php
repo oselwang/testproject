@@ -19,8 +19,9 @@ class AccountController extends Controller
     public function getAccountPage(){
 
         $profile_photo = Auth::user()->profilephoto()->first();
+        $cover_photo = Auth::user()->coverphoto()->first();
         
-        return view('account',compact('profile_photo'));
+        return view('account',compact('profile_photo','cover_photo'));
     }
     
     public function editHeadline(){

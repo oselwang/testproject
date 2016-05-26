@@ -95,12 +95,23 @@
         {
 
             $profilephoto = $this->request->file('profilephoto');
-            
+
             $this->user_service->changeProfilePhoto($profilephoto);
-            
+
             flash('Profile Photo successfully changed');
 
             return response()->json('success');
 
+        }
+
+        public function changeCoverPhoto()
+        {
+            $cover_photo = $this->request->file('coverphoto');
+
+            $this->user_service->changeCoverPhoto($cover_photo);
+
+            flash('Cover Photo sucessfully changed');
+
+            return response()->json('success');
         }
     }

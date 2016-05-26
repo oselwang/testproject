@@ -3,10 +3,12 @@
     namespace App\Eatnshare\Repositories;
 
 
+    use App\CoverPhoto;
     use Auth;
     use App\ProfilePhoto;
     use Illuminate\Http\Request;
     use File;
+    use Intervention\Image\Exception\NotWritableException;
     use Intervention\Image\ImageManagerStatic as Image;
 
     class UserRepository
@@ -14,10 +16,12 @@
 
         protected $request;
         protected $profile_photo;
+        protected $cover_photo;
 
-        public function __construct(Request $request, ProfilePhoto $profilePhoto)
+        public function __construct(Request $request, ProfilePhoto $profilePhoto, CoverPhoto $coverPhoto)
         {
             $this->request = $request;
+            $this->cover_photo = $coverPhoto;
             $this->profile_photo = $profilePhoto;
         }
 
@@ -54,10 +58,52 @@
                 return $image_name;
             }
         }
+        
+        public function changeCoverPhoto($cover_photo){
+            $user = Auth::user();
 
-        public function resizePhoto($path, $width, $height, $photo_file)
+            $old_cover_photo = Auth::user()->coverphoto()->first();
+
+            $extension = $cover_photo->getClientOriginalExtension();
+
+            $image_name = time() . $user->firstname . '-' . $user->lastname . '.' . $extension;
+
+            $path = public_path('User/CoverPhoto/' . $image_name);
+
+            if (!empty($old_cover_photo->photo_name)) {
+                try {
+                    File::delete($old_cover_photo->photo_name);
+                } catch (\Exception $e) {
+                }
+                $this->resizePhoto($path, 1360, 300, $cover_photo,$image_name);
+                $old_cover_photo->photo_name = 'User/CoverPhoto/' . $image_name;
+                $old_cover_photo->save();
+
+                return $image_name;
+            } else {
+                $this->resizePhoto($path, 1360, 300, $cover_photo,$image_name);
+
+                $this->cover_photo->create([
+                    'user_id'    => $user->id,
+                    'photo_name' => 'User/CoverPhoto/' . $image_name
+                ]);
+
+                return $image_name;
+            }
+        }
+        
+
+        public function resizePhoto($path, $width, $height, $photo_file,$image_name)
         {
-            return Image::make($photo_file->getRealPath())->resize($width, $height)->save($path);
+            try{
+                Image::make($photo_file->getRealPath())->resize($width, $height)->save($path);    
+            }catch (NotWritableException $e){
+                $directory = rtrim($path,$image_name);
+                File::makeDirectory($directory);
+            }finally{
+                return Image::make($photo_file->getRealPath())->resize($width, $height)->save($path);
+            }
+            
         }
 
     }

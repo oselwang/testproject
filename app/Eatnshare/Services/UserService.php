@@ -20,5 +20,9 @@
         {
             return  $this->user_repository->changeProfilePhoto($profile_photo);
         }
+        
+        public function changeCoverPhoto($cover_photo){
+            return $this->user_repository->changeCoverPhoto($cover_photo);
+        }
 
     }
