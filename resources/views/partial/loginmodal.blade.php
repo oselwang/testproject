@@ -22,8 +22,23 @@
                         <div class="col-lg-12">
                             <form id="login-form" action="login" method="post" role="form"
                                   style="display: block;">
+
+                                <div class="col-xs-12 col-sm-12">
+                                    <a class="btn btn-block btn-social btn-facebook">
+                                        <i class="fa fa-facebook"></i> Sign in with Facebook
+                                    </a>
+                                </div>
+                                <div class="col-xs-12 col-sm-12">
+                                    <a class="btn btn-block btn-social btn-google-plus">
+                                        <i class="fa fa-google-plus"></i> Sign in with Google
+                                    </a>
+                                </div>
+                                <div class="col-xs-5 col-sm-5 line-separator">
+
+                                </div>
                                 <input type="hidden" name="_token" value="{{str_random(40)}}">
-                                <div id="flash-error-login" class="alert alert-danger hidden">
+
+                                <div id="flash-error-login" class="alert alert-danger hidden col-lg-12">
                                     <ul id="error-login" style="margin-left: 1em">
                                     </ul>
                                 </div>

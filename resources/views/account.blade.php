@@ -8,7 +8,8 @@
     <div class="row" style="margin:0">
         <div class="col-md-12 col-sm-12 col-sx-12" style="padding: 0">
             <div class="current-profile">
-                <div class="user-bg @if(empty($cover_photo->photo_name)) cover-photo @endif" @if(!empty($cover_photo->photo_name)) style="background:url({{URL::asset($cover_photo->photo_name)}}) no-repeat" @endif>
+                <div class="user-bg @if(empty($cover_photo->photo_name)) cover-photo @endif"
+                     @if(!empty($cover_photo->photo_name)) style="background:url({{URL::asset($cover_photo->photo_name)}}) no-repeat" @endif>
                     <div class="upload-file-container-cover-photo">
                         <form method="post" action="changecoverphoto" id="change-cover-photo-form">
                             <div class="btn btn-primary container-cover-photo" id="cover-photo">
@@ -63,96 +64,93 @@
                 </div>
             </div>
         </div>
+    </div>
+    <script>
+        function redirect(url) {
+            window.location = url;
+        }
 
-        <script>
-            function redirect(url) {
-                window.location = url;
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#profile-photo').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
             }
+        }
 
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
+        $('#editheadline').click(function () {
+            $(this).addClass('hidden');
+            $('#user-headline').addClass('hidden');
+            $('#headline').removeClass('hidden');
+        });
 
-                    reader.onload = function (e) {
-                        $('#profile-photo').attr('src', e.target.result);
-                    };
+        $('#submit-headline').on('submit', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('action');
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: $(this).serializeArray(),
+                dataType: 'json',
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
 
-                    reader.readAsDataURL(input.files[0]);
                 }
-            }
-
-            $('#editheadline').click(function () {
-                $(this).addClass('hidden');
-                $('#user-headline').addClass('hidden');
-                $('#headline').removeClass('hidden');
-            });
-
-            $('#submit-headline').on('submit', function (e) {
-                e.preventDefault();
-                var url = $(this).attr('action');
-                $.ajax({
-                    type: 'post',
-                    url: url,
-                    data: $(this).serializeArray(),
-                    dataType: 'json',
-                    success: function (data) {
-                        location.reload();
-                    },
-                    error: function (data) {
-
-                    }
-                })
-            });
-
-            $(".upload-file-container input:file").change(function () {
-                readURL(this);
-                var url = $('#change-profile-photo-form').attr('action');
-                $.ajax({
-                    type: 'post',
-                    url: url,
-                    data: new FormData($('#change-profile-photo-form')[0]),
-                    contentType: false,
-                    processData: false,
-                    async: true,
-                    dataType: 'json',
-                    success: function (data) {
-                        location.reload();
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            });
-
-            $(".upload-file-container-cover-photo input:file").change(function () {
-                readURL(this);
-                var url = $('#change-cover-photo-form').attr('action');
-                $.ajax({
-                    type: 'post',
-                    url: url,
-                    data: new FormData($('#change-cover-photo-form')[0]),
-                    contentType: false,
-                    processData: false,
-                    async: true,
-                    dataType: 'json',
-                    success: function (data) {
-                        location.reload();
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            });
-
-
-            $('#cover-photo').hover(function () {
-                $(this).css('opacity',1);
-            }).timeout(1000,function () {
-                $(this).css('opacity',0.2);
             })
+        });
+
+        $(".upload-file-container input:file").change(function () {
+            readURL(this);
+            var url = $('#change-profile-photo-form').attr('action');
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: new FormData($('#change-profile-photo-form')[0]),
+                contentType: false,
+                processData: false,
+                async: true,
+                dataType: 'json',
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
+        $(".upload-file-container-cover-photo input:file").change(function () {
+            var url = $('#change-cover-photo-form').attr('action');
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: new FormData($('#change-cover-photo-form')[0]),
+                contentType: false,
+                processData: false,
+                async: true,
+                dataType: 'json',
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
 
 
+        $('#cover-photo').hover(function () {
+            $(this).css('opacity', 1);
+        }).timeout(1000, function () {
+            $(this).css('opacity', 0.2);
+        })
 
 
-        </script>
+    </script>
 @stop

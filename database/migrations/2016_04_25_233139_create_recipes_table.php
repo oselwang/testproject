@@ -36,12 +36,7 @@ class CreateRecipesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ingredients');
-        Schema::drop('instructions');
-        Schema::drop('recipephotos');
-        Schema::drop('recipeprofilephoto');
-        Schema::drop('recipecoverphoto');
-        Schema::drop('recipecategories');
+        
         Schema::drop('recipes');
     }
 }

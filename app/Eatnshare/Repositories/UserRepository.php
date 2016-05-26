@@ -31,9 +31,7 @@
 
             $old_profile_photo = Auth::user()->profilephoto()->first();
 
-            $extension = $profile_photo->getClientOriginalExtension();
-
-            $image_name = time() . $user->firstname . '-' . $user->lastname . '.' . $extension;
+            $image_name = time() . $user->firstname . '-' . $user->lastname . '.' . $profile_photo->getClientOriginalExtension();
 
             $path = public_path('User/ProfilePhoto/' . $image_name);
 
@@ -42,13 +40,13 @@
                     File::delete($old_profile_photo->photo_name);
                 } catch (\Exception $e) {
                 }
-                $this->resizePhoto($path, 280, 200, $profile_photo);
+                $this->resizePhoto($path, 280, 200, $profile_photo,$image_name);
                 $old_profile_photo->photo_name = 'User/ProfilePhoto/' . $image_name;
                 $old_profile_photo->save();
 
                 return $image_name;
             } else {
-                $this->resizePhoto($path, 280, 200, $profile_photo);
+                $this->resizePhoto($path, 280, 200, $profile_photo,$image_name);
 
                 $this->profile_photo->create([
                     'user_id'    => $user->id,
@@ -64,9 +62,7 @@
 
             $old_cover_photo = Auth::user()->coverphoto()->first();
 
-            $extension = $cover_photo->getClientOriginalExtension();
-
-            $image_name = time() . $user->firstname . '-' . $user->lastname . '.' . $extension;
+            $image_name = time() . $user->firstname . '-' . $user->lastname . '.' . $cover_photo->getClientOriginalExtension();
 
             $path = public_path('User/CoverPhoto/' . $image_name);
 
@@ -93,17 +89,17 @@
         }
         
 
-        public function resizePhoto($path, $width, $height, $photo_file,$image_name)
+        public function resizePhoto($path, $width = 0, $height = 0, $photo_file,$image_name)
         {
             try{
-                Image::make($photo_file->getRealPath())->resize($width, $height)->save($path);    
+                Image::make($photo_file->getRealPath())->resize($width, $height)->save($path);
             }catch (NotWritableException $e){
                 $directory = rtrim($path,$image_name);
-                File::makeDirectory($directory);
+                File::makeDirectory($directory,$mode = 0777, true, true);
             }finally{
                 return Image::make($photo_file->getRealPath())->resize($width, $height)->save($path);
             }
-            
+
         }
 
     }

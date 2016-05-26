@@ -102,6 +102,10 @@
 .upload-file-container-cover-photo input[type='file'] {
     position: absolute;
     cursor: pointer;
+    width: 140px;
+    left: 0px;
+    padding:0.8em;
+    top:18px;
     opacity: 0;
     filter: alpha(opacity=0);
 }
