@@ -43,21 +43,17 @@
                     </div>
                     <div class="social-list">
                         <div class="col-md-6 col-md-offset-3">
-                            <div class="col-md-3 col-sm-3 col-xs-3 center-align-text">
-                                <h3>2359</h3>
-                                <small>Posts</small>
+                            <div class="col-md-4 col-sm-5 col-xs-5 center-align-text">
+                                <h3>2459</h3>
+                                <small>Recipes</small>
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3 center-align-text">
+                            <div class="col-md-4 col-sm-5 col-xs-5 center-align-text">
                                 <h3>1278</h3>
                                 <small>Followers</small>
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3 center-align-text">
+                            <div class="col-md-4 col-sm-5 col-xs-5 center-align-text">
                                 <h3>7315</h3>
-                                <small>Likes</small>
-                            </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3 center-align-text">
-                                <h3>189</h3>
-                                <small>Contacts</small>
+                                <small>Following</small>
                             </div>
                         </div>
                     </div>
@@ -65,6 +61,61 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="well well-sm">
+            <strong>Category Title</strong>
+            <div class="btn-group">
+                <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                            class="glyphicon glyphicon-th"></span>Grid</a>
+            </div>
+        </div>
+        <div id="products" class="row list-group">
+            <div class="item  col-xs-4 col-lg-4">
+                <div class="thumbnail">
+                    <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt=""/>
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading">
+                            Product title</h4>
+                        <p class="group inner list-group-item-text">
+                            Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="lead">
+                                    $21.000</p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item  col-xs-4 col-lg-4">
+                <div class="thumbnail">
+                    <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt=""/>
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading">
+                            Product title</h4>
+                        <p class="group inner list-group-item-text">
+                            Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="lead">
+                                    $21.000</p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function redirect(url) {
             window.location = url;
