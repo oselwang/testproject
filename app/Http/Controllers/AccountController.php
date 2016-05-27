@@ -16,8 +16,9 @@ class AccountController extends Controller
         $this->middleware('auth');
     }
 
-    public function getAccountPage(){
 
+
+    public function getAccountPage(){
         $profile_photo = Auth::user()->profilephoto()->first();
         $cover_photo = Auth::user()->coverphoto()->first();
         

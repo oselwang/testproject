@@ -24,7 +24,7 @@
                                   style="display: block;">
 
                                 <div class="col-xs-12 col-sm-12">
-                                    <a class="btn btn-block btn-social btn-facebook">
+                                    <a href="{{url('auth/facebook')}}" class="btn btn-block btn-social btn-facebook">
                                         <i class="fa fa-facebook"></i> Sign in with Facebook
                                     </a>
                                 </div>

@@ -61,8 +61,8 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="well well-sm">
+    <div class="container" style="margin-left:0;margin-right:0;">
+        <div class="well well-sm" style="width:85%">
             <strong>Category Title</strong>
             <div class="btn-group">
                 <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
