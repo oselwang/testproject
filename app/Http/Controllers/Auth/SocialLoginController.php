@@ -1,74 +1,89 @@
 <?php
 
-    namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-    use Facebook\Facebook;
-    use Illuminate\Http\Request;
+use App\Eatnshare\Services\UserService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\User;
+use Facebook\Facebook;
+use Flash;
 
-    use App\Http\Requests;
-    use App\Http\Controllers\Controller;
+class SocialLoginController extends Controller
+{
+    const FACEBOOK_APP_ID = '250311455330726';
+    const FACEBOOK_APP_SECRET = '64246f33d6a09c113d50efc1a7f259df';
+    const DEFAULT_GRAPH_VERSION = 'v2.5';
 
-    class SocialLoginController extends Controller
+    protected $user;
+    protected $user_service;
+    protected $facebook;
+
+    public function __construct(User $user, UserService $userService)
     {
-        const FACEBOOK_APP_ID = '250311455330726';
-        const FACEBOOK_APP_SECRET = '64246f33d6a09c113d50efc1a7f259df';
-        const DEFAULT_GRAPH_VERSION = 'v2.5';
+        session_start();
 
-        public function redirectFacebook()
-        {
-            if (!session_id()) {
-                session_start();
-            }
+        $this->facebook = new Facebook([
+            'app_id'                => self::FACEBOOK_APP_ID,
+            'app_secret'            => self::FACEBOOK_APP_SECRET,
+            'default_graph_version' => self::DEFAULT_GRAPH_VERSION
+        ]);
 
-            $facebook = new Facebook([
-                'app_id'                => self::FACEBOOK_APP_ID,
-                'app_secret'            => self::FACEBOOK_APP_SECRET,
-                'default_graph_version' => self::DEFAULT_GRAPH_VERSION
-            ]);
+        $this->user_service = $userService;
+        $this->user = $user;
+    }
 
-            $helper = $facebook->getRedirectLoginHelper();
+    public function redirectFacebook()
+    {
 
-            $permissions = ['email'];
+        $helper = $this->facebook->getRedirectLoginHelper();
 
-            $facebookUrl = $helper->getLoginUrl('http://testproject.net/auth/facebook/callback', ['scope' => 'email']);
+        $permissions = [ 'email' ];
 
-            return redirect($facebookUrl);
+        $facebookUrl = $helper->getLoginUrl('http://testproject.net/auth/facebook/callback', $permissions);
+
+        return redirect($facebookUrl);
+    }
+
+    public function facebookCallback()
+    {
+
+        $helper = $this->facebook->getRedirectLoginHelper();
+
+        try {
+            $accessToken = $helper->getAccessToken();
+            $response = $this->facebook->get('/me?fields=id,name,email,gender', $accessToken);
+        } catch ( \Facebook\Exceptions\FacebookResponseException $e ) {
+            return redirect('/');
+        } catch ( \Facebook\Exceptions\FacebookSDKException $e ) {
+            return redirect('/');
         }
 
-        public function facebookCallback()
-        {
-            if (!session_id()) {
-                session_start();
-            }
+        $user = $response->getGraphUser();
+        $email = $user->getEmail();
+        
+        if ( empty($email) ) {
+            $this->facebook->delete('/' . $user[ 'id' ] . '/permissions', [ ], $accessToken);
 
-            $facebook = new Facebook([
-                'app_id'                => self::FACEBOOK_APP_ID,
-                'app_secret'            => self::FACEBOOK_APP_SECRET,
-                'default_graph_version' => self::DEFAULT_GRAPH_VERSION
-            ]);
+            Flash::error('We need your email address to continue');
 
-            $helper = $facebook->getRedirectLoginHelper();
+            return redirect('/');
+        } else {
+            if ( $facebook_id = $this->user->where('facebook_id', intval($user->getId()))->first() ) {
+                flash('Welcome back');
 
-            try {
-                $accessToken = $helper->getAccessToken();
-                $response = $facebook->get('/me?fields=id,name,email', $accessToken);
-            } catch (\Facebook\Exceptions\FacebookResponseException $e) {
-                return redirect('/');
-            } catch (\Facebook\Exceptions\FacebookSDKException $e) {
-                return redirect('/');
-            }
-
-            $user = $response->getGraphUser();
-            $email = $user->getEmail();
-            if (empty($email)) {
-                $facebook->delete('/' . $user['id'] . '/permissions', [], $accessToken);
+                \Auth::login($facebook_id);
 
                 return redirect('/');
-            } else {
-                
             }
+            $authUser = $this->user_service->createFacebookAccount($user);
+            flash('Welcome to ___, start creating your own recipe !');
 
-            return '';
+            return redirect('/');
+
+
         }
 
     }
+
+}

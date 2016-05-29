@@ -7,7 +7,7 @@
     class Recipe extends Model
     {
 
-        protected $fillable = ['user_id', 'recipe_name', 'portion', 'difficulty', 'duration', 'preparation'];
+        protected $fillable = ['user_id', 'description','name', 'portion', 'difficulty', 'duration', 'preparation','rating'];
 
         protected $table = 'recipes';
 
@@ -39,5 +39,11 @@
         public function photo()
         {
             return $this->hasMany(RecipePhoto::class);
+        }
+        
+        public function getProfilePhoto(){
+            $profile_photo = $this->profilephoto()->first();
+            
+            return $profile_photo->photo_name;
         }
     }

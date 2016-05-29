@@ -5,6 +5,7 @@
 
     use App\Eatnshare\Repositories\UserRepository;
 
+    use App\Events\UserHasRegistered;
     use Auth;
     use Image;
     class UserService
@@ -23,6 +24,12 @@
         
         public function changeCoverPhoto($cover_photo){
             return $this->user_repository->changeCoverPhoto($cover_photo);
+        }
+
+        public function createFacebookAccount($user){
+            $authUser = $this->user_repository->createFacebookAccount($user);
+            
+            return $authUser; 
         }
 
     }

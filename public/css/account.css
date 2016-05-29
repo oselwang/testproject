@@ -71,8 +71,8 @@
     z-index: 100;
 }
 
-.container-cover-photo{
-    margin-top:20px;
+.container-cover-photo {
+    margin-top: 20px;
     cursor: pointer;
     opacity: 0.2;
 }
@@ -104,14 +104,48 @@
     cursor: pointer;
     width: 140px;
     left: 0px;
-    padding:0.8em;
-    top:18px;
+    padding: 0.8em;
+    top: 18px;
     opacity: 0;
     filter: alpha(opacity=0);
 }
 
-.cover-photo{
-    background: url(http://testproject.net/images/account-coverphoto1330.jpg) no-repeat
+.cover-photo {
+    background: url(http://testproject.net/images/3.jpg) no-repeat
+}
+
+.info {
+    display: inline-block;
+    position: relative;
+    bottom: 10px;
+    left: 10px;
+    width: 100%;
+    vertical-align: sub;
+    float: right;
+    font-size: 13px;
+}
+
+.info-separator {
+    float: left;
+    border-right: 1px solid #ddd;
+    padding: 0 15px 0 0;
+    margin: 0 14px 0 0;
+    color: #666;
+}
+
+.miscellaneous-separator {
+    float: left;
+    border-right: 1px solid #ddd;
+    padding: 0 15px 0 0;
+    margin: 0 14px 0 0;
+    color: #666;
+}
+
+.line-separator-account {
+    display: inline-block;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    padding: 15px 0 0;
 }
 
 @media (max-width: 767px) {
@@ -119,7 +153,7 @@
         height: 260px;
     }
 
-    .cover-photo{
+    .cover-photo {
         background: url(http://testproject.net/images/account-coverphoto767.jpg) no-repeat
     }
 

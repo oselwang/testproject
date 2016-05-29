@@ -15,11 +15,12 @@ class CreateRecipesTable extends Migration
         Schema::create('recipes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('recipe_name')->index();
+            $table->string('name')->index();
             $table->integer('portion');
             $table->integer('duration');
             $table->string('difficulty');
             $table->string('description');
+            $table->string('slug')->index()->unique();
             $table->float('rating')->nullable();
             $table->integer('preparation');
             $table->timestamps();
@@ -36,7 +37,13 @@ class CreateRecipesTable extends Migration
      */
     public function down()
     {
-        
+        Schema::dropIfExists('recipecategories');
+        Schema::dropIfExists('category_recipe');
+        Schema::dropIfExists('ingredients');
+        Schema::dropIfExists('instructions');
+        Schema::dropIfExists('recipephotos');
+        Schema::dropIfExists('recipeprofilephotos');
+        Schema::dropIfExists('recipecoverphotos');
         Schema::drop('recipes');
     }
 }

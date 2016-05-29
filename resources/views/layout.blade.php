@@ -125,7 +125,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </body>
 
 @if(Session::has('flash_notification.message'))
-    <div id="flash-pop-up" class="flash-pop-up btn-success btn">{{Session::get('flash_notification.message')}}</div>
+    <div id="flash-pop-up" class="flash-pop-up btn-{{Session::get('flash_notification.level')}} btn">{{Session::get('flash_notification.message')}}</div>
 @endif
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button"
    title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span

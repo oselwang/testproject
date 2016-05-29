@@ -8,8 +8,8 @@
     <div class="row" style="margin:0">
         <div class="col-md-12 col-sm-12 col-sx-12" style="padding: 0">
             <div class="current-profile">
-                <div class="user-bg @if(empty($cover_photo->photo_name)) cover-photo @endif"
-                     @if(!empty($cover_photo->photo_name)) style="background:url({{URL::asset($cover_photo->photo_name)}}) no-repeat" @endif>
+                <div class="user-bg @if(empty($cover_photo)) cover-photo @endif"
+                     @if(!empty($cover_photo->photo_name)) style="background: url({{asset($cover_photo->photo_name)}}) no-repeat" @endif>
                     <div class="upload-file-container-cover-photo">
                         <form method="post" action="changecoverphoto" id="change-cover-photo-form">
                             <div class="btn btn-primary container-cover-photo" id="cover-photo">
@@ -44,16 +44,22 @@
                     <div class="social-list">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="col-md-4 col-sm-5 col-xs-5 center-align-text">
-                                <h3>2459</h3>
-                                <small>Recipes</small>
+                                <center><h3>{{count($recipes)}}</h3></center>
+                                <center>
+                                    <small>Recipes</small>
+                                </center>
                             </div>
                             <div class="col-md-4 col-sm-5 col-xs-5 center-align-text">
-                                <h3>1278</h3>
-                                <small>Followers</small>
+                                <center><h3>{{count($recipes)}}</h3></center>
+                                <center>
+                                    <small>Followers</small>
+                                </center>
                             </div>
                             <div class="col-md-4 col-sm-5 col-xs-5 center-align-text">
-                                <h3>7315</h3>
-                                <small>Following</small>
+                                <center><h3>{{count($recipes)}}</h3></center>
+                                <center>
+                                    <small>Following</small>
+                                </center>
                             </div>
                         </div>
                     </div>
@@ -61,8 +67,8 @@
             </div>
         </div>
     </div>
-    <div class="container" style="margin-left:0;margin-right:0;">
-        <div class="well well-sm" style="width:85%">
+    <div class="container">
+        <div class="well well-sm">
             <strong>Category Title</strong>
             <div class="btn-group">
                 <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
@@ -70,49 +76,49 @@
                             class="glyphicon glyphicon-th"></span>Grid</a>
             </div>
         </div>
+
         <div id="products" class="row list-group">
-            <div class="item  col-xs-4 col-lg-4">
-                <div class="thumbnail">
-                    <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt=""/>
-                    <div class="caption">
-                        <h4 class="group inner list-group-item-heading">
-                            Product title</h4>
-                        <p class="group inner list-group-item-text">
-                            Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-6">
-                                <p class="lead">
-                                    $21.000</p>
+            @if(count($recipes) <= 0)
+                You haven't create any recipe yet
+            @else
+                @foreach($recipes as $recipe)
+
+                    <a href="" style="text-decoration: none;color:black;">
+
+                        <div class="item  col-xs-3 col-lg-3">
+
+                            <div class="thumbnail">
+                                <img class="group list-group-image" src="{{$recipe->getProfilePhoto()}}" alt=""/>
+
+                                <div class="caption">
+                                    <h4 class="= list-group-item-heading">
+                                        <b>{{$recipe->name}}</b></h4>
+                                    <p class="group inner list-group-item-text">
+                                        {{$recipe->description}}</p>
+                                    <div class="row">
+                                        <div class="line-separator-account">
+
+                                        </div>
+                                        <div class="info">
+                                            <div class="info-separator"><span class="fa fa-user"></span> {{Auth::user()->present()->fullname}}
+                                            </div><span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
+                                        </div>
+                                        <div class="line-separator-account">
+
+                                        </div>
+                                        <div class="info">
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xs-12 col-md-6">
-                                <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
-                            </div>
+
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item  col-xs-4 col-lg-4">
-                <div class="thumbnail">
-                    <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt=""/>
-                    <div class="caption">
-                        <h4 class="group inner list-group-item-heading">
-                            Product title</h4>
-                        <p class="group inner list-group-item-text">
-                            Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-6">
-                                <p class="lead">
-                                    $21.000</p>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    </a>
+                @endforeach
+            @endif
         </div>
     </div>
 

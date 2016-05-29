@@ -45,10 +45,15 @@
 
                                 <div class="form-group" style="margin-bottom:30px;">
                                     <input type="text" name="recipename" tabindex="1" class="form-control"
-                                           placeholder="Recipe Name" value="{{old('recipename')}}">
+                                           placeholder="Recipe Name">
                                 </div>
 
-                                <div class="form-group" style="display: inline-block;width:49%;">
+                                <div class="form-group" style="margin-bottom:30px;">
+                                    <textarea name="description" maxlength="140" class="form-control"
+                                              placeholder="Description" tabindex="1"></textarea>
+                                </div>
+
+                                <div class="form-group" style="display: inline-block;width:49.7%;">
                                     <select class="form-control" name="portion" tabindex="1">
                                         <option value="">Portion</option>
                                         <option value="1">1</option>
@@ -62,7 +67,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group" style="display:inline-block;width:49%;">
+                                <div class="form-group" style="display:inline-block;width:49.7%;">
                                     <select class="form-control" name="difficulty" tabindex="1">
                                         <option value="">Difficulty</option>
                                         <option value="easy">Easy</option>
@@ -71,7 +76,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group" style="display:inline-block;width:49%;">
+                                <div class="form-group" style="display:inline-block;width:49.7%;">
                                     <select class="form-control" name="duration" tabindex="1">
                                         <option value="">Duration(Minute)</option>
                                         <option value="10">10</option>
@@ -86,7 +91,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group" style="display:inline-block;width:49%;">
+                                <div class="form-group" style="display:inline-block;width:49.7%;">
                                     <select class="form-control" name="preparation" tabindex="1">
                                         <option value="">Preparation(Minute)</option>
                                         <option value="5">5</option>
@@ -100,32 +105,48 @@
                                 </div>
 
                                 <div class="form-group" style="margin-bottom:30px;">
-                                    <input type="text" name="ingredient[]" maxlength="50" id="ingredient"
-                                           class="form-control" tabindex="1"
-                                           placeholder="Ingredient" style="display:inline-block;width:44%;">
-                                    <input type="text" name="amount[]" maxlength="50" id="amount" class="form-control"
-                                           placeholder="Amount" style="display:inline-block;width:44%;" tabindex="1">
-                                    <button type="button" class="btn btn-success" data-type="plus" id="plusingredient"
-                                            style="display:inline-block;width:10%;padding:0.7em">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </button>
-                                    <div id="ingredienttemp">
+                                    <div id="ingredient-temp1">
+                                        <input type="text" name="ingredient[]" maxlength="50" id="ingredient"
+                                               class="form-control" tabindex="1"
+                                               placeholder="Ingredient" style="display:inline-block;width:47.2%;">
+                                        <input type="text" name="amount[]" maxlength="50" id="amount"
+                                               class="form-control"
+                                               placeholder="Amount" style="display:inline-block;width:47.2%;"
+                                               tabindex="1">
+                                        <button type="button" class="btn btn-danger" data-type="plus"
+                                                id="minus-ingredient"
+                                                style="display:inline-block;">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                    <div id="ingredient-temp">
 
                                     </div>
+                                    <button type="button" class="btn btn-success" data-type="plus" id="plus-ingredient">
+                                        <span class="glyphicon glyphicon-plus">Add Ingredient Row</span>
+                                    </button>
                                 </div>
 
                                 <div class="form-group">
-                                    <textarea name="instruction[]" maxlength="50" id="instruction" class="form-control"
+                                    <div id="instruction-temp1">
+                                    <textarea name="instruction[]" maxlength="140" id="instruction" class="form-control"
                                               placeholder="Instruction" tabindex="1"
-                                              style="display:inline-block;width:88.5%;"></textarea>
-                                    <button type="button" class="btn btn-success" data-type="plus" id="plusinstruction"
-                                            style="display:inline-block;width:10%;margin-bottom: 30px;padding:0.7em">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </button>
-                                    <div id="instructiontemp">
+                                              style="display:inline-block;width:94.8%;"></textarea>
+                                        <button type="button" class="btn btn-danger" data-type="plus"
+                                                id="minus-instruction" style="margin-bottom:30px">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                    <div id="instruction-temp">
 
                                     </div>
+                                    <button type="button" class="btn btn-success" data-type="plus"
+                                            id="plus-instruction"
+                                            style="margin-bottom: 30px;">
+                                        <span class="glyphicon glyphicon-plus">Add Instruction Row</span>
+                                    </button>
                                 </div>
+
 
                                 <div class="form-group">
                                     <div class="row">
@@ -212,19 +233,26 @@
 
     $('#recipe-form').find('[name="difficulty"], [name="portion"],[name="duration"],[name="preparation"]').combobox().end();
 
-    $('#plusinstruction').click(function () {
-        $('#instructiontemp').append('<div id="textarea"><textarea name="instruction[]" maxlength="50" class="form-control" placeholder="Instruction" style="display:inline-block;width:88.5%;"></textarea><button type="button" class="btn btn-danger" data-type="plus" id="minusinstruction" style="display:inline-block;width:10%;margin-bottom: 30px;margin-left: 3px;padding: 0.7em"> <span class="glyphicon glyphicon-minus"></span></button></div>');
+    $('#plus-instruction').click(function () {
+        $('#instruction-temp').append('<div id="textarea"><textarea name="instruction[]" maxlength="50" class="form-control" placeholder="Instruction" style="display:inline-block;width:94.8%;"></textarea><button type="button" class="btn btn-danger" data-type="plus" id="minus-instruction" style="margin-bottom: 30px;margin-left: 3px;"> <span class="glyphicon glyphicon-remove"></span></button></div>');
     });
 
-    $('#instructiontemp').on('click', '#minusinstruction', function () {
+    $('#instruction-temp').on('click', '#minus-instruction', function () {
         $(this).parent().remove();
     });
 
-    $('#plusingredient').click(function () {
-        $('#ingredienttemp').append('<div id="deleteingredient"><input type="text" name="ingredient[]" maxlength="50" id="ingredient" class="form-control"placeholder="Ingredient" style="display:inline-block;width:44%;"> <input type="text" name="amount[]" maxlength="50" id="amount" class="form-control" placeholder="Amount" style="display:inline-block;width:44%;"><button type="button" class="btn btn-danger" data-type="plus" id="minusingredient" style="display:inline-block;width:10%;margin-left: 3px;padding: 0.7em"> <span class="glyphicon glyphicon-minus"></span></button></div>');
+    $('#instruction-temp1').on('click', '#minus-instruction', function () {
+        $(this).parent().remove();
     });
 
-    $('#ingredienttemp').on('click', '#minusingredient', function () {
+    $('#plus-ingredient').click(function () {
+        $('#ingredient-temp').append('<div id="deleteingredient"><input type="text" name="ingredient[]" maxlength="50" id="ingredient" class="form-control"placeholder="Ingredient" style="display:inline-block;width:47.2%;"> <input type="text" name="amount[]" maxlength="50" id="amount" class="form-control" placeholder="Amount" style="display:inline-block;width:47.2%;"><button type="button" class="btn btn-danger" data-type="plus" id="minus-ingredient" style="margin-left:3px"> <span class="glyphicon glyphicon-remove"></span></button></div>');
+    });
+
+    $('#ingredient-temp').on('click', '#minus-ingredient', function () {
+        $(this).parent().remove();
+    });
+    $('#ingredient-temp1').on('click', '#minus-ingredient', function () {
         $(this).parent().remove();
     });
 
@@ -241,7 +269,7 @@
             async: true,
             dataType: 'json',
             success: function (data) {
-                redirect(window.location.href);
+                location.reload();
             },
             error: function (data) {
                 errors = $.parseJSON(data.responseText);
