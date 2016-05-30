@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class LandingPageController extends Controller
+class LandingPageController extends BaseController
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(){
         return view('index');
     }

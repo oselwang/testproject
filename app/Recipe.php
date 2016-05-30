@@ -7,7 +7,7 @@
     class Recipe extends Model
     {
 
-        protected $fillable = ['user_id', 'description','name', 'portion', 'difficulty', 'duration', 'preparation','rating'];
+        protected $fillable = ['user_id','slug', 'description','name', 'portion', 'difficulty', 'duration', 'preparation','rating'];
 
         protected $table = 'recipes';
 
@@ -18,7 +18,7 @@
 
         public function categories()
         {
-            return $this->belongsToMany(RecipeCategory::class);
+            return $this->belongsToMany(RecipeCategory::class,'pivotcategoryrecipe');
         }
 
         public function ingredient()
@@ -45,5 +45,11 @@
             $profile_photo = $this->profilephoto()->first();
             
             return $profile_photo->photo_name;
+        }
+        
+        public function getCategory(){
+            $category = $this->categories()->get();
+            
+            return $category;
         }
     }

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreatePivotcategoryrecipeTable extends Migration
 {
@@ -12,11 +12,12 @@ class CreatePivotcategoryrecipeTable extends Migration
      */
     public function up()
     {
-        Schema::create('pivotcategoryrecipe',function(Blueprint $table){
+        Schema::create('pivotcategoryrecipe', function (Blueprint $table) {
 
             $table->integer('id');
-            $table->integer('recipe_id')->unsigned();
-            $table->integer('recipe_category_id')->unsigned();
+            $table->integer('recipe_id')->unsigned()->index();
+            $table->integer('recipe_category_id')->unsigned()->index();
+            $table->timestamps();
 
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
             $table->foreign('recipe_category_id')->references('id')->on('recipecategories')->onDelete('cascade');
@@ -30,7 +31,7 @@ class CreatePivotcategoryrecipeTable extends Migration
      */
     public function down()
     {
-     
+
         Schema::drop('pivotcategoryrecipe');
     }
 }

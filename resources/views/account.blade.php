@@ -69,12 +69,7 @@
     </div>
     <div class="container">
         <div class="well well-sm">
-            <strong>Category Title</strong>
-            <div class="btn-group">
-                <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-                            class="glyphicon glyphicon-th"></span>Grid</a>
-            </div>
+            <center><strong><h3>Your Recipe List</h3></strong></center>
         </div>
 
         <div id="products" class="row list-group">
@@ -83,7 +78,7 @@
             @else
                 @foreach($recipes as $recipe)
 
-                    <a href="" style="text-decoration: none;color:black;">
+                    <a href="recipe/{{$recipe->slug}}" style="text-decoration: none;color:black;">
 
                         <div class="item  col-xs-3 col-lg-3">
 
@@ -110,9 +105,13 @@
 
                                         </div>
                                         <div class="info">
-                                            Tags : <button class="btn btn-default">
-                                                testtest
-                                            </button>
+
+                                            Tags :
+                                            @foreach($recipe->getCategory() as $category)
+                                                <button class="btn btn-default">
+                                                    {{$category->category_name}}
+                                                </button>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -207,9 +206,7 @@
 
         $('#cover-photo').hover(function () {
             $(this).css('opacity', 1);
-        }).timeout(1000, function () {
-            $(this).css('opacity', 0.2);
-        })
+        });
 
 
     </script>
