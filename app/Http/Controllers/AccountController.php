@@ -6,7 +6,7 @@ use App\Http\Requests;
 use Auth;
 use Illuminate\Http\Request;
 
-class AccountController extends Controller
+class AccountController extends BaseController
 {
     protected $request;
 
@@ -14,6 +14,7 @@ class AccountController extends Controller
     {
         $this->request = $request;
         $this->middleware('auth');
+        parent::__construct();
     }
 
 

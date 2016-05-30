@@ -94,23 +94,26 @@
                                     <h4 class="= list-group-item-heading">
                                         <b>{{$recipe->name}}</b></h4>
                                     <p class="group inner list-group-item-text">
-                                        {{$recipe->description}}</p>
+                                        {{$recipe->description}}
+                                    </p>
                                     <div class="row">
                                         <div class="line-separator-account">
 
                                         </div>
                                         <div class="info">
-                                            <div class="info-separator"><span class="fa fa-user"></span> {{Auth::user()->present()->fullname}}
-                                            </div><span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
+                                            <div class="info-separator"><span
+                                                        class="fa fa-user"></span> {{Auth::user()->present()->fullname}}
+                                            </div>
+                                            <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
                                         </div>
                                         <div class="line-separator-account">
 
                                         </div>
                                         <div class="info">
-
+                                            Tags : <button class="btn btn-default">
+                                                testtest
+                                            </button>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>

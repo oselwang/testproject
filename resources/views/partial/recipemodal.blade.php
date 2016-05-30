@@ -141,16 +141,20 @@
 
                                     </div>
                                     <button type="button" class="btn btn-success" data-type="plus"
-                                            id="plus-instruction"
-                                            style="margin-bottom: 30px;">
+                                            id="plus-instruction">
                                         <span class="glyphicon glyphicon-plus">Add Instruction Row</span>
                                     </button>
                                 </div>
 
-
+                                <center><h3 style="margin-bottom: 30px">Category</h3></center>
+                                @foreach($all_category as $category)
+                                <div class="checkbox-inline recipe-category" style="margin-left: 10px">
+                                    <label><input type="checkbox" name="recipecategory[]" value="{{$category->id}}">{{$category->category_name}}</label>
+                                </div>
+                                @endforeach
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3">
+                                        <div class="col-sm-6 col-sm-offset-3" style="margin-top:30px">
                                             <input type="submit" id="create-recipe"
                                                    tabindex="4" class="form-control btn btn-register"
                                                    value="Create Recipe">

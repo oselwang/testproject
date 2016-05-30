@@ -104,6 +104,16 @@
     background-color: #1CA347;
     border-color: #1CA347;
 }
+
+.recipe-category{
+    float: left;
+    position: relative;
+    left:20px;
+    width: 120px;
+    color: #333;
+}
+
+
 .btn-social{
     position:relative;
     text-align:center;
