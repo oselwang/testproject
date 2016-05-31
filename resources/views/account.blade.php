@@ -79,16 +79,13 @@
                 @foreach($recipes as $recipe)
 
                     <a href="recipe/{{$recipe->slug}}" style="text-decoration: none;color:black;">
-
                         <div class="item  col-xs-3 col-lg-3">
-
                             <div class="thumbnail">
                                 <img class="group list-group-image" src="{{$recipe->getProfilePhoto()}}" alt=""/>
-
                                 <div class="caption">
                                     <h4 class="= list-group-item-heading">
                                         <b>{{$recipe->name}}</b></h4>
-                                    <p class="group inner list-group-item-text">
+                                    <p class="group inner list-group-item-text" style="margin-bottom: 20px">
                                         {{$recipe->description}}
                                     </p>
                                     <div class="row">
@@ -104,14 +101,19 @@
                                         <div class="line-separator-account">
 
                                         </div>
-                                        <div class="info">
-
-                                            Tags :
-                                            @foreach($recipe->getCategory() as $category)
-                                                <button class="btn btn-default">
-                                                    {{$category->category_name}}
-                                                </button>
-                                            @endforeach
+                                        <div class="recipe-info" style="margin-top: 20px">
+                                            <div class="info-separator">
+                                                <center><i class="fa fa-tasks" style="font-size: 14px"></i><br>
+                                                    {{count($recipe)}}<br>
+                                                    Quantity</center>
+                                            </div>
+                                        </div>
+                                        <div class="recipe-info">
+                                            <div class="info-separator">
+                                                <center><i class="fa fa-eye" style="font-size: 14px"></i><br>
+                                                    {{count($recipe)}}<br>
+                                                    View</center>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -148,6 +148,12 @@
     padding: 15px 0 0;
 }
 
+.recipe-info{
+    display: inline-block;
+    width: 25%;
+    font-size: 13px;
+}
+
 @media (max-width: 767px) {
     .current-profile .user-bg {
         height: 260px;
