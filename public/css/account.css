@@ -157,6 +157,7 @@
     padding: 0 15px 0 0;
     margin: 0 10px 0 0;
     color: #666;
+    font-size: 14px;
 }
 
 .last-info{
@@ -169,11 +170,21 @@
 .bottom-last-info{
     float: left;
     position: relative;
-    right: 20px;
-    margin: 0 25px 0 0;
+    right: 10px;
     color: #666;
+    font-size: 14px;
 }
 
+.bottom-info-separator-eye{
+    float: left;
+    border-right: 1px solid #ddd;
+    padding: 0 25px 0 0;
+    margin: 0 15px 0 0;
+    color: #666;
+    position: relative;
+    left: 6px;
+    font-size: 14px;
+}
 
 .miscellaneous-separator {
     float: left;

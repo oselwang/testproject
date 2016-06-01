@@ -18,7 +18,7 @@
                         </form>
                     </div>
                     <div class="upload-file-container fa fa-camera"
-                         style="position:absolute;left:41%;top:6%;z-index: -1000;font-size: 18px">
+                         style="position:absolute;left:41%;top:6%;font-size: 18px">
                         <form method="post" action="changeprofilephoto" id="change-profile-photo-form">
                             <input type="file" name="profilephoto" style="width: 10px"
                                    accept="image/png, image/jpeg, image/gif">
@@ -38,27 +38,27 @@
                         <div class="recipe-info2-text-separator">
                             <i class="fa fa-shopping-basket" style="margin-bottom: 5px"></i>
                             <p style="margin-bottom: 15px">Preparation</p>
-                            <p style="color:white">2 Minutes</p>
+                            <p style="color:white">{{$recipe->preparation}} Min</p>
                         </div>
                     </div>
                     <div class="col-xs-3 recipe-info2-text">
                         <div class="recipe-info2-text-separator">
                             <i class="fa fa-hourglass" style="margin-bottom: 5px"></i>
                             <p style="margin-bottom: 15px">Cook TIme</p>
-                            <p style="color:white">2 Minutes</p>
+                            <p style="color:white">{{$recipe->duration}} Min</p>
                         </div>
                     </div>
                     <div class="col-xs-3 recipe-info2-text">
                         <div class="recipe-info2-text-separator">
                             <i class="fa fa-group" style="margin-bottom: 5px"></i>
                             <p style="margin-bottom: 15px">Serves</p>
-                            <p style="color:white">2 Minutes</p>
+                            <p style="color:white">{{$recipe->portion}}</p>
                         </div>
                     </div>
                     <div class="col-xs-3 recipe-info2-text">
                             <i class="fa fa-gears" style="margin-bottom: 5px"></i>
                             <p style="margin-bottom: 15px">Difficulty</p>
-                            <p style="color:white">2 Minutes</p>
+                            <p style="color:white">{{ucwords($recipe->difficulty)}}</p>
                     </div>
                 </div>
             </div>

@@ -115,9 +115,10 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-4">
-                                            <div class="bottom-info-separator">
+                                            <div class="bottom-info-separator-eye">
                                                 <center><i class="fa fa-eye" style="font-size: 16px;"></i><br>
-                                                    {{count($recipe)}}<br>
+
+                                                    200<br>
                                                     View
                                                 </center>
                                             </div>
