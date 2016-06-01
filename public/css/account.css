@@ -20,6 +20,19 @@
     border-radius: 100px;
 }
 
+.current-profile .recipe-pic {
+    background-position: center center !important;
+    background-size: cover !important;
+    height: 220px;
+    width: 220px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 20px;
+    border: 5px solid #fff;
+}
+
 .current-profile .user-details {
     position: absolute;
     top: 150px;
@@ -114,6 +127,10 @@
     background: url(http://testproject.net/images/3.jpg) no-repeat
 }
 
+.recipe-cover-photo{
+    background-color: #888888;
+}
+
 .info {
     display: inline-block;
     position: relative;
@@ -128,10 +145,35 @@
 .info-separator {
     float: left;
     border-right: 1px solid #ddd;
+    padding: 0 5px 0 0;
+    margin: 0 10px 0 0;
+    color: #666;
+    font-size: 12px;
+}
+
+.bottom-info-separator {
+    float: left;
+    border-right: 1px solid #ddd;
     padding: 0 15px 0 0;
-    margin: 0 14px 0 0;
+    margin: 0 10px 0 0;
     color: #666;
 }
+
+.last-info{
+    float: left;
+    margin: 0 25px 0 0;
+    color: #666;
+    font-size: 12px;
+}
+
+.bottom-last-info{
+    float: left;
+    position: relative;
+    right: 20px;
+    margin: 0 25px 0 0;
+    color: #666;
+}
+
 
 .miscellaneous-separator {
     float: left;
@@ -150,7 +192,7 @@
 
 .recipe-info{
     display: inline-block;
-    width: 25%;
+    width: 70px;
     font-size: 13px;
 }
 

@@ -83,7 +83,7 @@
                             <div class="thumbnail">
                                 <img class="group list-group-image" src="{{$recipe->getProfilePhoto()}}" alt=""/>
                                 <div class="caption">
-                                    <h4 class="= list-group-item-heading">
+                                    <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
                                         <b>{{$recipe->name}}</b></h4>
                                     <p class="group inner list-group-item-text" style="margin-bottom: 20px">
                                         {{$recipe->description}}
@@ -93,26 +93,39 @@
 
                                         </div>
                                         <div class="info">
-                                            <div class="info-separator"><span
-                                                        class="fa fa-user"></span> {{Auth::user()->present()->fullname}}
+                                            <div class="info-separator">
+                                                <center><span
+                                                            class="fa fa-user"></span> {{Auth::user()->present()->fullname}}
+                                                </center>
                                             </div>
-                                            <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
+                                            <div class="info-separator">
+                                                <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
+                                            </div>
+                                            <span class="fa fa-star last-info"> 112312</span>
                                         </div>
                                         <div class="line-separator-account">
 
                                         </div>
-                                        <div class="recipe-info" style="margin-top: 20px">
-                                            <div class="info-separator">
+                                        <div class="col-xs-4">
+                                            <div class="bottom-info-separator">
                                                 <center><i class="fa fa-tasks" style="font-size: 14px"></i><br>
                                                     {{count($recipe)}}<br>
-                                                    Quantity</center>
+                                                    Quantity
+                                                </center>
                                             </div>
                                         </div>
-                                        <div class="recipe-info">
-                                            <div class="info-separator">
-                                                <center><i class="fa fa-eye" style="font-size: 14px"></i><br>
+                                        <div class="col-xs-4">
+                                            <div class="bottom-info-separator">
+                                                <center><i class="fa fa-eye" style="font-size: 16px;"></i><br>
                                                     {{count($recipe)}}<br>
-                                                    View</center>
+                                                    View
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="bottom-last-info">
+                                                <center><i class="fa fa-comments"></i><br>{{count($recipe)}}<br>Comments
+                                                </center>
                                             </div>
                                         </div>
                                     </div>

@@ -1,0 +1,24 @@
+.recipe-info2{
+    background-color: #333333;
+    min-height: 200px;
+    color: #888888;
+}
+
+.container-recipe-info{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.recipe-info2-text{
+    position: absolute;
+    width: 25%;
+    text-align: center;
+    top:50px;
+    font-size: 16px;
+}
+
+.recipe-info2-text-separator{
+    border-right: 1px solid #ddd;
+    color: #888888;
+
+}

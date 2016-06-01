@@ -65,7 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav">
-                        <li><a href="/" <?php echo e((Request::is('/') ? 'class=active' : '')); ?>>Home</a></li>
+                        <li><a href="<?php echo e(url('http://testproject.net//')); ?>" <?php echo e((Request::is('/') ? 'class=active' : '')); ?>>Home</a></li>
                         <li><a href="">News & Events</a></li>
                         <li><a href="">Short Codes</a></li>
                         <li role="presentation" class="dropdown">
@@ -98,9 +98,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                     style="margin-right: 20px"></span>Write Recipe</a></li>
                                     <li><a href=""><span class="glyphicon glyphicon-tasks"
                                                          style="margin-right: 20px"></span>Order</a></li>
-                                    <li><a href="account" <?php echo e((Request::is('account') ? 'class=active' : '')); ?>><span
+                                    <li><a href="<?php echo e(url('http://testproject.net/account')); ?>" <?php echo e((Request::is('account') ? 'class=active' : '')); ?>><span
                                                     class="fa fa-user" style="margin-right: 20px"></span>Account</a></li>
-                                    <li><a href="logout"><span class="glyphicon glyphicon-off"
+                                    <li><a href="<?php echo e(url('http://testproject.net/logout')); ?>"><span class="glyphicon glyphicon-off"
                                                                style="margin-right: 20px"></span>Logout</a></li>
                                 </ul>
                             </li>

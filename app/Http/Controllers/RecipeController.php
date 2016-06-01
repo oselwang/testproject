@@ -18,7 +18,8 @@ class RecipeController extends BaseController
     public function showRecipe($slug)
     {
         $recipe = $this->recipe->whereSlug($slug)->first();
+        $profile_photo = $recipe->profilephoto()->first();
 
-        return view('recipe',compact('recipe'));
+        return view('recipe',compact('recipe','profile_photo'));
     }
 }

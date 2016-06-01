@@ -4,7 +4,7 @@
             <div class="col-md-3 footer-grid wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
                 <h3>cumque nihil impedit</h3>
                 <div class="footer-grd-left">
-                    <img src="images/6.jpg" class="img-responsive" alt=" "/>
+                    <img src="<?php echo e(asset('images/6.jpg')); ?>" class="img-responsive" alt=" "/>
                 </div>
                 <div class="footer-grd-left">
                     <p>Nam libero tempore, cum
@@ -39,23 +39,23 @@
             <div class="col-md-3 footer-grid wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
                 <h3>Flickr Posts</h3>
                 <div class="footer-grd">
-                    <a href="#"><img src="images/7.jpg" class="img-responsive" alt=" "/></a>
+                    <a href="#"><img src="<?php echo e(asset('images/7.jpg')); ?>" class="img-responsive" alt=" "/></a>
                 </div>
                 <div class="footer-grd">
-                    <a href="#"><img src="images/8.jpg" class="img-responsive" alt=" "/></a>
+                    <a href="#"><img src="<?php echo e(asset('images/8.jpg')); ?>" class="img-responsive" alt=" "/></a>
                 </div>
                 <div class="footer-grd">
-                    <a href="#"><img src="images/7.jpg" class="img-responsive" alt=" "/></a>
+                    <a href="#"><img src="<?php echo e(asset('images/7.jpg')); ?>" class="img-responsive" alt=" "/></a>
                 </div>
                 <div class="clearfix"></div>
                 <div class="footer-grd">
-                    <a href="#"><img src="images/8.jpg" class="img-responsive" alt=" "/></a>
+                    <a href="#"><img src="<?php echo e(asset('images/8.jpg')); ?>" class="img-responsive" alt=" "/></a>
                 </div>
                 <div class="footer-grd">
-                    <a href="#"><img src="images/7.jpg" class="img-responsive" alt=" "/></a>
+                    <a href="#"><img src="<?php echo e(asset('images/7.jpg')); ?>" class="img-responsive" alt=" "/></a>
                 </div>
                 <div class="footer-grd">
-                    <a href="#"><img src="images/8.jpg" class="img-responsive" alt=" "/></a>
+                    <a href="#"><img src="<?php echo e(asset('images/8.jpg')); ?>" class="img-responsive" alt=" "/></a>
                 </div>
                 <div class="clearfix"></div>
             </div>
