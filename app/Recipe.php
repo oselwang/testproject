@@ -52,4 +52,12 @@
             
             return $category;
         }
+        
+        
+        public function owner($recipe){
+            $user = $recipe->user()->first();
+            
+            return $user->present()->fullname;
+        }
+        
     }

@@ -11,7 +11,7 @@
                 <div class="user-bg @if(empty($cover_photo)) cover-photo @endif"
                      @if(!empty($cover_photo->photo_name)) style="background: url({{asset($cover_photo->photo_name)}}) no-repeat" @endif>
                     <div class="upload-file-container-cover-photo">
-                        <form method="post" action="changecoverphoto" id="change-cover-photo-form">
+                        <form method="post" action="change-cover-photo" id="change-cover-photo-form">
                             <div class="btn btn-primary container-cover-photo" id="cover-photo">
                                 <input type="file" name="coverphoto" accept="image/png, image/jpeg, image/gif">
                                 <span class="fa fa-camera">  Edit Cover Photo</span>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="upload-file-container fa fa-camera"
                          style="position:absolute;left:46%;top:10%;z-index: 100">
-                        <form method="post" action="changeprofilephoto" id="change-profile-photo-form">
+                        <form method="post" action="change-profile-photo" id="change-profile-photo-form">
                             <input type="file" name="profilephoto" style="width: 10px"
                                    accept="image/png, image/jpeg, image/gif">
                         </form>

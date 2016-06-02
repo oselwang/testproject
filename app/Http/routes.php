@@ -19,8 +19,10 @@ Route::post('forgot', 'AjaxController@forgotPassword');
 Route::post('login', 'AjaxController@postLogin');
 Route::post('register', 'AjaxController@postRegister');
 Route::post('addrecipe', 'AjaxController@addRecipe');
-Route::post('changeprofilephoto', 'AjaxController@changeProfilePhoto');
-Route::post('changecoverphoto', 'AjaxController@changeCoverPhoto');
+Route::post('change-profile-photo', 'AjaxController@changeProfilePhoto');
+Route::post('change-cover-photo', 'AjaxController@changeCoverPhoto');
+    Route::post('change-recipe-profile-photo', 'AjaxController@changeRecipeProfilePhoto');
+    Route::post('change-recipe-cover-photo', 'AjaxController@changeRecipeCoverPhoto');
 Route::post('headline', 'AccountController@editHeadline');
 
 

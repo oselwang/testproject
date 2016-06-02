@@ -10,7 +10,7 @@
                 <div class="user-bg @if(empty($cover_photo)) recipe-cover-photo @endif"
                      @if(!empty($cover_photo->photo_name)) style="background: url({{asset($cover_photo->photo_name)}}) no-repeat" @endif>
                     <div class="upload-file-container-cover-photo">
-                        <form method="post" action="changecoverphoto" id="change-cover-photo-form">
+                        <form method="post" action="change-recipe-cover-photo" id="change-cover-photo-form">
                             <div class="btn btn-primary container-cover-photo" id="cover-photo">
                                 <input type="file" name="coverphoto" accept="image/png, image/jpeg, image/gif">
                                 <span class="fa fa-camera">  Edit Cover Photo</span>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="upload-file-container fa fa-camera"
                          style="position:absolute;left:41%;top:6%;font-size: 18px">
-                        <form method="post" action="changeprofilephoto" id="change-profile-photo-form">
+                        <form method="post" action="change-recipe-profile-photo" id="change-profile-photo-form">
                             <input type="file" name="profilephoto" style="width: 10px"
                                    accept="image/png, image/jpeg, image/gif">
                         </form>
@@ -38,28 +38,81 @@
                         <div class="recipe-info2-text-separator">
                             <i class="fa fa-shopping-basket" style="margin-bottom: 5px"></i>
                             <p style="margin-bottom: 15px">Preparation</p>
-                            <p style="color:white">{{$recipe->preparation}} Min</p>
+                            <p class="recipe-info2-text-style">{{$recipe->preparation}} Min</p>
                         </div>
                     </div>
                     <div class="col-xs-3 recipe-info2-text">
                         <div class="recipe-info2-text-separator">
                             <i class="fa fa-hourglass" style="margin-bottom: 5px"></i>
                             <p style="margin-bottom: 15px">Cook TIme</p>
-                            <p style="color:white">{{$recipe->duration}} Min</p>
+                            <p class="recipe-info2-text-style">{{$recipe->duration}} Min</p>
                         </div>
                     </div>
                     <div class="col-xs-3 recipe-info2-text">
                         <div class="recipe-info2-text-separator">
                             <i class="fa fa-group" style="margin-bottom: 5px"></i>
                             <p style="margin-bottom: 15px">Serves</p>
-                            <p style="color:white">{{$recipe->portion}}</p>
+                            <p class="recipe-info2-text-style">{{$recipe->portion}}</p>
                         </div>
                     </div>
                     <div class="col-xs-3 recipe-info2-text">
-                            <i class="fa fa-gears" style="margin-bottom: 5px"></i>
-                            <p style="margin-bottom: 15px">Difficulty</p>
-                            <p style="color:white">{{ucwords($recipe->difficulty)}}</p>
+                        <i class="fa fa-gears" style="margin-bottom: 5px"></i>
+                        <p style="margin-bottom: 15px">Difficulty</p>
+                        <p class="recipe-info2-text-style">{{ucwords($recipe->difficulty)}}</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="recipe-all-info">
+            <div class="recipe-title-container">
+                <div class="recipe-title">
+                    {{$recipe->name}} - {{$recipe->owner($recipe)}}
+                </div>
+                <div class="recipe-description">
+                    {{$recipe->description}}
+                </div>
+                <div class="description-separator">
+                </div>
+                <div class="miscellaneous-recipe-info">
+                    RATINGS : <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                    POSTED :
+                    <o style="font-size: 14px">{{$recipe->created_at->toFormattedDateString()}}</o>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    COMMENTS :
+                    <o style="font-size: 14px">2</o>
+                    <div class="print-recipe-btn">
+                        <button class="btn btn-primary"><i class="fa fa-print"> Print Ingredients & Recipe</i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="recipe-social-share">
+                SHARE
+                <div class="recipe-social-share-separator">
+
+                </div>
+                <div class="recipe-share-button">
+                    <button class="btn btn-facebook-share">
+                        <i class="fa fa-facebook"></i>
+                    </button>
+                    <br>
+                    <button class="btn btn-google-plus-share">
+                        <i  class="fa fa-google"></i>
+                    </button>
+                    <br>
+                    <button class="btn btn-twitter-share">
+                        <i class="fa fa-twitter"></i>
+                    </button>
+                    <br>
+                    <button class="btn btn-pinterest-share">
+                        <i class="fa fa-pinterest-p"></i>
+                    </button>
                 </div>
             </div>
         </div>
