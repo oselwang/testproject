@@ -23,6 +23,7 @@ Route::post('change-profile-photo', 'AjaxController@changeProfilePhoto');
 Route::post('change-cover-photo', 'AjaxController@changeCoverPhoto');
     Route::post('change-recipe-profile-photo', 'AjaxController@changeRecipeProfilePhoto');
     Route::post('change-recipe-cover-photo', 'AjaxController@changeRecipeCoverPhoto');
+    Route::post('recipe/buy-ingredient','RecipeController@buyIngredient');
 Route::post('headline', 'AccountController@editHeadline');
 
 

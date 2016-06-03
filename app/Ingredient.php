@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ingredient extends Model
 {
-    protected $fillable = ['recipe_id','ingredient_name','amount'];
+    protected $fillable = ['recipe_id','name','amount'];
     
     protected $table = 'ingredients';
     

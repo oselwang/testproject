@@ -103,7 +103,7 @@
                     </button>
                     <br>
                     <button class="btn btn-google-plus-share">
-                        <i  class="fa fa-google"></i>
+                        <i class="fa fa-google"></i>
                     </button>
                     <br>
                     <button class="btn btn-twitter-share">
@@ -115,10 +115,36 @@
                     </button>
                 </div>
             </div>
+            <div class="ingredient-container">
+                <div class="ingredient-title">
+                    INGREDIENTS
+                    <div class="ingredient-title-separator">
+                    </div>
+                </div>
+                <form method="post" action="{{url('http://testproject.net/recipe/buy-ingredient')}}">
+                    @foreach($ingredients as $ingredient)
+                        <div class="ingredient-list">
+                            <label class="control control--checkbox">1/2 cup low-sodium chicken broth
+                                <input type="checkbox" name="ingredient[]"
+                                       value="{{$ingredient->amount . ' ' . $ingredient->name}}"
+                                       id="ingredient-checkbox">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div class="ingredient-list-separator">
+                        </div>
+                    @endforeach
+                    <div class="buy-ingredient">
+                        <button class="btn btn-primary disabled" id="buy-ingredient" type="submit">Buy Ingredient
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
     <script>
+
         function redirect(url) {
             window.location = url;
         }
@@ -134,6 +160,17 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        $("input:checkbox").change(function() {
+            var $this = $(this);
+
+            if ($this.is(":checked")) {
+                $('#buy-ingredient').removeClass('disabled');
+            }else{
+                $('#buy-ingredient').addClass('disabled');
+            }
+
+        });
 
         $('#editheadline').click(function () {
             $(this).addClass('hidden');
