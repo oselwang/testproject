@@ -15,7 +15,7 @@ class CreateInstructionsTable extends Migration
         Schema::create('instructions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('recipe_id')->unsigned();
-            $table->string('instruction')->index();
+            $table->string('body')->index();
             $table->timestamps();
 
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');

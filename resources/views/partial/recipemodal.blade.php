@@ -129,7 +129,7 @@
 
                                 <div class="form-group">
                                     <div id="instruction-temp1">
-                                    <textarea name="instruction[]" maxlength="140" id="instruction" class="form-control"
+                                    <textarea name="instruction[]" id="instruction" class="form-control"
                                               placeholder="Instruction" tabindex="1"
                                               style="display:inline-block;width:94.8%;"></textarea>
                                         <button type="button" class="btn btn-danger" data-type="plus"
@@ -238,7 +238,7 @@
     $('#recipe-form').find('[name="difficulty"], [name="portion"],[name="duration"],[name="preparation"]').combobox().end();
 
     $('#plus-instruction').click(function () {
-        $('#instruction-temp').append('<div id="textarea"><textarea name="instruction[]" maxlength="50" class="form-control" placeholder="Instruction" style="display:inline-block;width:94.8%;"></textarea><button type="button" class="btn btn-danger" data-type="plus" id="minus-instruction" style="margin-bottom: 30px;margin-left: 3px;"> <span class="glyphicon glyphicon-remove"></span></button></div>');
+        $('#instruction-temp').append('<div id="textarea"><textarea name="instruction[]" class="form-control" placeholder="Instruction" style="display:inline-block;width:94.8%;"></textarea><button type="button" class="btn btn-danger" data-type="plus" id="minus-instruction" style="margin-bottom: 30px;margin-left: 3px;"> <span class="glyphicon glyphicon-remove"></span></button></div>');
     });
 
     $('#instruction-temp').on('click', '#minus-instruction', function () {

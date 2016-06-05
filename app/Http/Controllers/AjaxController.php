@@ -85,7 +85,7 @@
 
         public function addRecipe(AddRecipeForm $recipeForm)
         {
-            
+            $this->middleware('auth');
             $recipeForm->create();
 
             flash('Your recipe successfully created, edit it in your recipe menu');

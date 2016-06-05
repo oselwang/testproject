@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <div class="row">
+
         <div class="recipe-all-info">
             <div class="recipe-title-container">
                 <div class="recipe-title">
@@ -140,8 +140,35 @@
                     </div>
                 </form>
             </div>
+            <div class="instruction-container">
+                <div class="instruction-title">
+                    COOKING INSTRUCTIONS
+                    <div class="instruction-title-separator"></div>
+                </div>
+                <div class="instruction-list">
+                    <i class="hidden"> {{ $i = 1 }}</i>
+                    @foreach($instructions as $instruction)
+                        <div class="instruction-number">
+                            {{$i++}}
+                        </div>
+                        <p class="instruction-info">
+                            {{ucfirst($instruction->body)}}
+                        </p>
+                    @endforeach
+                </div>
+                <div class="recipe-category-title">
+                    CATEGORIES
+                    <div class="recipe-category-title-separator"></div>
+                        @foreach($categories as $category)
+                            <button class="btn btn-default recipe-category-info-btn">
+                                <b class="category_name">
+                                    {{$category->category_name}}
+                                </b>
+                            </button>
+                        @endforeach
+                </div>
+            </div>
         </div>
-    </div>
 
     <script>
 
@@ -161,12 +188,12 @@
             }
         }
 
-        $("input:checkbox").change(function() {
+        $("input:checkbox").change(function () {
             var $this = $(this);
 
             if ($this.is(":checked")) {
                 $('#buy-ingredient').removeClass('disabled');
-            }else{
+            } else {
                 $('#buy-ingredient').addClass('disabled');
             }
 

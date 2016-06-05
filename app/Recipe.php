@@ -26,6 +26,10 @@
             return $this->hasMany(Ingredient::class);
         }
 
+       public function instruction(){
+           return $this->hasMany(Instruction::class);
+       }
+
         public function profilephoto()
         {
             return $this->hasOne(RecipeProfilePhoto::class);

@@ -24,7 +24,9 @@ class RecipeController extends BaseController
         $recipe = $this->recipe->whereSlug($slug)->first();
         $profile_photo = $recipe->profilephoto()->first();
         $ingredients = $recipe->ingredient()->get();
-        return view('recipe',compact('recipe','profile_photo','ingredients'));
+        $instructions = $recipe->instruction()->get();
+        $categories = $recipe->categories()->get();
+        return view('recipe',compact('recipe','profile_photo','ingredients','instructions','categories'));
     }
 
     public function buyIngredient(){
