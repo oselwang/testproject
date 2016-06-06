@@ -66,7 +66,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav">
                         <li><a href="<?php echo e(url('http://testproject.net//')); ?>" <?php echo e((Request::is('/') ? 'class=active' : '')); ?>>Home</a></li>
-                        <li><a href="">News & Events</a></li>
+                        <li><a href="<?php echo e(url('http://testproject.net/recipes')); ?>">Recipes</a></li>
                         <li><a href="">Short Codes</a></li>
                         <li role="presentation" class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"

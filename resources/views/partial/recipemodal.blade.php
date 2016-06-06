@@ -14,7 +14,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12" style="padding:1em;">
-                            <form id="recipe-form" action="addrecipe" method="post"
+                            <form id="recipe-form" action="{{url('http://testproject.net/addrecipe')}}" method="post"
                                   role="form" style="display: block;">
                                 <input type="hidden" name="_token" value="{{str_random(40)}}">
 

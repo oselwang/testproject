@@ -19,6 +19,12 @@ class RecipeController extends BaseController
         parent::__construct();
     }
 
+    public function allRecipe(){
+        $recipes = $this->recipe->all();
+
+        return view('recipes',compact('recipes'));
+    }
+
     public function showRecipe($slug)
     {
         $recipe = $this->recipe->whereSlug($slug)->first();
@@ -26,7 +32,8 @@ class RecipeController extends BaseController
         $ingredients = $recipe->ingredient()->get();
         $instructions = $recipe->instruction()->get();
         $categories = $recipe->categories()->get();
-        return view('recipe',compact('recipe','profile_photo','ingredients','instructions','categories'));
+        $related_recipes = $this->recipe->paginate(3);
+        return view('recipe',compact('recipe','profile_photo','ingredients','instructions','categories','related_recipes'));
     }
 
     public function buyIngredient(){

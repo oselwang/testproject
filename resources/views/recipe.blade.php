@@ -9,6 +9,7 @@
             <div class="current-profile">
                 <div class="user-bg @if(empty($cover_photo)) recipe-cover-photo @endif"
                      @if(!empty($cover_photo->photo_name)) style="background: url({{asset($cover_photo->photo_name)}}) no-repeat" @endif>
+                    @if(Auth::user()->ownRecipe($recipe))
                     <div class="upload-file-container-cover-photo">
                         <form method="post" action="change-recipe-cover-photo" id="change-cover-photo-form">
                             <div class="btn btn-primary container-cover-photo" id="cover-photo">
@@ -24,6 +25,7 @@
                                    accept="image/png, image/jpeg, image/gif">
                         </form>
                     </div>
+                    @endif
                     <img src="@if(empty($profile_photo->photo_name)) {{asset('images/blank-person.png')}} @else {{asset($profile_photo->photo_name)}} @endif"
                          class="recipe-pic" id="profile-photo">
                 </div>
@@ -66,99 +68,103 @@
     </div>
 
 
-        <div class="recipe-all-info">
-            <div class="recipe-title-container">
-                <div class="recipe-title">
-                    {{$recipe->name}} - {{$recipe->owner($recipe)}}
-                </div>
-                <div class="recipe-description">
-                    {{$recipe->description}}
-                </div>
-                <div class="description-separator">
-                </div>
-                <div class="miscellaneous-recipe-info">
-                    RATINGS : <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>&nbsp;&nbsp;&nbsp;&nbsp;
-                    POSTED :
-                    <o style="font-size: 14px">{{$recipe->created_at->toFormattedDateString()}}</o>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    COMMENTS :
-                    <o style="font-size: 14px">2</o>
-                    <div class="print-recipe-btn">
-                        <button class="btn btn-primary"><i class="fa fa-print"> Print Ingredients & Recipe</i></button>
-                    </div>
+    <div class="recipe-all-info">
+        <div class="recipe-title-container">
+            <div class="recipe-title">
+                {{$recipe->name}} - {{$recipe->owner($recipe)}}
+            </div>
+            <div class="recipe-description">
+                {{$recipe->description}}
+            </div>
+            <div class="description-separator">
+            </div>
+            <div class="miscellaneous-recipe-info">
+                RATINGS : <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                POSTED :
+                <o style="font-size: 14px">{{$recipe->created_at->toFormattedDateString()}}</o>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                COMMENTS :
+                <o style="font-size: 14px">2</o>
+                <div class="print-recipe-btn">
+                    <button class="btn btn-primary"><i class="fa fa-print"> Print Ingredients & Recipe</i></button>
                 </div>
             </div>
-            <div class="recipe-social-share">
-                SHARE
-                <div class="recipe-social-share-separator">
+        </div>
+        <div class="recipe-social-share">
+            SHARE
+            <div class="recipe-social-share-separator">
 
-                </div>
-                <div class="recipe-share-button">
-                    <button class="btn btn-facebook-share">
-                        <i class="fa fa-facebook"></i>
-                    </button>
-                    <br>
-                    <button class="btn btn-google-plus-share">
-                        <i class="fa fa-google"></i>
-                    </button>
-                    <br>
-                    <button class="btn btn-twitter-share">
-                        <i class="fa fa-twitter"></i>
-                    </button>
-                    <br>
-                    <button class="btn btn-pinterest-share">
-                        <i class="fa fa-pinterest-p"></i>
-                    </button>
+            </div>
+            <div class="recipe-share-button">
+                <button class="btn btn-facebook-share">
+                    <i class="fa fa-facebook"></i>
+                </button>
+                <br>
+                <button class="btn btn-google-plus-share">
+                    <i class="fa fa-google"></i>
+                </button>
+                <br>
+                <button class="btn btn-twitter-share">
+                    <i class="fa fa-twitter"></i>
+                </button>
+                <br>
+                <button class="btn btn-pinterest-share">
+                    <i class="fa fa-pinterest-p"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="ingredient-container">
+                    <div class="ingredient-title">
+                        INGREDIENTS
+                        <div class="ingredient-title-separator">
+                        </div>
+                    </div>
+                    <form method="post" action="{{url('http://testproject.net/recipe/buy-ingredient')}}">
+                        @foreach($ingredients as $ingredient)
+                            <div class="ingredient-list">
+                                <label class="control control--checkbox">1/2 cup low-sodium chicken broth
+                                    <input type="checkbox" name="ingredient[]"
+                                           value="{{$ingredient->amount . ' ' . $ingredient->name}}"
+                                           id="ingredient-checkbox">
+                                    <div class="control__indicator"></div>
+                                </label>
+                            </div>
+                            <div class="ingredient-list-separator">
+                            </div>
+                        @endforeach
+                        <div class="buy-ingredient">
+                            <button class="btn btn-primary disabled" id="buy-ingredient" type="submit">Buy Ingredient
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="ingredient-container">
-                <div class="ingredient-title">
-                    INGREDIENTS
-                    <div class="ingredient-title-separator">
+            <div class="col-md-6">
+                <div class="instruction-container">
+                    <div class="instruction-title">
+                        COOKING INSTRUCTIONS
+                        <div class="instruction-title-separator"></div>
                     </div>
-                </div>
-                <form method="post" action="{{url('http://testproject.net/recipe/buy-ingredient')}}">
-                    @foreach($ingredients as $ingredient)
-                        <div class="ingredient-list">
-                            <label class="control control--checkbox">1/2 cup low-sodium chicken broth
-                                <input type="checkbox" name="ingredient[]"
-                                       value="{{$ingredient->amount . ' ' . $ingredient->name}}"
-                                       id="ingredient-checkbox">
-                                <div class="control__indicator"></div>
-                            </label>
-                        </div>
-                        <div class="ingredient-list-separator">
-                        </div>
-                    @endforeach
-                    <div class="buy-ingredient">
-                        <button class="btn btn-primary disabled" id="buy-ingredient" type="submit">Buy Ingredient
-                        </button>
+                    <div class="instruction-list">
+                        <i class="hidden"> {{ $i = 1 }}</i>
+                        @foreach($instructions as $instruction)
+                            <div class="instruction-number">
+                                {{$i++}}
+                            </div>
+                            <p class="instruction-info">
+                                {{ucfirst($instruction->body)}}
+                            </p>
+                        @endforeach
                     </div>
-                </form>
-            </div>
-            <div class="instruction-container">
-                <div class="instruction-title">
-                    COOKING INSTRUCTIONS
-                    <div class="instruction-title-separator"></div>
-                </div>
-                <div class="instruction-list">
-                    <i class="hidden"> {{ $i = 1 }}</i>
-                    @foreach($instructions as $instruction)
-                        <div class="instruction-number">
-                            {{$i++}}
-                        </div>
-                        <p class="instruction-info">
-                            {{ucfirst($instruction->body)}}
-                        </p>
-                    @endforeach
-                </div>
-                <div class="recipe-category-title">
-                    CATEGORIES
-                    <div class="recipe-category-title-separator"></div>
+                    <div class="recipe-category-title">
+                        CATEGORIES
+                        <div class="recipe-category-title-separator"></div>
                         @foreach($categories as $category)
                             <button class="btn btn-default recipe-category-info-btn">
                                 <b class="category_name">
@@ -166,9 +172,79 @@
                                 </b>
                             </button>
                         @endforeach
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    @if($related_recipes != null)
+        <div class="related-container">
+            <div class="related-title">
+                SIMILAR RECIPES
+            </div>
+            <div class="related-title-separator"></div>
+            <div class="row">
+                @foreach($related_recipes as $recipe)
+                    <a href="{{url('recipe/'.$recipe->slug)}}" style="text-decoration: none;color:black;">
+                        <div class="related-item  col-xs-3 col-lg-3">
+                            <div class="related-thumbnail">
+                                <img src="{{url($recipe->getProfilePhoto())}}" alt=""/>
+                                <div class="caption">
+                                    <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
+                                        <b>{{$recipe->name}}</b></h4>
+                                    <p class="group inner list-group-item-text" style="margin-bottom: 20px">
+                                        {{$recipe->description}}
+                                    </p>
+                                    <div class="row">
+                                        <div class="related-line-separator-account">
+
+                                        </div>
+                                        <div class="info">
+                                            <div class="related-info-separator">
+                                                &nbsp;&nbsp;<span
+                                                        class="fa fa-user"></span> {{Auth::user()->present()->fullname}}
+                                            </div>
+                                            <div class="related-info-separator">
+                                                <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
+                                            </div>
+                                            <span class="fa fa-star related-last-info"> 112312</span>
+                                        </div>
+                                        <div class="related-line-separator-account">
+
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="related-bottom-info-separator">
+                                                <center><i class="fa fa-tasks" style="font-size: 14px"></i><br>
+                                                    {{count($recipe)}}<br>
+                                                    Quantity
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="related-bottom-info-separator-eye">
+                                                <center><i class="fa fa-eye" style="font-size: 16px;"></i><br>
+
+                                                    200<br>
+                                                    View
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="related-bottom-last-info">
+                                                <center><i class="fa fa-comments"></i><br>{{count($recipe)}}<br>Comments
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    @endif
 
     <script>
 

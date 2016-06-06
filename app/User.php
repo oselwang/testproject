@@ -44,4 +44,8 @@
         {
             return $this->hasOne(CoverPhoto::class);
         }
+        
+        public function ownRecipe($recipe){
+            return $this->id == $recipe->user_id;
+        }
     }
