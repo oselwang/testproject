@@ -1,6 +1,6 @@
-.easy-title{
-    text-align: center;
-    padding: 2em;
+.info-title{
+    text-align: left;
+    padding:1em;
     font-size: 20px;
     font-weight: bold;
 }
@@ -12,7 +12,6 @@
     bottom: 20px;
     border-bottom:1px solid #313030;
     width: 8%;
-    margin: 0 auto;
 }
 
 .horizontal-scroll-container{
@@ -20,7 +19,7 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
     margin-bottom: 40px !important;
-    overflow-y: hidden;
+    overflow:hidden;
     width: 1150px;
     height: 350px;
 }
@@ -38,6 +37,24 @@
     vertical-align: middle;
 }
 
+.prev{
+    position: absolute;
+    z-index: 999;
+    bottom:350px;
+    font-size: 60px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.next{
+    z-index: 999;
+    position: absolute;
+    background: transparent;
+    right: 6.7%;
+    bottom:350px;
+    font-size: 60px;
+    cursor: pointer;
+}
 .info {
     display: inline-block;
     position: relative;

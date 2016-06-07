@@ -22,7 +22,7 @@ class RecipeController extends BaseController
     public function allRecipe(){
         $recipes = $this->recipe->all();
 
-        return view('recipes',compact('recipes'));
+        return view('allrecipe',compact('recipes'));
     }
 
     public function showRecipe($slug)
