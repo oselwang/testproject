@@ -31,7 +31,8 @@ Route::post('headline', 'AccountController@editHeadline');
  * Get Request
  */
 Route::get('/', 'LandingPageController@index');
-    Route::get('recipes','RecipeController@allRecipe');
+    Route::get('suggestion','RecipeController@suggestion');
+    Route::get('recipes','LandingPageController@allRecipe');
 Route::get('recipe/{slug}', 'RecipeController@showRecipe');
 Route::get('auth/facebook', 'Auth\SocialLoginController@redirectFacebook');
 Route::get('auth/facebook/callback', 'Auth\SocialLoginController@facebookCallback');

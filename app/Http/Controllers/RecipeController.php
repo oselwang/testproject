@@ -19,10 +19,10 @@ class RecipeController extends BaseController
         parent::__construct();
     }
 
-    public function allRecipe(){
+    public function suggestion(){
         $recipes = $this->recipe->all();
 
-        return view('allrecipe',compact('recipes'));
+        return view('suggestion',compact('recipes'));
     }
 
     public function showRecipe($slug)

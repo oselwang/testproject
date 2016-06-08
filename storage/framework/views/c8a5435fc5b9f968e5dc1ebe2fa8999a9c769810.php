@@ -66,8 +66,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav">
                         <li><a href="<?php echo e(url('http://testproject.net//')); ?>" <?php echo e((Request::is('/') ? 'class=active' : '')); ?>>Home</a></li>
-                        <li><a href="<?php echo e(url('http://testproject.net/recipes')); ?>">Recipes</a></li>
-                        <li><a href="">Short Codes</a></li>
+                        <li><a href="<?php echo e(url('http://testproject.net/recipes')); ?>" <?php echo e((Request::is('recipes') ? 'class=active' : '')); ?>>Recipes</a></li>
+                        <li><a href="<?php echo e(url('http://testproject.net/suggestion')); ?>" <?php echo e((Request::is('suggestion') ? 'class=active' : '')); ?>>Suggestion</a></li>
                         <li role="presentation" class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                aria-haspopup="true" aria-expanded="false">
@@ -84,6 +84,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </nav>
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav right">
+                        <li>abc</li>
                         <?php if(!Auth::check()): ?>
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
                         <?php elseif(Auth::check()): ?>

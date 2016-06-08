@@ -66,8 +66,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav">
                         <li><a href="{{url('http://testproject.net//')}}" {{(Request::is('/') ? 'class=active' : '')}}>Home</a></li>
-                        <li><a href="{{url('http://testproject.net/recipes')}}">Recipes</a></li>
-                        <li><a href="">Short Codes</a></li>
+                        <li><a href="{{url('http://testproject.net/recipes')}}" {{(Request::is('recipes') ? 'class=active' : '')}}>Recipes</a></li>
+                        <li><a href="{{url('http://testproject.net/suggestion')}}" {{(Request::is('suggestion') ? 'class=active' : '')}}>Suggestion</a></li>
                         <li role="presentation" class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                aria-haspopup="true" aria-expanded="false">
@@ -84,6 +84,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </nav>
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav right">
+                        <li role="">abc</li>
                         @if(!Auth::check())
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
                         @elseif(Auth::check())
