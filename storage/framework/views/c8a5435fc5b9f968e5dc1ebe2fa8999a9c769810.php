@@ -90,7 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </nav>
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav right">
-                        <li><a href="#" id="search-recipe"><i class="fa fa-search"></i></a></li>
+                        <li><a href="" id="search-recipe"><i class="fa fa-search"></i></a></li>
                         <?php if(!Auth::check()): ?>
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
                         <?php elseif(Auth::check()): ?>
@@ -125,10 +125,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 <div class="search-container" style="display: none">
     <div class="search-input">
-            <input type="text" class="search-box" placeholder="What would you like to cook ?">
-            <button type="submit" class="search-button btn">Search</button>
+        <input type="text" class="search-box" placeholder="What would you like to cook ?">
+        <button type="submit" class="search-button btn">Search</button>
         <div class="popular-search">
-            asd
+            Popular Searches:
         </div>
     </div>
 
@@ -158,8 +158,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="<?php echo e(asset('js/bootstrap.js')); ?>"></script>
 
 <script>
-    $('#search-recipe').click(function () {
-        $('.search-container').fadeToggle("fast");
+    $('#search-recipe').click(function (e) {
+        e.preventDefault();
+        $('.search-container').slideToggle("slow");
     });
 </script>
 <!-- //for bootstrap working -->

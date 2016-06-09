@@ -14,7 +14,8 @@
     "pda/pheanstalk": "^3.1",
     "intervention/image": "^2.3",
     "laracasts/flash": "^2.0",
-    "facebook/php-sdk-v4" : "~5.0"
+    "facebook/php-sdk-v4" : "~5.0",
+    "elasticquent/elasticquent": "dev-master"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
