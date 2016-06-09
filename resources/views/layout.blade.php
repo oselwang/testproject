@@ -25,6 +25,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="{{asset('css/loginmodal.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('css/combobox-bootstrap.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('css/dropzone.css')}}" rel="stylesheet" media="all" type="text/css"/>
+    <link href="{{asset('css/searchbox.css')}}" rel="stylesheet" media="all" type="text/css"/>
     <!-- js -->
     <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
     <!-- //js -->
@@ -65,9 +66,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav">
-                        <li><a href="{{url('http://testproject.net//')}}" {{(Request::is('/') ? 'class=active' : '')}}>Home</a></li>
-                        <li><a href="{{url('http://testproject.net/recipes')}}" {{(Request::is('recipes') ? 'class=active' : '')}}>Recipes</a></li>
-                        <li><a href="{{url('http://testproject.net/suggestion')}}" {{(Request::is('suggestion') ? 'class=active' : '')}}>Suggestion</a></li>
+                        <li><a href="{{url('http://testproject.net//')}}" {{(Request::is('/') ? 'class=active' : '')}}>Home</a>
+                        </li>
+                        <li>
+                            <a href="{{url('http://testproject.net/recipes')}}" {{(Request::is('recipes') ? 'class=active' : '')}}>Recipes</a>
+                        </li>
+                        <li>
+                            <a href="{{url('http://testproject.net/suggestion')}}" {{(Request::is('suggestion') ? 'class=active' : '')}}>Suggestion</a>
+                        </li>
                         <li role="presentation" class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                aria-haspopup="true" aria-expanded="false">
@@ -84,7 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </nav>
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav right">
-                        <li role="">abc</li>
+                        <li><a href="#" id="search-recipe"><i class="fa fa-search"></i></a></li>
                         @if(!Auth::check())
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
                         @elseif(Auth::check())
@@ -99,10 +105,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                     style="margin-right: 20px"></span>Write Recipe</a></li>
                                     <li><a href=""><span class="glyphicon glyphicon-tasks"
                                                          style="margin-right: 20px"></span>Order</a></li>
-                                    <li><a href="{{url('http://testproject.net/account')}}" {{(Request::is('account') ? 'class=active' : '')}}><span
-                                                    class="fa fa-user" style="margin-right: 20px"></span>Account</a></li>
-                                    <li><a href="{{url('http://testproject.net/logout')}}"><span class="glyphicon glyphicon-off"
-                                                               style="margin-right: 20px"></span>Logout</a></li>
+                                    <li>
+                                        <a href="{{url('http://testproject.net/account')}}" {{(Request::is('account') ? 'class=active' : '')}}><span
+                                                    class="fa fa-user" style="margin-right: 20px"></span>Account</a>
+                                    </li>
+                                    <li><a href="{{url('http://testproject.net/logout')}}"><span
+                                                    class="glyphicon glyphicon-off"
+                                                    style="margin-right: 20px"></span>Logout</a></li>
                                 </ul>
                             </li>
                     </ul>
@@ -113,6 +122,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <!-- /.navbar-collapse -->
         </nav>
     </div>
+</div>
+<div class="search-container" style="display: none">
+    <div class="search-input">
+            <input type="text" class="search-box" placeholder="What would you like to cook ?">
+            <button type="submit" class="search-button btn">Search</button>
+        <div class="popular-search">
+            Popular Searches:
+        </div>
+    </div>
+
 </div>
 @if(!Auth::check())
 @include('partial.loginmodal')
@@ -126,7 +145,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </body>
 
 @if(Session::has('flash_notification.message'))
-    <div id="flash-pop-up" class="flash-pop-up btn-{{Session::get('flash_notification.level')}} btn">{{Session::get('flash_notification.message')}}</div>
+    <div id="flash-pop-up"
+         class="flash-pop-up btn-{{Session::get('flash_notification.level')}} btn">{{Session::get('flash_notification.message')}}</div>
 @endif
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button"
    title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span
@@ -136,6 +156,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!-- //footer -->
 <!-- for bootstrap working -->
 <script src="{{asset('js/bootstrap.js')}}"></script>
+
+<script>
+    $('#search-recipe').click(function () {
+        $('.search-container').fadeToggle("fast");
+    });
+</script>
 <!-- //for bootstrap working -->
 
 </html>
