@@ -14,7 +14,7 @@ class RecipeController extends BaseController
     public function __construct(Recipe $recipe,Request $request)
     {
         $this->request = $request;
-        $this->middleware('auth');
+
         $this->recipe = $recipe;
         parent::__construct();
     }

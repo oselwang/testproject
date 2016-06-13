@@ -30,7 +30,7 @@
                     'body' => [
                         'query' => [
                             'match' => [
-                                'name' => 'testtest'
+                                'name' => '2'
                             ]
                         ]
                     ]
