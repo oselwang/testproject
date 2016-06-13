@@ -29,7 +29,6 @@
     25 => 'App\\Providers\\RouteServiceProvider',
     26 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
     27 => 'Intervention\\Image\\ImageServiceProvider',
-    28 => 'Elasticquent\\ElasticquentServiceProvider',
   ),
   'eager' => 
   array (
@@ -48,7 +47,6 @@
     12 => 'App\\Providers\\EventServiceProvider',
     13 => 'App\\Providers\\RouteServiceProvider',
     14 => 'Intervention\\Image\\ImageServiceProvider',
-    15 => 'Elasticquent\\ElasticquentServiceProvider',
   ),
   'deferred' => 
   array (

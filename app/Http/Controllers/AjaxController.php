@@ -25,7 +25,7 @@
             $this->request = $request;
             $this->user = $user;
             $this->user_service = $user_service;
-            
+
         }
 
         public function recipeOfTheDay()
@@ -87,7 +87,6 @@
         {
             $this->middleware('auth');
             $recipeForm->create();
-
             flash('Your recipe successfully created, edit it in your recipe menu');
 
             return response()->json('success');

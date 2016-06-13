@@ -162,7 +162,6 @@ return [
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Elasticquent\ElasticquentServiceProvider::class,
 
 
     ],
