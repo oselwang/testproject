@@ -25,26 +25,11 @@ class Recipe extends Model
 
             $params = [
                 'index' => 'recipe',
-                'type'  => 'recipe',
-                'body'  => [
-                    'query' => [
-                        'bool' => [
-                            'must' => [
-                                'multi_match' => [
-                                    'query' => 'test', 'fields' => [
-                                        'name^2', 'description'
-                                    ]
-                                ],
-                                'filter' => [
-                                    'term' => ['difficulty' => 'hard']
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                'type' => 'recipe',
+                'body' => $recipe
             ];
 
-            dd($client->search($params));
+            dd($client->create($params));
         });
     }
 

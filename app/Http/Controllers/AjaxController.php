@@ -92,6 +92,36 @@
             return response()->json('success');
         }
 
+        public function search()
+        {
+            $client = \Elasticsearch\ClientBuilder::create()
+                ->setHosts(['http://localhost:9200'])
+                ->build();
+            $search = $this->request->get('search');
+
+            $params = [
+                'index' => 'recipe',
+                'type'  => 'recipe',
+                'body'  => [
+                    'query' => [
+                        'bool' => [
+                            'must' => [
+                                'multi_match' => [
+                                    'query' => $search, 'fields' => [
+                                        'name^2', 'description'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+            
+            $data = $client->search($params);
+
+            return response()->json($data);
+        }
+
         public function changeProfilePhoto()
         {
 

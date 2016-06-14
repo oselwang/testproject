@@ -123,16 +123,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </nav>
     </div>
 </div>
-<div class="search-container" style="display: none">
-    <div class="search-input">
-        <input type="text" class="search-box" placeholder="What would you like to cook ?">
-        <button type="submit" class="search-button btn">Search</button>
-        <div class="popular-search">
-            Popular Searches:
+<form method="post" action="{{url('http://testproject.net/search')}}" id="search-form">
+    <div class="search-container" style="display: none">
+        <div class="search-input">
+            <input type="text" class="search-box" name="search" placeholder="What would you like to cook ?" id="search">
+            <button type="submit" class="search-button btn">Search</button>
+            <div class="popular-search">
+                Popular Searches:
+            </div>
         </div>
     </div>
-
-</div>
+</form>
 @if(!Auth::check())
 @include('partial.loginmodal')
 @else
@@ -162,6 +163,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         e.preventDefault();
         $('.search-container').slideToggle("slow");
     });
+
+    $('#search').keyup(function () {
+
+        var data = $(this).val();
+        var url = $('#search-form').attr('action');
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: {
+                search : data
+            },
+            dataType: 'json',
+            success: function (data) {
+                $.each(data.hits,function (index,value) {
+                    $.each(value,function (index,value) {
+                        console.log(value);
+                    })
+                })
+            }
+        });
+    })
 </script>
 <!-- //for bootstrap working -->
 
