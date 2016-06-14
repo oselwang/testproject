@@ -3,6 +3,7 @@
 namespace App;
 
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Recipe extends Model
@@ -22,14 +23,17 @@ class Recipe extends Model
             $client = \Elasticsearch\ClientBuilder::create()
                 ->setHosts([ 'http://localhost:9200' ])
                 ->build();
-
+            $recipes[0] = $recipe->toArray();
+            $timestamp = array ( 'timestamp' => Carbon::now()->toDateTimeString() );
+            $recipes[] = $timestamp;
             $params = [
                 'index' => 'recipe',
                 'type' => 'recipe',
-                'body' => $recipe
+                'id' => $recipe->id,
+                'body' => $recipe->toArray()
             ];
 
-            dd($client->create($params));
+            dd($client->index($params));
         });
     }
 
