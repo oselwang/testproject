@@ -41,11 +41,13 @@
             $instructions = new Instruction();
             $profile_photo = new RecipeProfilePhoto();
             $pivot_recipe_category = new PivotRecipeCategory();
-            
+
 
             if ($this->isValid()) {
 
                 $slug = time() . '-' . str_replace(' ', '-', $this->fields('recipename'));
+
+                $image_name = $this->addProfilePhoto($this->file('profilephoto'));
 
                 $recipe_added = $recipe->create([
                     'user_id'     => Auth::user()->id,
@@ -56,13 +58,7 @@
                     'difficulty'  => $this->fields('difficulty'),
                     'duration'    => $this->fields('duration'),
                     'preparation' => $this->fields('preparation'),
-                ]);
-
-                $image_name = $this->addProfilePhoto($this->file('profilephoto'));
-
-                $profile_photo->create([
-                    'recipe_id'  => $recipe_added->id,
-                    'photo_name' => 'Recipe/RecipeProfilePhoto/' . $image_name
+                    'photo_name'  => 'Recipe/RecipeProfilePhoto/' . $image_name
                 ]);
 
                 foreach (array_combine($this->fields('ingredient'), $this->fields('amount')) as $ingredient => $amount) {
@@ -97,7 +93,7 @@
         {
             $originalname = rtrim($profilephoto->getClientOriginalName(), '.' . $profilephoto->getClientOriginalExtension());
             $extension = $this->file('profilephoto')->getClientOriginalExtension();
-            $image_name = $originalname . '-' . time() . '-' . $this->fields('recipename') . '.' . $extension;
+            $image_name = $originalname . '-' . time() . '-' . str_replace(' ', '-', $this->fields('recipename')). '.' . $extension;
             $path = public_path('Recipe/RecipeProfilePhoto/' . $image_name);
 
             try {

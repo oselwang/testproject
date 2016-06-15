@@ -28,12 +28,11 @@ class RecipeController extends BaseController
     public function showRecipe($slug)
     {
         $recipe = $this->recipe->whereSlug($slug)->first();
-        $profile_photo = $recipe->profilephoto()->first();
         $ingredients = $recipe->ingredient()->get();
         $instructions = $recipe->instruction()->get();
         $categories = $recipe->categories()->get();
         $related_recipes = $this->recipe->paginate(3);
-        return view('recipe',compact('recipe','profile_photo','ingredients','instructions','categories','related_recipes'));
+        return view('recipe',compact('recipe','ingredients','instructions','categories','related_recipes'));
     }
 
     public function buyIngredient(){

@@ -26,7 +26,7 @@
                         </form>
                     </div>
                     @endif
-                    <img src="@if(empty($profile_photo->photo_name)) {{asset('images/blank-person.png')}} @else {{asset($profile_photo->photo_name)}} @endif"
+                    <img src="{{asset($recipe->photo_name)}}"
                          class="recipe-pic" id="profile-photo">
                 </div>
             </div>
@@ -188,7 +188,7 @@
                     <a href="{{url('recipe/'.$recipe->slug)}}" style="text-decoration: none;color:black;">
                         <div class="related-item  col-xs-3 col-lg-3">
                             <div class="related-thumbnail">
-                                <img src="{{url($recipe->getProfilePhoto())}}" alt=""/>
+                                <img src="{{url($recipe->photo_name)}}" alt=""/>
                                 <div class="caption">
                                     <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
                                         <b>{{$recipe->name}}</b></h4>

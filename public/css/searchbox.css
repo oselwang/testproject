@@ -5,6 +5,32 @@
     width: 100%;
 }
 
+.suggestion-container{
+    text-align: left;
+    width: 42.84%;
+    left: 25.3%;
+    background-color: floralwhite;
+    position: absolute;
+    z-index:1000;
+}
+
+.suggestion-list{
+    padding:0.5em;
+    font-size: 20px;
+    text-decoration: none;
+    color:black;
+}
+
+.suggestion-list:hover{
+    background-color: grey;
+}
+
+.suggestion-pic{
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+
 .search-input{
     padding: 2em;
     text-align: center;

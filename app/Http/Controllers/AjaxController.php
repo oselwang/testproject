@@ -102,13 +102,17 @@
             $params = [
                 'index' => 'recipe',
                 'type'  => 'recipe',
+                'from'  => 0,
+                'size'  => 3,
                 'body'  => [
                     'query' => [
                         'bool' => [
                             'must' => [
                                 'multi_match' => [
-                                    'query' => $search, 'fields' => [
-                                        'name^2', 'description'
+                                    'query' => $search,
+
+                                    'fields' => [
+                                        'name', 'description'
                                     ]
                                 ]
                             ]
@@ -116,10 +120,18 @@
                     ]
                 ]
             ];
-            
-            $data = $client->search($params);
 
-            return response()->json($data);
+            $data = $client->search($params);
+            if ($this->request->get('search') == '') {
+                return response()->json('');
+            }
+
+            if ($data['hits']['total'] >= 1) {
+                return response()->json($data['hits']['hits']);
+            } else {
+                return $this->request->get('search');
+            }
+
         }
 
         public function changeProfilePhoto()

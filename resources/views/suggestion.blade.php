@@ -27,7 +27,7 @@
                         <a href="{{url('recipe/' . $recipe->slug)}}" style="text-decoration: none;color:black;">
                             <div class="item  col-xs-5 col-lg-5">
                                 <div class="thumbnail">
-                                    <img class="group list-group-image" src="{{$recipe->getProfilePhoto()}}" alt=""/>
+                                    <img class="group list-group-image" src="{{$recipe->photo_name}}" alt=""/>
                                     <div class="caption">
                                         <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
                                             <b>{{$recipe->name}}</b></h4>
@@ -78,7 +78,7 @@
                         <a href="{{url('recipe/' . $recipe->slug)}}" style="text-decoration: none;color:black;">
                             <div class="item  col-xs-5 col-lg-5">
                                 <div class="thumbnail">
-                                    <img class="group list-group-image" src="{{$recipe->getProfilePhoto()}}" alt=""/>
+                                    <img class="group list-group-image" src="{{$recipe->photo_name}}" alt=""/>
                                     <div class="caption">
                                         <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
                                             <b>{{$recipe->name}}</b></h4>
@@ -129,7 +129,7 @@
                         <a href="{{url('recipe/' . $recipe->slug)}}" style="text-decoration: none;color:black;">
                             <div class="item  col-xs-5 col-lg-5">
                                 <div class="thumbnail">
-                                    <img class="group list-group-image" src="{{$recipe->getProfilePhoto()}}" alt=""/>
+                                    <img class="group list-group-image" src="{{$recipe->photo_name}}" alt=""/>
                                     <div class="caption">
                                         <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
                                             <b>{{$recipe->name}}</b></h4>

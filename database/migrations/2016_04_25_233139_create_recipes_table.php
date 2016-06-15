@@ -22,6 +22,7 @@ class CreateRecipesTable extends Migration
             $table->string('description');
             $table->string('slug')->index()->unique();
             $table->float('rating')->nullable();
+            $table->string('photo_name');
             $table->integer('preparation');
             $table->timestamps();
 

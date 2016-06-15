@@ -18,10 +18,9 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    margin-bottom: 40px !important;
     overflow:hidden;
     width: 1150px;
-    height: 350px;
+    height: auto;
 }
 
 .item{
