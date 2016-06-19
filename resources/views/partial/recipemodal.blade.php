@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-12" style="padding:1em;">
                             <form id="recipe-form" action="{{url('http://testproject.net/addrecipe')}}" method="post"
-                                  role="form" style="display: block;">
+                                  role="form" style="display: block;" autocomplete="off">
                                 <input type="hidden" name="_token" value="{{str_random(40)}}">
 
                                 <div id="flash-error-recipe" class="alert alert-danger hidden">
@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="form-group" style="margin-bottom:30px;">
-                                    <textarea name="description" maxlength="140" class="form-control"
+                                    <textarea name="description" class="form-control"
                                               placeholder="Description" tabindex="1"></textarea>
                                 </div>
 

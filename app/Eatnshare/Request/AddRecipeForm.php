@@ -97,12 +97,12 @@
             $path = public_path('Recipe/RecipeProfilePhoto/' . $image_name);
 
             try {
-                Image::make($this->file('profilephoto')->getRealPath())->resize(400, 250)->save($path);
+                Image::make($this->file('profilephoto')->getRealPath())->resize(1200, 1200)->save($path);
             } catch (NotWritableException $e) {
                 $directory = rtrim($path, $image_name);
                 \File::makeDirectory($directory, $mode = 0777, true, true);
             } finally {
-                Image::make($this->file('profilephoto')->getRealPath())->resize(400, 250)->save($path);
+                Image::make($this->file('profilephoto')->getRealPath())->resize(1200, 1200)->save($path);
             }
 
             return $image_name;

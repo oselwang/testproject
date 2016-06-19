@@ -48,4 +48,11 @@
         public function ownRecipe($recipe){
             return $this->id == $recipe->user_id;
         }
+        
+        public function getProfilePhoto(){
+            $profilephoto = $this->profilephoto()->first();
+            
+            return $profilephoto->photo_name;
+        }
+        
     }

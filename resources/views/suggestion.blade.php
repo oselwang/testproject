@@ -31,9 +31,6 @@
                                     <div class="caption">
                                         <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
                                             <b>{{$recipe->name}}</b></h4>
-                                        <p class="group inner list-group-item-text" style="margin-bottom: 20px">
-                                            {{$recipe->description}}
-                                        </p>
                                         <div class="row">
                                             <div class="line-separator-account">
 
@@ -82,9 +79,6 @@
                                     <div class="caption">
                                         <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
                                             <b>{{$recipe->name}}</b></h4>
-                                        <p class="group inner list-group-item-text" style="margin-bottom: 20px">
-                                            {{$recipe->description}}
-                                        </p>
                                         <div class="row">
                                             <div class="line-separator-account">
 
@@ -133,9 +127,6 @@
                                     <div class="caption">
                                         <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
                                             <b>{{$recipe->name}}</b></h4>
-                                        <p class="group inner list-group-item-text" style="margin-bottom: 20px">
-                                            {{$recipe->description}}
-                                        </p>
                                         <div class="row">
                                             <div class="line-separator-account">
 

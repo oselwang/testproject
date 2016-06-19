@@ -20,7 +20,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="login-form" action="login" method="post" role="form"
+                            <form id="login-form" action="<?php echo e(url('login')); ?>" method="post" role="form"
                                   style="display: block;">
 
                                 <div class="col-xs-12 col-sm-12">
@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <form id="register-form" action="register" method="post"
+                            <form id="register-form" action="<?php echo e(url('register')); ?>" method="post"
                                   role="form" style="display: none;">
                                 <input type="hidden" name="_token" value="<?php echo e(str_random(40)); ?>">
                                 <div id="flash-error-register" class="alert alert-danger hidden">
@@ -134,7 +134,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <form id="forgot-form" action="forgot" method="post" role="form"
+                            <form id="forgot-form" action="<?php echo e(url('forgot')); ?>" method="post" role="form"
                                   style="display: none;">
                                 <input type="hidden" name="_token" value="<?php echo e(str_random(40)); ?>">
                                 <div id="flash-success-forgot" class="alert alert-success hidden">

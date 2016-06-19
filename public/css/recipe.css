@@ -33,11 +33,12 @@
 }
 
 .recipe-title-container{
-    margin: 0 auto;
     position: relative;
     text-align: center;
+    left: 8%;
     width: 50%;
     padding:2em;
+    display: inline-block;
 }
 
 .recipe-title{
@@ -46,9 +47,11 @@
 }
 
 .recipe-description{
+    margin-left: 60px;
     font-size: 14px;
     color:black;
     padding:1em;
+    text-align: left;
 }
 
 .miscellaneous-recipe-info{
@@ -105,6 +108,7 @@
 }
 
 .ingredient-container{
+    margin-top: 50px;
     width: 300px;
     position: relative;
     left: 40%;
@@ -154,11 +158,11 @@
 }
 
 .instruction-container{
+    margin-top: 50px;
     position: relative;
     left: 10%;
-    max-width: 700px;
+    width: 700px;
     display: inline-block;
-    margin-bottom: 100px;
 }
 
 .instruction-title{
@@ -167,6 +171,8 @@
     font-size: 20px;
     font-weight: bold;
     text-align: center;
+    margin-left:10px;
+
 }
 
 .instruction-title-separator{
@@ -215,6 +221,26 @@
     left: 8%;
 }
 
+.discuss-user-text-container{
+    margin: 0 170px 0 170px;
+}
+
+.discuss-user-photo .user-pic {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    margin-bottom: 40px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+
+.discuss-user-text{
+    display: inline-block;
+    margin-left: 10px;
+    width: 90%;
+}
+
 .recipe-category-title-separator{
     height:1px;
     background:#717171;
@@ -231,6 +257,16 @@
     margin-top: 30px;
     background: rgba(255,255,255,0.3) !important;
 }
+
+.discussion-title{
+    padding:1em;
+    color: black;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    margin-left:10px;
+}
+
 .category_name{
     color: black;
 }

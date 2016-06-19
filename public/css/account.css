@@ -12,25 +12,29 @@
     position: absolute;
     left: 0;
     right: 0;
-    margin: 0px auto;
+    margin: 0 auto;
     top: 20px;
-    border: 5px solid #fff;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
 }
 
+.current-profile .recipe-bg {
+    background-position: bottom left;
+    background-size: cover;
+    height: 460px;
+}
+
 .current-profile .recipe-pic {
     background-position: center center !important;
     background-size: cover !important;
-    height: 220px;
-    width: 220px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+    height: 420px;
+    width: 420px;
+    position: relative;
+    right: 110px;
+    float: right;
     top: 20px;
-    border: 5px solid #fff;
+    display: inline-block;
 }
 
 .current-profile .user-details {
@@ -78,10 +82,11 @@
 }
 
 .upload-file-container {
-    position: absolute;
-    left: 46%;
-    top: 10%;
-    z-index: 100;
+    position:absolute;
+    left:61%;
+    top:5%;
+    font-size: 18px;
+    z-index: 999;
 }
 
 .container-cover-photo {
@@ -128,7 +133,7 @@
 }
 
 .recipe-cover-photo{
-    background-color: #888888;
+    background: url(http://testproject.net/images/recipe-container-background.jpg) no-repeat
 }
 
 .info {

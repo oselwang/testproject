@@ -92,7 +92,7 @@
             return response()->json('success');
         }
 
-        public function search()
+        public function suggestSearch()
         {
             $client = \Elasticsearch\ClientBuilder::create()
                 ->setHosts(['http://localhost:9200'])
@@ -112,7 +112,7 @@
                                     'query' => $search,
 
                                     'fields' => [
-                                        'name', 'description'
+                                        'name^2'
                                     ]
                                 ]
                             ]

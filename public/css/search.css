@@ -1,0 +1,26 @@
+.search-not-found-container{
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color:black;
+    margin-top: 50px;
+}
+
+.try-popular{
+    text-align: center;
+    font-size: 28px;
+    color:black;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.recipe-found-container{
+    margin-top:50px;
+    margin-left:200px;
+    margin-right: 50px;
+}
+
+.count-recipe-found{
+    font-size:20px;
+    margin-bottom: 50px;
+}

@@ -106,7 +106,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <li><a href=""><span class="glyphicon glyphicon-tasks"
                                                          style="margin-right: 20px"></span>Order</a></li>
                                     <li>
-                                        <a href="<?php echo e(url('http://testproject.net/account')); ?>" <?php echo e((Request::is('account') ? 'class=active' : '')); ?>><span
+                                        <a href="<?php echo e(url('http://testproject.net/account/'.Auth::user()->present()->accountname)); ?>" <?php echo e((Request::is('account') ? 'class=active' : '')); ?>><span
                                                     class="fa fa-user" style="margin-right: 20px"></span>Account</a>
                                     </li>
                                     <li><a href="<?php echo e(url('http://testproject.net/logout')); ?>"><span
@@ -123,13 +123,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </nav>
     </div>
 </div>
-<form method="post" action="<?php echo e(url('http://testproject.net/search')); ?>" id="search-form">
-    <div class="search-container" style="display: none">
+<form method="get" action="<?php echo e(url('http://testproject.net/search')); ?>" id="search-form" autocomplete="off">
+    <div class="search-container" style="<?php echo e(Request::is('search') ?: 'display: none'); ?>">
         <div class="search-input">
-            <input type="text" class="search-box" name="search" placeholder="What would you like to cook ?" id="search">
+            <input type="text" class="search-box" value="<?php echo e(Request::is('search') ? $search : ''); ?>" name="q"
+                   placeholder="What would you like to cook ?" id="search">
             <button type="submit" class="search-button btn">Search</button>
             <div class="suggestion-container">
-
             </div>
         </div>
     </div>
@@ -162,7 +162,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script>
     $('#search-recipe').click(function (e) {
         e.preventDefault();
-        $('.search-container').slideToggle("slow");
+        $('.search-container').slideToggle("fast");
     });
 
     var delay = (function () {
@@ -180,7 +180,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $('.suggestion-list').parent().remove();
         delay(function () {
             var data = $('#search').val();
-            var url = $('#search-form').attr('action');
+            var url = 'http://testproject.net/suggest-search';
             $.ajax({
                 type: 'post',
                 url: url,
@@ -197,7 +197,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         src_str = src_str.replace(pattern, "<b>$1</b>");
                         src_str = src_str.replace(/(<mark>[^<>]*)((<[^>]+>)+)([^<>]*<\/mark>)/, "$1</mark>$2<mark>$4");
                         $('.suggestion-container').removeClass('hidden');
-                        $('.suggestion-container').append("<a href='<?php echo e(url('http://testproject.net/recipe/')); ?>" + data[index]['_source']['slug'] + "'><div class='suggestion-list'><img src=<?php echo e(url('http://testproject.net/')); ?>"+data[index]['_source']['photo_name']+" class='suggestion-pic'>" + src_str + "</div></a>");
+                        $('.suggestion-container').append("<a href='<?php echo e(url('http://testproject.net/recipe/')); ?>" + data[index]['_source']['slug'] + "'><div class='suggestion-list'><img src=<?php echo e(url('http://testproject.net/')); ?>" + data[index]['_source']['photo_name'] + " class='suggestion-pic'>" + src_str + "</div></a>");
                         console.log(data[index]);
                     })
                 }

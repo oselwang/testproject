@@ -7,24 +7,42 @@
     <div class="row" style="margin:0">
         <div class="col-md-12 col-sm-12 col-sx-12" style="padding: 0">
             <div class="current-profile">
-                <div class="user-bg @if(empty($cover_photo)) recipe-cover-photo @endif"
-                     @if(!empty($cover_photo->photo_name)) style="background: url({{asset($cover_photo->photo_name)}}) no-repeat" @endif>
-                    @if(Auth::user()->ownRecipe($recipe))
-                    <div class="upload-file-container-cover-photo">
-                        <form method="post" action="change-recipe-cover-photo" id="change-cover-photo-form">
-                            <div class="btn btn-primary container-cover-photo" id="cover-photo">
-                                <input type="file" name="coverphoto" accept="image/png, image/jpeg, image/gif">
-                                <span class="fa fa-camera">  Edit Cover Photo</span>
+                <div class="recipe-bg recipe-cover-photo">
+                    <div class="recipe-title-container">
+                        <div class="recipe-title">
+                            {{$recipe->name}} - <a
+                                    href="{{url('account/'.$user->present()->accountname)}}">{{$recipe->owner($recipe)}}</a>
+                        </div>
+                        <div class="recipe-description">
+                            {{$recipe->description}}
+                        </div>
+                        <div class="description-separator">
+                        </div>
+                        <div class="miscellaneous-recipe-info">
+                            RATINGS : <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            POSTED :
+                            <o style="font-size: 14px">{{$recipe->created_at->toFormattedDateString()}}</o>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            COMMENTS :
+                            <o style="font-size: 14px">2</o>
+                            <div class="print-recipe-btn">
+                                <button class="btn btn-primary"><i class="fa fa-print"> Print Ingredients & Recipe</i>
+                                </button>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                    <div class="upload-file-container fa fa-camera"
-                         style="position:absolute;left:41%;top:6%;font-size: 18px">
-                        <form method="post" action="change-recipe-profile-photo" id="change-profile-photo-form">
-                            <input type="file" name="profilephoto" style="width: 10px"
-                                   accept="image/png, image/jpeg, image/gif">
-                        </form>
-                    </div>
+                    @if(Auth::user()->ownRecipe($recipe))
+                        <div class="upload-file-container fa fa-camera">
+                            <form method="post" action="{{url('change-recipe-profile-photo')}}"
+                                  id="change-profile-photo-form">
+                                <input type="file" name="profilephoto" style="width: 10px"
+                                       accept="image/png, image/jpeg, image/gif">
+                            </form>
+                        </div>
                     @endif
                     <img src="{{asset($recipe->photo_name)}}"
                          class="recipe-pic" id="profile-photo">
@@ -32,36 +50,34 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-sx-12" style="background-color: #333333">
-            <div class="container-recipe-info">
-                <div class="recipe-info2">
-                    <div class="col-xs-3 recipe-info2-text">
-                        <div class="recipe-info2-text-separator">
-                            <i class="fa fa-shopping-basket" style="margin-bottom: 5px"></i>
-                            <p style="margin-bottom: 15px">Preparation</p>
-                            <p class="recipe-info2-text-style">{{$recipe->preparation}} Min</p>
-                        </div>
+    <div class="" style="background-color: #333333">
+        <div class="container-recipe-info">
+            <div class="recipe-info2">
+                <div class="col-xs-3 recipe-info2-text">
+                    <div class="recipe-info2-text-separator">
+                        <i class="fa fa-shopping-basket" style="margin-bottom: 5px"></i>
+                        <p style="margin-bottom: 15px">Preparation</p>
+                        <p class="recipe-info2-text-style">{{$recipe->preparation}} Min</p>
                     </div>
-                    <div class="col-xs-3 recipe-info2-text">
-                        <div class="recipe-info2-text-separator">
-                            <i class="fa fa-hourglass" style="margin-bottom: 5px"></i>
-                            <p style="margin-bottom: 15px">Cook TIme</p>
-                            <p class="recipe-info2-text-style">{{$recipe->duration}} Min</p>
-                        </div>
+                </div>
+                <div class="col-xs-3 recipe-info2-text">
+                    <div class="recipe-info2-text-separator">
+                        <i class="fa fa-hourglass" style="margin-bottom: 5px"></i>
+                        <p style="margin-bottom: 15px">Cook TIme</p>
+                        <p class="recipe-info2-text-style">{{$recipe->duration}} Min</p>
                     </div>
-                    <div class="col-xs-3 recipe-info2-text">
-                        <div class="recipe-info2-text-separator">
-                            <i class="fa fa-group" style="margin-bottom: 5px"></i>
-                            <p style="margin-bottom: 15px">Serves</p>
-                            <p class="recipe-info2-text-style">{{$recipe->portion}}</p>
-                        </div>
+                </div>
+                <div class="col-xs-3 recipe-info2-text">
+                    <div class="recipe-info2-text-separator">
+                        <i class="fa fa-group" style="margin-bottom: 5px"></i>
+                        <p style="margin-bottom: 15px">Serves</p>
+                        <p class="recipe-info2-text-style">{{$recipe->portion}}</p>
                     </div>
-                    <div class="col-xs-3 recipe-info2-text">
-                        <i class="fa fa-gears" style="margin-bottom: 5px"></i>
-                        <p style="margin-bottom: 15px">Difficulty</p>
-                        <p class="recipe-info2-text-style">{{ucwords($recipe->difficulty)}}</p>
-                    </div>
+                </div>
+                <div class="col-xs-3 recipe-info2-text">
+                    <i class="fa fa-gears" style="margin-bottom: 5px"></i>
+                    <p style="margin-bottom: 15px">Difficulty</p>
+                    <p class="recipe-info2-text-style">{{ucwords($recipe->difficulty)}}</p>
                 </div>
             </div>
         </div>
@@ -69,31 +85,6 @@
 
 
     <div class="recipe-all-info">
-        <div class="recipe-title-container">
-            <div class="recipe-title">
-                {{$recipe->name}} - {{$recipe->owner($recipe)}}
-            </div>
-            <div class="recipe-description">
-                {{$recipe->description}}
-            </div>
-            <div class="description-separator">
-            </div>
-            <div class="miscellaneous-recipe-info">
-                RATINGS : <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>&nbsp;&nbsp;&nbsp;&nbsp;
-                POSTED :
-                <o style="font-size: 14px">{{$recipe->created_at->toFormattedDateString()}}</o>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                COMMENTS :
-                <o style="font-size: 14px">2</o>
-                <div class="print-recipe-btn">
-                    <button class="btn btn-primary"><i class="fa fa-print"> Print Ingredients & Recipe</i></button>
-                </div>
-            </div>
-        </div>
         <div class="recipe-social-share">
             SHARE
             <div class="recipe-social-share-separator">
@@ -117,7 +108,7 @@
                 </button>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-right: 0;!important;">
             <div class="col-md-4">
                 <div class="ingredient-container">
                     <div class="ingredient-title">
@@ -145,7 +136,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="instruction-container">
                     <div class="instruction-title">
                         COOKING INSTRUCTIONS
@@ -176,6 +167,22 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="discussion-title">
+                    DISCUSSION
+                </div>
+                <div class="discuss-user-text-container">
+                    <div class="discuss-user-photo">
+                        <img src="@if(empty(Auth::user()->getProfilePhoto())) {{asset('images/blank-person.png')}}
+                        @else {{asset(Auth::user()->getProfilePhoto())}} @endif" class="user-pic" id="profile-photo">
+                        <div class="discuss-user-text">
+                            <textarea class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     @if($related_recipes != null)
         <div class="related-container">
@@ -183,7 +190,7 @@
                 SIMILAR RECIPES
             </div>
             <div class="related-title-separator"></div>
-            <div class="row">
+            <div class="row" style="margin-right: 0 !important;">
                 @foreach($related_recipes as $recipe)
                     <a href="{{url('recipe/'.$recipe->slug)}}" style="text-decoration: none;color:black;">
                         <div class="related-item  col-xs-3 col-lg-3">
@@ -192,9 +199,6 @@
                                 <div class="caption">
                                     <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
                                         <b>{{$recipe->name}}</b></h4>
-                                    <p class="group inner list-group-item-text" style="margin-bottom: 20px">
-                                        {{$recipe->description}}
-                                    </p>
                                     <div class="row">
                                         <div class="related-line-separator-account">
 
@@ -202,7 +206,7 @@
                                         <div class="info">
                                             <div class="related-info-separator">
                                                 &nbsp;&nbsp;<span
-                                                        class="fa fa-user"></span> {{Auth::user()->present()->fullname}}
+                                                        class="fa fa-user"></span> {{$user->present()->fullname}}
                                             </div>
                                             <div class="related-info-separator">
                                                 <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>

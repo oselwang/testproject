@@ -20,5 +20,10 @@
         public function fullname(){
             return ucfirst($this->user->firstname) . ' ' . ucfirst($this->user->lastname);
         }
+        
+        public function accountname(){
+            $account_name = $this->user->username != null ? $this->user->username : $this->user->facebook_id;
+            return $account_name;
+        }
 
     }

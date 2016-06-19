@@ -11,7 +11,7 @@
                 <div class="user-bg @if(empty($cover_photo)) cover-photo @endif"
                      @if(!empty($cover_photo->photo_name)) style="background: url({{asset($cover_photo->photo_name)}}) no-repeat" @endif>
                     <div class="upload-file-container-cover-photo">
-                        <form method="post" action="change-cover-photo" id="change-cover-photo-form">
+                        <form method="post" action="{{url('change-cover-photo')}}" id="change-cover-photo-form">
                             <div class="btn btn-primary container-cover-photo" id="cover-photo">
                                 <input type="file" name="coverphoto" accept="image/png, image/jpeg, image/gif">
                                 <span class="fa fa-camera">  Edit Cover Photo</span>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="upload-file-container fa fa-camera"
                          style="position:absolute;left:46%;top:10%;z-index: 100">
-                        <form method="post" action="change-profile-photo" id="change-profile-photo-form">
+                        <form method="post" action="{{url('change-profile-photo')}}" id="change-profile-photo-form">
                             <input type="file" name="profilephoto" style="width: 10px"
                                    accept="image/png, image/jpeg, image/gif">
                         </form>
@@ -28,11 +28,11 @@
                     <img src="@if(empty($profile_photo->photo_name)) {{asset('images/blank-person.png')}} @else {{asset($profile_photo->photo_name)}} @endif"
                          class="user-pic" id="profile-photo">
                     <div class="user-details" id="load-headline">
-                        <h3 class="user-name">{{Auth::user()->present()->fullname}}<i>!</i></h3>
-                        <h4 class="description">@if(empty(Auth::user()->headline))<a id="editheadline"
-                                                                                     class="fa fa-edit"
-                                                                                     style="cursor:pointer;">Edit
-                                Headline</a>@else <p id="user-headline">{{Auth::user()->headline}}&nbsp;&nbsp;&nbsp;<a
+                        <h3 class="user-name">{{$user->present()->fullname}}<i>!</i></h3>
+                        <h4 class="description">@if(empty($user->headline))<a id="editheadline"
+                                                                              class="fa fa-edit"
+                                                                              style="cursor:pointer;">Edit
+                                Headline</a>@else <p id="user-headline">{{$user->headline}}&nbsp;&nbsp;&nbsp;<a
                                         id="editheadline" class="fa fa-edit" style="cursor:pointer;"> </a></p>@endif
                         </h4>
                         <form method="post" action="headline" id="submit-headline">
@@ -69,7 +69,7 @@
     </div>
     <div class="container">
         <div class="well well-sm">
-            <center><strong><h3>Your Recipe List</h3></strong></center>
+            <center><strong><h3>Recipe List</h3></strong></center>
         </div>
 
         <div id="products" class="row list-group">
@@ -78,16 +78,13 @@
             @else
                 @foreach($recipes as $recipe)
 
-                    <a href="recipe/{{$recipe->slug}}" style="text-decoration: none;color:black;">
+                    <a href="{{url('recipe/'.$recipe->slug)}}" style="text-decoration: none;color:black;">
                         <div class="item  col-xs-3 col-lg-3">
                             <div class="thumbnail">
-                                <img class="group list-group-image" src="{{$recipe->getProfilePhoto()}}" alt=""/>
+                                <img class="group list-group-image" src="{{asset($recipe->photo_name)}}" alt=""/>
                                 <div class="caption">
                                     <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
                                         <b>{{$recipe->name}}</b></h4>
-                                    <p class="group inner list-group-item-text" style="margin-bottom: 20px">
-                                        {{$recipe->description}}
-                                    </p>
                                     <div class="row">
                                         <div class="line-separator-account">
 
@@ -95,7 +92,7 @@
                                         <div class="info">
                                             <div class="info-separator">
                                                 <center><span
-                                                            class="fa fa-user"></span> {{Auth::user()->present()->fullname}}
+                                                            class="fa fa-user"></span> {{$user->present()->fullname}}
                                                 </center>
                                             </div>
                                             <div class="info-separator">

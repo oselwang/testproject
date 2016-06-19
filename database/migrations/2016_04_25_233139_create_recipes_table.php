@@ -19,7 +19,7 @@ class CreateRecipesTable extends Migration
             $table->integer('portion');
             $table->integer('duration');
             $table->string('difficulty');
-            $table->string('description');
+            $table->string('description',1000);
             $table->string('slug')->index()->unique();
             $table->float('rating')->nullable();
             $table->string('photo_name');
