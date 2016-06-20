@@ -25,8 +25,12 @@
                                    accept="image/png, image/jpeg, image/gif">
                         </form>
                     </div>
+                    @if(Auth::user()->facebook_id == null)
                     <img src="@if(empty($profile_photo->photo_name)) {{asset('images/blank-person.png')}} @else {{asset($profile_photo->photo_name)}} @endif"
                          class="user-pic" id="profile-photo">
+                    @else
+                        <img src="http://graph.facebook.com/{{Auth::user()->facebook_id}}/picture" class="user-pic" id="profile-photo">
+                        @endif
                     <div class="user-details" id="load-headline">
                         <h3 class="user-name">{{$user->present()->fullname}}<i>!</i></h3>
                         <h4 class="description">@if(empty($user->headline))<a id="editheadline"
