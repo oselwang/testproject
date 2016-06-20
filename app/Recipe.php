@@ -23,10 +23,6 @@
                 $client = \Elasticsearch\ClientBuilder::create()
                     ->setHosts(['http://localhost:9200'])
                     ->build();
-
-                $recipes[0] = $recipe->toArray();
-                $timestamp = ['timestamp' => Carbon::now()->toDateTimeString()];
-                $recipes[] = $timestamp;
                 $params = [
                     'index' => 'recipe',
                     'type'  => 'recipe',
@@ -41,6 +37,20 @@
                 ];
 
                 $client->index($params);
+            });
+
+            static::deleted(function($recipe){
+                $client = \Elasticsearch\ClientBuilder::create()
+                    ->setHosts(['http://localhost:9200'])
+                    ->build();
+
+                $params = [
+                    'index' => 'recipe',
+                    'type' => 'recipe',
+                    'id' => $recipe->id
+                ];
+
+                $client->delete($params);
             });
         }
 

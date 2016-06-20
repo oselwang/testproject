@@ -167,17 +167,20 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-right: 0 !important;">
             <div class="col-md-12">
                 <div class="discussion-title">
                     DISCUSSION
+                    <div class="discussion-title-separator"></div>
                 </div>
                 <div class="discuss-user-text-container">
                     <div class="discuss-user-photo">
                         <img src="@if(empty(Auth::user()->getProfilePhoto())) {{asset('images/blank-person.png')}}
                         @else {{asset(Auth::user()->getProfilePhoto())}} @endif" class="user-pic" id="profile-photo">
                         <div class="discuss-user-text">
-                            <textarea class="form-control"></textarea>
+                            <a href="#" data-toggle="modal" data-target='#review-modal'>
+                                <button class="btn btn-default" style="height: 50px;font-size: 16px">Submit your review</button>
+                            </a>
                         </div>
                     </div>
                 </div>

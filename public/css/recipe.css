@@ -229,7 +229,6 @@
     height: 50px;
     width: 50px;
     display: inline-block;
-    margin-bottom: 40px;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
@@ -239,6 +238,18 @@
     display: inline-block;
     margin-left: 10px;
     width: 90%;
+    margin-bottom: 50px;
+}
+
+.discussion-title-separator{
+    height:1px;
+    background:#717171;
+    position: relative;
+    top:15px;
+    opacity: 0.7;
+    border-bottom:1px solid #313030;
+    width: 5%;
+    margin: 0 auto;
 }
 
 .recipe-category-title-separator{
