@@ -84,6 +84,10 @@
             return $this->hasMany(RecipePhoto::class);
         }
 
+        public function review(){
+            return $this->hasMany(Review::class);
+        }
+
         public function getProfilePhoto()
         {
             $profile_photo = $this->profilephoto()->first();

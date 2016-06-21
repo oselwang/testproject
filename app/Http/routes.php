@@ -26,6 +26,7 @@ Route::post('change-recipe-cover-photo', 'AjaxController@changeRecipeCoverPhoto'
 Route::post('recipe/buy-ingredient', 'RecipeController@buyIngredient');
 Route::post('headline', 'AccountController@editHeadline');
 Route::post('suggest-search', 'AjaxController@suggestSearch');
+    Route::post('review','AjaxController@addReview');
 
 
 

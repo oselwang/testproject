@@ -39,7 +39,6 @@
             $recipe = new Recipe();
             $ingredients = new Ingredient();
             $instructions = new Instruction();
-            $profile_photo = new RecipeProfilePhoto();
             $pivot_recipe_category = new PivotRecipeCategory();
 
 

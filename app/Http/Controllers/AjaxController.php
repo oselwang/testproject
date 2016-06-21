@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Eatnshare\Request\AddRecipeForm;
+    use App\Eatnshare\Request\AddReviewForm;
     use App\Eatnshare\Request\RegisterPostForm;
     use App\Eatnshare\Services\UserService;
     use App\Events\UserForgotPassword;
@@ -154,6 +155,15 @@
             $this->user_service->changeCoverPhoto($cover_photo);
 
             flash('Cover Photo sucessfully changed');
+
+            return response()->json('success');
+        }
+
+        public function addReview(AddReviewForm $reviewForm)
+        {
+            $this->middleware('auth');
+            $reviewForm->create();
+            flash('Your review successfully added');
 
             return response()->json('success');
         }

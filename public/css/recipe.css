@@ -221,27 +221,27 @@
     left: 8%;
 }
 
-.discuss-user-text-container{
+.review-user-text-container{
     margin: 0 170px 0 170px;
 }
 
-.discuss-user-photo .user-pic {
-    height: 50px;
-    width: 50px;
+.review-user-photo .user-pic {
+    height: 60px;
+    width: 60px;
     display: inline-block;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
 }
 
-.discuss-user-text{
+.review-user-text{
     display: inline-block;
     margin-left: 10px;
     width: 90%;
     margin-bottom: 50px;
 }
 
-.discussion-title-separator{
+.review-title-separator{
     height:1px;
     background:#717171;
     position: relative;
@@ -269,13 +269,69 @@
     background: rgba(255,255,255,0.3) !important;
 }
 
-.discussion-title{
+.review-info-btn{
+    background: rgba(255,255,255,0.5) !important;
+    display: inline-block;
+    cursor: pointer;
+    color: black;
+    padding: 1em;
+    width: 24.5%;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.review-info-btn:hover{
+    color: #aaaaaa;
+}
+
+.reviewer{
+    width: 100%;
+}
+
+.reviewer-
+.reviewer-name{
+    display: inline-block;
+    font-size: 16px;
+}
+
+.reviewer-rating{
+    position: relative;
+    right: 0;
+    display: inline-block;
+    font-size: 10px;
+}
+
+.reviewer-review{
+    font-size: 14px;
+}
+
+
+.review-title{
     padding:1em;
     color: black;
     font-size: 26px;
     font-weight: bold;
     text-align: center;
     margin-left:10px;
+}
+
+.review-info-btn-active{
+    background-color: #333333 !important;
+    color: white;
+}
+
+.reviewer-user-photo .user-pic{
+    margin-bottom: 20px;
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    float: none;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+
+.reviewer-info{
+    width: 90%;
 }
 
 .category_name{
@@ -498,7 +554,7 @@ a.related-thumbnail.active {
     border-radius: 24px;
 }
 
-/* Radio button inner circle */
+/* Radio btn inner circle */
 .control--radio .control__indicator:after {
     top: 7px;
     left: 7px;
@@ -603,5 +659,59 @@ a.related-thumbnail.active {
     background-color:#dd4b39;
     border-color:rgba(0,0,0,0.2);
     border-radius: 24px
+}
+
+.btn-arrow-left {
+    position: relative;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+.btn-arrow-right {
+    padding-left: 36px;
+}
+.btn-arrow-left {
+    padding-right: 36px;
+}
+.btn-arrow-right:before,
+.btn-arrow-right:after,
+.btn-arrow-left:before,
+.btn-arrow-left:after { /* make two squares (before and after), looking similar to the button */
+    content:"";
+    position: absolute;
+    top: 5px; /* move it down because of rounded corners */
+    width: 22px; /* same as height */
+    height: 22px; /* button_outer_height / sqrt(2) */
+    background: inherit; /* use parent background */
+    border: inherit; /* use parent border */
+    border-left-color: transparent; /* hide left border */
+    border-bottom-color: transparent; /* hide bottom border */
+    border-radius: 0px 4px 0px 0px; /* round arrow corner, the shorthand property doesn't accept "inherit" so it is set to 4px */
+    -webkit-border-radius: 0px 4px 0px 0px;
+    -moz-border-radius: 0px 4px 0px 0px;
+}
+
+.btn-arrow-left:before,
+.btn-arrow-left:after {
+    transform: rotate(225deg); /* rotate left arrow squares 225 deg to point left */
+    -webkit-transform: rotate(225deg);
+    -moz-transform: rotate(225deg);
+    -o-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+}
+.btn-arrow-right:before,
+.btn-arrow-left:before { /* align the "before" square to the left */
+    left: -11px;
+}
+.btn-arrow-right:after,
+.btn-arrow-left:after { /* align the "after" square to the right */
+    right: -11px;
+}
+.btn-arrow-right:after,
+.btn-arrow-left:before { /* bring arrow pointers to front */
+    z-index: 1;
+}
+.btn-arrow-right:before,
+.btn-arrow-left:after { /* hide arrow tails background */
+    background-color: white;
 }
 

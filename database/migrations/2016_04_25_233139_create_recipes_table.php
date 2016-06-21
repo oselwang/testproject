@@ -42,8 +42,7 @@ class CreateRecipesTable extends Migration
         Schema::dropIfExists('ingredients');
         Schema::dropIfExists('instructions');
         Schema::dropIfExists('recipephotos');
-        Schema::dropIfExists('recipeprofilephotos');
-        Schema::dropIfExists('recipecoverphotos');
+        Schema::dropIfExists('reviews');
         Schema::drop('recipes');
     }
 }
