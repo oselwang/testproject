@@ -193,7 +193,8 @@
                 <a class="review-info-btn" id="least-positive">Least Positive</a>
                 <a class="review-info-btn" id="newest">Newest</a>
                 <input type="hidden" value="{{$recipe->id}}" id="recipe-id">
-                <img src="{{asset('images/loader.gif')}}" id="review-spin" class="review-spinner hidden">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw review-spinner hidden" id="review-spin"></i>
+                <span class="sr-only">Loading...</span>
                 <div class="row hidden" id="review-positive">
 
                 </div>

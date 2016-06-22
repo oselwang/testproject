@@ -46,6 +46,8 @@ Route::get('user/cover-photo', 'AccountController@getCoverPhoto');
 Route::get('search', 'SearchController@show');
 Route::get('account/{accountname}','AccountController@showAccountPage');
     Route::get('review/positive/{recipe_id}','ReviewController@getPositive');
+Route::get('review/least-positive/{recipe_id}','ReviewController@getLeastPositive');
+Route::get('review/newest/{recipe_id}','ReviewController@getNewest');
 
 Route::get('mapping', function () {
     $client = \Elasticsearch\ClientBuilder::create()
