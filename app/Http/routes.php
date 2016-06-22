@@ -45,6 +45,7 @@ Route::get('logout', 'Auth\AuthController@logout');
 Route::get('user/cover-photo', 'AccountController@getCoverPhoto');
 Route::get('search', 'SearchController@show');
 Route::get('account/{accountname}','AccountController@showAccountPage');
+    Route::get('review/positive/{recipe_id}','ReviewController@getPositive');
 
 Route::get('mapping', function () {
     $client = \Elasticsearch\ClientBuilder::create()

@@ -14,11 +14,11 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
 
-            $table->integer('id');
+            $table->increments('id');
             $table->integer('recipe_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
             $table->integer('rating');
-            $table->string('review',500);
+            $table->string('review',1000);
             $table->timestamps();
 
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');

@@ -34,7 +34,7 @@
 
                                 <strong class="review">Your Review (optional)</strong>
                                 <textarea placeholder="Do you like it? Why?" rows="8" name="review"
-                                          class="form-control" maxlength="250" style="font-size: 18px"></textarea>
+                                          class="form-control" maxlength="600" style="font-size: 18px"></textarea>
                                 <div class="submit-review">
                                     <button id="submit-review" class="btn btn-default btn-review">Submit</button>
                                 </div>

@@ -188,53 +188,69 @@
                 </div>
             </div>
             <div class="col-md-8 col-md-offset-2">
-                <a class="review-info-btn review-info-btn-active">Helpful</a>
-                <a class="review-info-btn">Positive</a>
-                <a class="review-info-btn">Least Positive</a>
-                <a class="review-info-btn">Newest</a>
-                @foreach($reviews as $review)
-                    <div class="reviewer">
+                <a class="review-info-btn review-info-btn-active" id="helpful">Helpful</a>
+                <a class="review-info-btn" id="positive">Positive</a>
+                <a class="review-info-btn" id="least-positive">Least Positive</a>
+                <a class="review-info-btn" id="newest">Newest</a>
+                <input type="hidden" value="{{$recipe->id}}" id="recipe-id">
+                <img src="{{asset('images/loader.gif')}}" id="review-spin" class="review-spinner hidden">
+                <div class="row hidden" id="review-positive">
 
-                        <div class="reviewer-user-photo">
-                            <img src="@if(empty($review->getUserProfilePhoto())) {{asset('images/blank-person.png')}}
-                            @else {{asset($review->getUserProfilePhoto())}} @endif" class="user-pic"
-                                 id="profile-photo">
-                        </div>
-
-                        <div class="reviewer-info">
-                            <div class="reviewer-name">
-                                <b>{{$review->getUserFullName()}}</b> -
-                                <o style="font-size: 12px;">{{$review->created_at->diffForHumans()}}</o>
-                                <div class="reviewer-rating">
-                                    @if($review->rating == 1)
-                                        <span class="fa fa-star"></span><span class="fa fa-star-o"></span><span
-                                                class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span
-                                                class="fa fa-star-o"></span>
-                                    @elseif($review->rating == 2)
-                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span
-                                                class="fa fa-star-o"></span>
-                                    @elseif($review->rating == 3)
-                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                class="fa fa-star"></span><span class="fa fa-star-o"></span><span
-                                                class="fa fa-star-o"></span>
-                                    @elseif($review->rating == 4)
-                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                class="fa fa-star-o"></span>
-                                    @else
-                                        <span class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                class="fa fa-star"></span>
-                                    @endif
+                </div>
+                <div class="row hidden" id="review-least-positive">
+                </div>
+                <div class="row hidden" id="review-newest">
+                </div>
+                <div id="review-helpful">
+                    @foreach($reviews as $review)
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="reviewer-user-photo">
+                                    <img src="@if(empty($review->getUserProfilePhoto())) {{asset('images/blank-person.png')}}
+                                    @else {{asset($review->getUserProfilePhoto())}} @endif" class="user-pic"
+                                         id="profile-photo">
                                 </div>
-                                <div class="reviewer-review">
-                                    {{$review->review}}
+                            </div>
+                            <div class="col-md-11" style="padding-left: 0 !important;">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-name">
+                                        <b>{{$review->getUserFullName()}}</b> -
+                                        <o style="font-size: 12px;">{{$review->created_at->diffForHumans()}}</o>
+                                        <div class="reviewer-rating">
+                                            @if($review->rating == 1)
+                                                <span class="fa fa-star"></span><span class="fa fa-star-o"></span><span
+                                                        class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
+                                                <span
+                                                        class="fa fa-star-o"></span>
+                                            @elseif($review->rating == 2)
+                                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span
+                                                        class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
+                                                <span
+                                                        class="fa fa-star-o"></span>
+                                            @elseif($review->rating == 3)
+                                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span
+                                                        class="fa fa-star"></span><span class="fa fa-star-o"></span>
+                                                <span
+                                                        class="fa fa-star-o"></span>
+                                            @elseif($review->rating == 4)
+                                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span
+                                                        class="fa fa-star"></span><span class="fa fa-star"></span><span
+                                                        class="fa fa-star-o"></span>
+                                            @else
+                                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span
+                                                        class="fa fa-star"></span><span class="fa fa-star"></span><span
+                                                        class="fa fa-star"></span>
+                                            @endif
+                                        </div>
+                                        <div class="reviewer-review">
+                                            {{$review->review}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

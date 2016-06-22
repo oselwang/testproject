@@ -287,7 +287,6 @@
     width: 100%;
 }
 
-.reviewer-
 .reviewer-name{
     display: inline-block;
     font-size: 16px;
@@ -325,13 +324,21 @@
     width: 50px;
     display: inline-block;
     float: none;
+    top:0;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
 }
 
 .reviewer-info{
+    display: inline-block;
     width: 90%;
+    margin-bottom: 20px;
+}
+
+.review-spinner{
+    position: relative;
+    left: 46%;
 }
 
 .category_name{
