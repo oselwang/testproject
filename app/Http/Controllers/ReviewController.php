@@ -22,7 +22,6 @@
                 $query->where('recipe_id',$recipe_id);
                 $query->where('rating','>=','3');
             })->orderBy('rating','desc')->paginate(3);
-
             $merge = [];
             foreach($reviews as $review){
                 $user = $review->user()->first();
@@ -44,7 +43,7 @@
             $reviews = $this->review->where(function($query) use ($recipe_id){
                 $query->where('recipe_id',$recipe_id);
                 $query->where('rating','<=','3');
-            })->orderBy('rating','asc')->get();
+            })->orderBy('rating','asc')->paginate(3);
 
             $merge = [];
             foreach($reviews as $review){
@@ -66,7 +65,7 @@
         {
             $reviews = $this->review->where(function($query) use ($recipe_id){
                 $query->where('recipe_id',$recipe_id);
-            })->orderBy('created_at','desc')->get();
+            })->orderBy('created_at','desc')->paginate(3);
 
             $merge = [];
             foreach($reviews as $review){

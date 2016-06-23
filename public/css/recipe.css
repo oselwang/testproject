@@ -318,6 +318,7 @@
     color: white;
 }
 
+
 .reviewer-user-photo .user-pic{
     margin-bottom: 20px;
     height: 50px;
@@ -339,6 +340,16 @@
 .review-spinner{
     position: relative;
     left: 46%;
+}
+
+
+.show-more-button{
+    background: rgba(255,255,255,0.5) !important;
+    color: black;
+    padding: 1em;
+    margin-bottom: 50px !important;
+    position: relative;
+    left: 45%;
 }
 
 .category_name{

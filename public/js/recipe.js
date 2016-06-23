@@ -1,3 +1,5 @@
+var page = 2;
+
 function redirect(url) {
     window.location = url;
 }
@@ -92,8 +94,16 @@ $('#cover-photo').hover(function () {
     $(this).css('opacity', 1);
 });
 
+
+$('#review-scroll').bind('scroll', function () {
+    if ($(this).scrollTop() + $(this).innerHeight() >= $(this).scrollHeight) {
+        alert('end reached');
+    }
+});
+
+
 $('#positive').click(function (e) {
-    
+
     e.preventDefault();
     $('#review-spin').removeClass('hidden');
     $('#review-helpful').addClass('hidden');
@@ -111,9 +121,10 @@ $('#positive').click(function (e) {
         url: url,
         dataType: 'json',
         success: function (data) {
+            page = 2;
             $('#review-spin').addClass('hidden');
             $('#review-positive').text('');
-            $.each(data,function(index,value){
+            $.each(data, function (index, value) {
                 var firstname = value.firstname;
                 var lastname = value.lastname;
                 var photo = value.photo_name;
@@ -121,26 +132,73 @@ $('#positive').click(function (e) {
                 var rating = value.rating;
                 var time = value.diffForHumans;
                 var divrating = '';
-                
-                
-                if(rating == 1){
+
+
+                if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 2){
+                } else if (rating == 2) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 3){
+                } else if (rating == 3) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 4){
+                } else if (rating == 4) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span></div>';
-                }else{
+                } else {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
-                $('#review-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='"+(photo != null ? '../'+photo : '../images/blank-person.png')+"' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>"+firstname + ' ' + lastname +"</b> - <o style='font-size: 12px;'>"+time+"</o>&nbsp;"+divrating+"<div class='reviewer-review'>"+review+"</div> </div> </div> </div> </div>");
 
+                $('#review-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+                $('#show-more-positive').removeClass('hidden');
+                $('#show-more-least-positive').addClass('hidden');
+                $('#show-more-newest').addClass('hidden');
+                $('#show-more-helpful').addClass('hidden');
             });
-
         },
         error: function (data) {
 
+        }
+    });
+});
+
+$('#show-more-positive').on('click', function () {
+
+    $('#review-spin').removeClass('hidden');
+    var recipeid = $('#recipe-id').val();
+    var url = '../review/positive/' + recipeid + '?page=' + page;
+    $.ajax({
+        type: 'get',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+            if (data.length == 0) {
+                $('#show-more-positive').addClass('hidden');
+            }
+            page += 1;
+            $('#review-spin').addClass('hidden');
+            $.each(data, function (index, value) {
+                var firstname = value.firstname;
+                var lastname = value.lastname;
+                var photo = value.photo_name;
+                var review = value.review;
+                var rating = value.rating;
+                var time = value.diffForHumans;
+                var divrating = '';
+
+
+                if (rating == 1) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 2) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 3) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 4) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span></div>';
+                } else {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
+                }
+
+                $('#review-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+
+            });
         }
     });
 });
@@ -166,7 +224,7 @@ $('#helpful').click(function (e) {
         success: function (data) {
             $('#review-spin').addClass('hidden');
             $('#review-helpful').text('');
-            $.each(data,function(index,value){
+            $.each(data, function (index, value) {
                 var firstname = value.firstname;
                 var lastname = value.lastname;
                 var photo = value.photo_name;
@@ -174,18 +232,18 @@ $('#helpful').click(function (e) {
                 var rating = value.rating;
                 var time = value.diffForHumans;
                 var divrating = '';
-                if(rating == 1){
+                if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 2){
+                } else if (rating == 2) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 3){
+                } else if (rating == 3) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 4){
+                } else if (rating == 4) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span></div>';
-                }else{
+                } else {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
-                $('#review-helpful').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='"+(photo != null ? '../'+photo : '../images/blank-person.png')+"' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>"+firstname + ' ' + lastname +"</b> - <o style='font-size: 12px;'>"+time+"</o>&nbsp;"+divrating+"<div class='reviewer-review'>"+review+"</div> </div> </div> </div> </div>");
+                $('#review-helpful').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
 
             });
 
@@ -215,9 +273,11 @@ $('#least-positive').click(function (e) {
         url: url,
         dataType: 'json',
         success: function (data) {
+            page = 2;
             $('#review-spin').addClass('hidden');
+            $('#show-more-least-positive').removeClass('hidden');
             $('#review-least-positive').text('');
-            $.each(data,function(index,value){
+            $.each(data, function (index, value) {
                 var firstname = value.firstname;
                 var lastname = value.lastname;
                 var photo = value.photo_name;
@@ -225,24 +285,71 @@ $('#least-positive').click(function (e) {
                 var rating = value.rating;
                 var time = value.diffForHumans;
                 var divrating = '';
-                if(rating == 1){
+                if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 2){
+                } else if (rating == 2) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 3){
+                } else if (rating == 3) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 4){
+                } else if (rating == 4) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span></div>';
-                }else{
+                } else {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
-                $('#review-least-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='"+(photo != null ? '../'+photo : '../images/blank-person.png')+"' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>"+firstname + ' ' + lastname +"</b> - <o style='font-size: 12px;'>"+time+"</o>&nbsp;"+divrating+"<div class='reviewer-review'>"+review+"</div> </div> </div> </div> </div>");
-
+                $('#review-least-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+                $('#show-more-positive').addClass('hidden');
+                $('#show-more-least-positive').removeClass('hidden');
+                $('#show-more-newest').addClass('hidden');
+                $('#show-more-helpful').addClass('hidden');
             });
 
         },
         error: function (data) {
 
+        }
+    });
+});
+
+$('#show-more-least-positive').on('click', function () {
+
+    $('#review-spin').removeClass('hidden');
+    var recipeid = $('#recipe-id').val();
+    var url = '../review/least-positive/' + recipeid + '?page=' + page;
+    $.ajax({
+        type: 'get',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+            if (data.length == 0) {
+                $('#show-more-least-positive').addClass('hidden');
+            }
+            page += 1;
+            $('#review-spin').addClass('hidden');
+            $.each(data, function (index, value) {
+                var firstname = value.firstname;
+                var lastname = value.lastname;
+                var photo = value.photo_name;
+                var review = value.review;
+                var rating = value.rating;
+                var time = value.diffForHumans;
+                var divrating = '';
+
+
+                if (rating == 1) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 2) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 3) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 4) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span></div>';
+                } else {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
+                }
+
+                $('#review-least-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+
+            });
         }
     });
 });
@@ -268,7 +375,7 @@ $('#newest').click(function (e) {
         success: function (data) {
             $('#review-spin').addClass('hidden');
             $('#review-newest').text('');
-            $.each(data,function(index,value){
+            $.each(data, function (index, value) {
                 var firstname = value.firstname;
                 var lastname = value.lastname;
                 var photo = value.photo_name;
@@ -276,24 +383,73 @@ $('#newest').click(function (e) {
                 var rating = value.rating;
                 var time = value.diffForHumans;
                 var divrating = '';
-                if(rating == 1){
+                if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 2){
+                } else if (rating == 2) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 3){
+                } else if (rating == 3) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
-                }else if(rating == 4){
+                } else if (rating == 4) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span></div>';
-                }else{
+                } else {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
-                $('#review-newest').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='"+(photo != null ? '../'+photo : '../images/blank-person.png')+"' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>"+firstname + ' ' + lastname +"</b> - <o style='font-size: 12px;'>"+time+"</o>&nbsp;"+divrating+"<div class='reviewer-review'>"+review+"</div> </div> </div> </div> </div>");
-
+                $('#review-newest').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
             });
-
+            $('#show-more-positive').addClass('hidden');
+            $('#show-more-least-positive').addClass('hidden');
+            $('#show-more-newest').removeClass('hidden');
+            $('#show-more-helpful').addClass('hidden');
         },
         error: function (data) {
 
+        }
+    });
+});
+
+$('#show-more-newest').on('click', function () {
+
+    $('#review-spin').removeClass('hidden');
+    var recipeid = $('#recipe-id').val();
+    var url = '../review/newest/' + recipeid + '?page=' + page;
+    $.ajax({
+        type: 'get',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+            if (data.length == 0) {
+                $('#show-more-newest').addClass('hidden');
+            }
+            page += 1;
+            $('#review-spin').addClass('hidden');
+            $.each(data, function (index, value) {
+                var firstname = value.firstname;
+                var lastname = value.lastname;
+                var photo = value.photo_name;
+                var review = value.review;
+                var rating = value.rating;
+                var time = value.diffForHumans;
+                var divrating = '';
+
+
+                if (rating == 1) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 2) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 3) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 4) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span></div>';
+                } else {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
+                }
+
+                $('#review-newest').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+                $('#show-more-positive').addClass('hidden');
+                $('#show-more-least-positive').addClass('hidden');
+                $('#show-more-newest').removeClass('hidden');
+                $('#show-more-helpful').addClass('hidden');
+            });
         }
     });
 });

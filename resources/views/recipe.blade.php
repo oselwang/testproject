@@ -170,7 +170,7 @@
         </div>
         <div class="row" style="margin-right: 0 !important;">
             <div class="col-md-12">
-                <div class="review-title">
+                <div class="review-title" id="review-scroll">
                     REVIEWS
                     <div class="review-title-separator"></div>
                 </div>
@@ -194,7 +194,7 @@
                 <a class="review-info-btn" id="newest">Newest</a>
                 <input type="hidden" value="{{$recipe->id}}" id="recipe-id">
                 <i class="fa fa-spinner fa-pulse fa-3x fa-fw review-spinner hidden" id="review-spin"></i>
-                <span class="sr-only">Loading...</span>
+
                 <div class="row hidden" id="review-positive">
 
                 </div>
@@ -202,6 +202,9 @@
                 </div>
                 <div class="row hidden" id="review-newest">
                 </div>
+                <button class='btn btn-default show-more-button hidden' id='show-more-positive'>Show More</button>
+                <button class='btn btn-default show-more-button hidden' id='show-more-least-positive'>Show More</button>
+                <button class='btn btn-default show-more-button hidden' id='show-more-newest'>Show More</button>
                 <div id="review-helpful">
                     @foreach($reviews as $review)
                         <div class="row">

@@ -6,3 +6,4 @@ composer.lock
 /storage
 /public/Recipe
 /public/User
+/node_modules
