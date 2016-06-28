@@ -74,7 +74,7 @@ class SocialLoginController extends Controller
 
                 \Auth::login($facebook_id);
 
-                return redirect('/');
+                return redirect()->back();
             }
             $authUser = $this->user_service->createFacebookAccount($user);
             flash('Welcome to ___, start creating your own recipe !');

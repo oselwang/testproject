@@ -355,7 +355,6 @@ $('#show-more-least-positive').on('click', function () {
 });
 
 $('#newest').click(function (e) {
-
     e.preventDefault();
     $('#review-spin').removeClass('hidden');
     $('#review-helpful').addClass('hidden');

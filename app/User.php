@@ -45,6 +45,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(CoverPhoto::class);
     }
+    
+    public function notification(){
+        return $this->hasMany(Notification::class);
+    }
 
     public function ownRecipe($recipe)
     {

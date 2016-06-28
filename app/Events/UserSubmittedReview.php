@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Events;
+
+use App\Events\Event;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+
+class UserSubmittedReview extends Event implements ShouldBroadcast,ShouldQueue
+{
+    use SerializesModels;
+
+    public $name;
+    public $user_id;
+    public $notification_url;
+    
+    /**
+     * Create a new event instance.
+     * @param $name
+     * @param $user_id
+     * @param $notification_url
+     * @return void
+     */
+    public function __construct($name,$user_id,$notification_url)
+    {
+        $this->name = $name;
+        $this->user_id = $user_id;
+        $this->notification_url = $notification_url;
+    }
+
+    /**
+     * Get the channels the event should be broadcast on.
+     *
+     * @return array
+     */
+    public function broadcastOn()
+    {
+        return ['review-channel'];
+    }
+}

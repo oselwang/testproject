@@ -36,7 +36,7 @@
                             </div>
                         </div>
                     </div>
-                    @if(Auth::user()->ownRecipe($recipe))
+                    @if($user->ownRecipe($recipe))
                         <div class="upload-file-container fa fa-camera">
                             <form method="post" action="{{url('change-recipe-profile-photo')}}"
                                   id="change-profile-photo-form">
@@ -176,14 +176,24 @@
                 </div>
                 <div class="review-user-text-container">
                     <div class="review-user-photo">
-                        <img src="@if(empty(Auth::user()->getProfilePhoto())) {{asset('images/blank-person.png')}}
-                        @else {{asset(Auth::user()->getProfilePhoto())}} @endif" class="user-pic" id="profile-photo">
-                        <div class="review-user-text">
-                            <a href="#" data-toggle="modal" data-target='#review-modal'>
+                        <img src="@if(empty(!Auth::check())) {{asset('images/blank-person.png')}}
+                        @elseif(empty(Auth::user()->getProfilePhoto())) {{asset('images/blank-person.png')}}
+                        @else {{asset($user->getProfilePhoto())}} @endif" class="user-pic" id="profile-photo">
+                        @if(!Auth::check())
+                            <div class="review-user-text">
+                                <a href="#" data-toggle="modal" data-target='#login-modal'>
                                 <span class="btn btn-default btn-arrow-left"
                                       style="width: 20%">Submit your review</span>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @else
+                            <div class="review-user-text">
+                                <a href="#" data-toggle="modal" data-target='#review-modal'>
+                                <span class="btn btn-default btn-arrow-left"
+                                      style="width: 20%">Submit your review</span>
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

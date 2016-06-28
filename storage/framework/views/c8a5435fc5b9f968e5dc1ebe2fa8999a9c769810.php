@@ -94,6 +94,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <?php if(!Auth::check()): ?>
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
                         <?php elseif(Auth::check()): ?>
+                            <li role="presentation" class="dropdown-toggle" id="notification">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-bell"></i>
+                                    <input id="bell" class="notification" readonly="readonly" value="{{count}}"></a>
+                                <ul class="dropdown-menu">
+                                    <li></li>
+                                </ul>
+                            </li>
                             <li role="presentation" class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="true" aria-expanded="false">
@@ -112,6 +120,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <li><a href="<?php echo e(url('http://testproject.net/logout')); ?>"><span
                                                     class="glyphicon glyphicon-off"
                                                     style="margin-right: 20px"></span>Logout</a></li>
+
                                 </ul>
                             </li>
                     </ul>
@@ -139,6 +148,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <?php echo $__env->make('partial.loginmodal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php else: ?>
 <?php echo $__env->make('partial.recipemodal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php echo $__env->make('partial.popup', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php endif; ?>
         <!-- header -->
 <body>
@@ -163,6 +173,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     $('#search-recipe').click(function (e) {
         e.preventDefault();
         $('.search-container').slideToggle("fast");
+    });
+
+    $('#notification').one('click',function (e) {
+        e.preventDefault();
     });
 
     var delay = (function () {

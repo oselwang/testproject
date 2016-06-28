@@ -1,0 +1,87 @@
+.notif-extended {
+    border: medium none !important;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.176) !important;
+    max-width: 300px !important;
+    min-width: 160px !important;
+    padding: 0;
+    top: 500px;
+    width: 235px !important;
+    position: fixed;
+    background-color: white;
+    z-index: 10;
+    right: 100px;
+
+}
+
+.notify-arrow-green {
+    border-bottom-color: #68dff0 !important;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: #68dff0 !important;
+}
+
+.notify-arrow {
+    border-style: solid;
+    border-width: 0 9px 9px;
+    height: 0;
+    left: 7px;
+    margin-top: 10px;
+    opacity: 1;
+    position: absolute;
+    top: -18px;
+    transition: all 0.25s ease 0s;
+    width: 0;
+    z-index: 10;
+}
+
+.notify-count-green {
+    background-color: #68dff0;
+    color: #ffffff;
+    padding: 5px;
+}
+
+.notif-subject {
+    display: block;
+}
+
+.notif-subject-from {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.notif-subject-time {
+    font-size: 11px;
+    font-style: italic;
+    font-weight: bold;
+    position: absolute;
+    right: 5px;
+}
+
+.notif-subject-message {
+    display: block !important;
+    font-size: 11px;
+    text-align: left;
+}
+
+.notif-message {
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.padding-right-10 {
+    padding-right: 10px;
+}
+
+
+.notification{
+    position: absolute;
+    border:none;
+    background:transparent;
+    font-size:13px;
+    color:red;
+    bottom: 12px;
+    margin-left: 15px;
+}

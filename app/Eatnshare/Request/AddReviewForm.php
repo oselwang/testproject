@@ -9,6 +9,8 @@
     namespace App\Eatnshare\Request;
 
 
+    use App\Events\UserSubmittedReview;
+    use App\Notification;
     use Auth;
     use App\Review;
 
@@ -22,14 +24,27 @@
         public function create()
         {
             $review = new Review();
+            $notification = new Notification();
+            
+            $user = Auth::user();
 
             if ($this->isValid()) {
                 $review_added = $review->create([
                     'recipe_id' => $this->fields('recipe_id'),
-                    'user_id'   => Auth::user()->id,
+                    'user_id'   => $user->id,
                     'rating'    => $this->fields('rating'),
                     'review'    => $this->fields('review')
                 ]);
+
+                $recipe = $review_added->recipe()->first();
+
+                $notification_added = $notification->create([
+                    'user_id' => $recipe->user_id,
+                    'url' => 'recipe/' . $recipe->slug,
+                    'message' =>  $user->present()->fullname . 'submit a review on your recipe'
+                ]);
+
+                event(new UserSubmittedReview($user->present()->fullname,$notification_added->user_id,$notification_added->url));
 
                 return $review_added;
                 
