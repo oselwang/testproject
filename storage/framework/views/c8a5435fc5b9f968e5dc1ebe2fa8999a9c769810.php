@@ -95,11 +95,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
                         <?php elseif(Auth::check()): ?>
                             <li role="presentation" class="dropdown-toggle" id="notification">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
-                                    <input id="bell" class="notification" readonly="readonly" value="{{count}}"></a>
+                                    <input class="notification" readonly="readonly" value="{{count}}"></a>
                                 <ul class="dropdown-menu">
-                                    <li></li>
+                                    <center>
+                                        <li>
+                                            <i class="fa fa-spinner fa-pulse fa-3x fa-fw notification-spinner"
+                                               id="notification-spinner"></i>
+                                        </li>
+                                    </center>
                                 </ul>
                             </li>
                             <li role="presentation" class="dropdown">
@@ -148,7 +154,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <?php echo $__env->make('partial.loginmodal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php else: ?>
 <?php echo $__env->make('partial.recipemodal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-        <?php echo $__env->make('partial.popup', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('partial.popup', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php endif; ?>
         <!-- header -->
 <body>
@@ -169,57 +175,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- for bootstrap working -->
 <script src="<?php echo e(asset('js/bootstrap.js')); ?>"></script>
 
-<script>
-    $('#search-recipe').click(function (e) {
-        e.preventDefault();
-        $('.search-container').slideToggle("fast");
-    });
-
-    $('#notification').one('click',function (e) {
-        e.preventDefault();
-    });
-
-    var delay = (function () {
-        var timer = 0;
-        return function (callback, ms) {
-            clearTimeout(timer);
-            timer = setTimeout(callback, ms);
-        };
-    })();
-
-    $('#search').keyup(function () {
-        if ($(this).val() == '') {
-            $('.suggestion-container').addClass('hidden');
-        }
-        $('.suggestion-list').parent().remove();
-        delay(function () {
-            var data = $('#search').val();
-            var url = 'http://testproject.net/suggest-search';
-            $.ajax({
-                type: 'post',
-                url: url,
-                data: {
-                    search: data
-                },
-                dataType: 'json',
-                success: function (data) {
-                    $.each(data, function (index, value) {
-                        var src_str = data[index]['_source']['name'];
-                        var term = $('#search').val();
-                        term = term.replace(/(\s+)/, "(<[^>]+>)*$1(<[^>]+>)*");
-                        var pattern = new RegExp("(" + term + ")", "gi");
-                        src_str = src_str.replace(pattern, "<b>$1</b>");
-                        src_str = src_str.replace(/(<mark>[^<>]*)((<[^>]+>)+)([^<>]*<\/mark>)/, "$1</mark>$2<mark>$4");
-                        $('.suggestion-container').removeClass('hidden');
-                        $('.suggestion-container').append("<a href='<?php echo e(url('http://testproject.net/recipe/')); ?>" + data[index]['_source']['slug'] + "'><div class='suggestion-list'><img src=<?php echo e(url('http://testproject.net/')); ?>" + data[index]['_source']['photo_name'] + " class='suggestion-pic'>" + src_str + "</div></a>");
-                        console.log(data[index]);
-                    })
-                }
-            });
-        }, 500);
-
-    })
-</script>
+<script src="<?php echo e(asset('js/layout.js')); ?>"></script>
 <!-- //for bootstrap working -->
 
 </html>

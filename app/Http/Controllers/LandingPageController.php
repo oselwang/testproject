@@ -25,10 +25,11 @@ class LandingPageController extends BaseController
         return view('index');
     }
     
-    public function notification(){
+    public function totalNotification(){
         $notification = $this->notification->where('status','unread')
-                                            ->where('user_id',Auth::user()->id)->get();
-        
+                                            ->where('user_id',Auth::user()->id)
+                                            ->get(['id']);
+
         $total = count($notification);
         
         return response()->json($total);

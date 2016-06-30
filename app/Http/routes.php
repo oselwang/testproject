@@ -44,7 +44,7 @@
     //Landing Page Controller
     Route::get('/', 'LandingPageController@index');
     Route::get('recipes', 'LandingPageController@allRecipe');
-    Route::get('notification', 'LandingPageController@notification');
+    Route::get('totalnotification', 'LandingPageController@totalNotification');
 
     //Recipe Controller
     Route::get('suggestion', 'RecipeController@suggestion');

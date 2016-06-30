@@ -25,7 +25,7 @@
         {
             $review = new Review();
             $notification = new Notification();
-            
+
             $user = Auth::user();
 
             if ($this->isValid()) {
@@ -40,14 +40,15 @@
 
                 $notification_added = $notification->create([
                     'user_id' => $recipe->user_id,
-                    'url' => 'recipe/' . $recipe->slug,
-                    'message' =>  $user->present()->fullname . 'submit a review on your recipe'
+                    'url'     => 'recipe/' . $recipe->slug,
+                    'status'  => 'unread',
+                    'message' => $user->present()->fullname . 'submit a review on your recipe'
                 ]);
 
-                event(new UserSubmittedReview($user->present()->fullname,$notification_added->user_id,$notification_added->url));
+                event(new UserSubmittedReview($user->present()->fullname, $notification_added->user_id, $notification_added->url));
 
                 return $review_added;
-                
+
             } else {
                 return false;
             }

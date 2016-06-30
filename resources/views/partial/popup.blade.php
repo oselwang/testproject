@@ -56,7 +56,7 @@
             nama: [],
             url: [],
             show: false,
-            count: 0,
+            count: 0
         },
         methods: {
             takeDataReview: function () {
@@ -93,11 +93,8 @@
         ready: function () {
             this.takeDataReview();
             var vm = this;
-            $.get('{{url('notification')}}', function (data) {
-                $.each(data, function (key, value) {
-                    vm.count = value;
-                });
-
+            $.get('{{url('totalnotification')}}', function (data) {
+                    vm.count = data;
             });
         }
     });
