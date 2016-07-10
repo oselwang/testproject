@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Notification;
 use App\Recipe;
 use Illuminate\Http\Request;
 
@@ -10,11 +11,12 @@ class RecipeController extends BaseController
 {
     protected $recipe;
     protected $request;
+    protected $notification;
 
-    public function __construct(Recipe $recipe,Request $request)
+    public function __construct(Recipe $recipe,Notification $notification,Request $request)
     {
         $this->request = $request;
-
+        $this->notification = $notification;
         $this->recipe = $recipe;
         parent::__construct();
     }
@@ -27,8 +29,15 @@ class RecipeController extends BaseController
 
     public function showRecipe($slug)
     {
+        $notification_id = $this->request->query->get('notification_id');
+        if(!empty($notification_id)){
+            $notification_id = intval($notification_id);
+            $notification = $this->notification->where('id',$notification_id)->first();
+            $notification->status = 'read';
+            $notification->save();
+        }
         $recipe = $this->recipe->whereSlug($slug)->first();
-        if($recipe == null){
+        if(empty($recipe)){
             return redirect('/');
         }
         $user = $recipe->user()->first();

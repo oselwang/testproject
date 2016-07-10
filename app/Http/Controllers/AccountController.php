@@ -20,17 +20,14 @@ class AccountController extends BaseController
         parent::__construct();
     }
 
-
     public function showAccountPage($account)
     {
         $fb_account = $this->user->where('facebook_id', $account)->first();
         $site_account = $this->user->where('username', $account)->first();
-        $user = $fb_account != null ? $fb_account : $site_account;
-
+        $user = $fb_account->facebook_id != 0 ? $fb_account : $site_account;
         $profile_photo = $user->profilephoto()->first();
         $cover_photo = $user->coverphoto()->first();
         $recipes = $user->recipe()->get();
-        
 
         return view('account', compact('user', 'profile_photo', 'cover_photo', 'recipes'));
     }

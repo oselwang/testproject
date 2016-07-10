@@ -108,12 +108,19 @@ $('#positive').click(function (e) {
     $('#review-spin').removeClass('hidden');
     $('#review-helpful').addClass('hidden');
     $('#helpful').removeClass('review-info-btn-active');
+    $('#helpful').attr('disabled',false);
     $(this).addClass('review-info-btn-active');
+    $(this).attr('disabled',true);
     $('#review-least-positive').addClass('hidden');
     $('#least-positive').removeClass('review-info-btn-active');
+    $('#least-positive').attr('disabled',false);
     $('#review-newest').addClass('hidden');
     $('#newest').removeClass('review-info-btn-active');
+    $('#newest').attr('disabled',false);
     $('#review-positive').removeClass('hidden');
+    $('#show-more-least-positive').addClass('hidden');
+    $('#show-more-newest').addClass('hidden');
+    $('#show-more-helpful').addClass('hidden');
     var recipeid = $('#recipe-id').val();
     var url = '../review/positive/' + recipeid;
     $.ajax({
@@ -147,10 +154,9 @@ $('#positive').click(function (e) {
                 }
 
                 $('#review-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
-                $('#show-more-positive').removeClass('hidden');
-                $('#show-more-least-positive').addClass('hidden');
-                $('#show-more-newest').addClass('hidden');
-                $('#show-more-helpful').addClass('hidden');
+                if(data.length > 2){
+                    $('#show-more-positive').removeClass('hidden');
+                }
             });
         },
         error: function (data) {
@@ -208,12 +214,16 @@ $('#helpful').click(function (e) {
     e.preventDefault();
     $('#review-spin').removeClass('hidden');
     $('#review-helpful').removeClass('hidden');
-    $('#helpful').addClass('review-info-btn-active');
+    $(this).addClass('review-info-btn-active');
+    $(this).attr('disabled',true);
     $('#positive').removeClass('review-info-btn-active');
+    $('#positive').attr('disabled',false);
     $('#review-least-positive').addClass('hidden');
     $('#least-positive').removeClass('review-info-btn-active');
+    $('#least-positive').attr('disabled',false);
     $('#review-newest').addClass('hidden');
     $('#newest').removeClass('review-info-btn-active');
+    $('#newest').attr('disabled',false);
     $('#review-positive').addClass('hidden');
     var recipeid = $('#recipe-id').val();
     var url = '../review/helpful/' + recipeid;
@@ -260,12 +270,19 @@ $('#least-positive').click(function (e) {
     $('#review-spin').removeClass('hidden');
     $('#review-helpful').addClass('hidden');
     $('#helpful').removeClass('review-info-btn-active');
+    $('#helpful').attr('disabled',false);
     $('#positive').removeClass('review-info-btn-active');
+    $('#positive').attr('disabled',false);
     $('#review-least-positive').removeClass('hidden');
-    $('#least-positive').addClass('review-info-btn-active');
+    $(this).addClass('review-info-btn-active');
+    $(this).attr('disabled',true);
     $('#review-newest').addClass('hidden');
     $('#newest').removeClass('review-info-btn-active');
+    $('#newest').attr('disabled',false);
     $('#review-positive').addClass('hidden');
+    $('#show-more-positive').addClass('hidden');
+    $('#show-more-newest').addClass('hidden');
+    $('#show-more-helpful').addClass('hidden');
     var recipeid = $('#recipe-id').val();
     var url = '../review/least-positive/' + recipeid;
     $.ajax({
@@ -275,7 +292,6 @@ $('#least-positive').click(function (e) {
         success: function (data) {
             page = 2;
             $('#review-spin').addClass('hidden');
-            $('#show-more-least-positive').removeClass('hidden');
             $('#review-least-positive').text('');
             $.each(data, function (index, value) {
                 var firstname = value.firstname;
@@ -297,10 +313,10 @@ $('#least-positive').click(function (e) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
                 $('#review-least-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
-                $('#show-more-positive').addClass('hidden');
-                $('#show-more-least-positive').removeClass('hidden');
-                $('#show-more-newest').addClass('hidden');
-                $('#show-more-helpful').addClass('hidden');
+
+                if(data.length > 2) {
+                    $('#show-more-least-positive').removeClass('hidden');
+                }
             });
 
         },
@@ -359,12 +375,20 @@ $('#newest').click(function (e) {
     $('#review-spin').removeClass('hidden');
     $('#review-helpful').addClass('hidden');
     $('#helpful').removeClass('review-info-btn-active');
+    $('#helpful').attr('disabled',false);
     $('#positive').removeClass('review-info-btn-active');
+    $('#positive').attr('disabled',false);
     $('#review-least-positive').addClass('hidden');
     $('#least-positive').removeClass('review-info-btn-active');
+    $('#least-positive').attr('disabled',false);
     $('#review-newest').removeClass('hidden');
-    $('#newest').addClass('review-info-btn-active');
+    $(this).addClass('review-info-btn-active');
+    $(this).attr('disabled',true);
+
     $('#review-positive').addClass('hidden');
+    $('#show-more-positive').addClass('hidden');
+    $('#show-more-least-positive').addClass('hidden');
+    $('#show-more-helpful').addClass('hidden');
     var recipeid = $('#recipe-id').val();
     var url = '../review/newest/' + recipeid;
     $.ajax({
@@ -395,10 +419,10 @@ $('#newest').click(function (e) {
                 }
                 $('#review-newest').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
             });
-            $('#show-more-positive').addClass('hidden');
-            $('#show-more-least-positive').addClass('hidden');
-            $('#show-more-newest').removeClass('hidden');
-            $('#show-more-helpful').addClass('hidden');
+            if(data.length > 2) {
+                $('#show-more-newest').removeClass('hidden');
+            }
+
         },
         error: function (data) {
 

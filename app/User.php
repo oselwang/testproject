@@ -50,9 +50,9 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class);
     }
 
-    public function ownRecipe($recipe)
+    public function own($property)
     {
-        return $this->id == $recipe->user_id;
+        return $this->id == $property->user_id;
     }
 
     public function getProfilePhoto()

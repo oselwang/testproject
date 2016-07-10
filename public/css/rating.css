@@ -32,6 +32,7 @@
     padding: 0;
     z-index: 2;
     position: relative;
+    cursor: pointer;
 }
 .star-rating input:hover + i,
 .star-rating input:checked + i {

@@ -2,21 +2,20 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/animate.css')}}">
 <div class="" id="popupnotif">
     <div class="padding-top-10">
-        <div class="notif-extended animate" v-show="show" v-for="namaa in nama" transition="fade">
+        <div class="notif-extended animate" v-show="show" v-for="messages in message" transition="fade">
             <div>
-                <p class="notify-count-green">You have a new messages<a href="#" v-on:click="refreshnotif"
+                <p class="notify-count-green">You have a new notification<a href="#" v-on:click="refreshnotif"
                                                                         style="float:right;height:10px;width:10px">&times;</a>
                 </p>
             </div>
             <div class="notif-message" v-for="urle in url">
                 <a href="../../../@{{urle}}">
-                    <span style="font-size:12px">@{{ namaa }}</span>
+                    <span style="font-size:12px">@{{ messages }}</span>
                 <span class="notif-subject">
                     <span class="notif-subject-from"></span>
                 </span>
                 <span class="notif-subject-message">
-                    subscribed to your newsletter.
-                    <span class="label label-danger pull-right">25 MAR 2015</span>
+                    <span class="label label-danger pull-right"></span>
                 </span>
                 </a>
             </div>
@@ -53,7 +52,7 @@
     new Vue({
         el: 'body',
         data: {
-            nama: [],
+            message: [],
             url: [],
             show: false,
             count: 0
@@ -61,20 +60,31 @@
         methods: {
             takeDataReview: function () {
                 socket.on('review-channel:App\\Events\\UserSubmittedReview:{{Auth::user()->id}}', function (data) {
-                    this.nama = [];
+                    var url = 'http://testproject.net/';
+                    var message = data.name + ' submit a review on your recipe';
+                    this.message = [];
                     this.url = [];
-                    this.nama.push(data.name + ' submit a review on your recipe');
+                    this.message.push(message);
                     this.url.push(data.notification_url);
                     this.show = true;
                     this.count += 1;
+                    var status = '';
+                    var background = '';
+                    if(data.notification_status == 'unread'){
+                        status = "<i class='fa fa-circle' style='margin-right: 10px;color:white;'></i>";
+                        background = "style = background-color:#bababa";
+                    }else{
+                        status = "<i class='fa fa-circle-o' style='margin-right: 10px;color:white;'></i>";
+                    }
+                    $('#notification-list').prepend("<li class='notification-list' "+background+"><a href="+url + data.notification.url+"?notification_id="+data.notification_id+"><div class='row'><div class='col-lg-1'>"+status +message+"</div></div></a></li>");
                 }.bind(this));
             },
 
             takeDataFollow: function () {
                 socket.on('follow-channel:App\\Events\\UserFollowing:{{Auth::user()->id}}', function (data) {
-                    this.nama = [];
+                    this.message = [];
                     this.url = [];
-                    this.nama.push(data.name + ' has followed you');
+                    this.message.push(data.name + ' has followed you');
                     this.url.push(data.notification_url);
                     this.show = true;
                     this.count += 1;
@@ -85,7 +95,7 @@
             refreshnotif: function (e) {
                 e.preventDefault();
                 this.show = false;
-                this.nama = [];
+                this.message = [];
                 this.url = [];
             }
 

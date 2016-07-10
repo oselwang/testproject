@@ -82,7 +82,6 @@ ul.nav.navbar-nav li a.active {
     min-width: 130px;
     padding: 10px 0;
     max-height: 200px;
-    overflow: auto;
     margin: 0;
     background-color: #1D1811;
 }

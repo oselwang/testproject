@@ -42,10 +42,11 @@
                     'user_id' => $recipe->user_id,
                     'url'     => 'recipe/' . $recipe->slug,
                     'status'  => 'unread',
-                    'message' => $user->present()->fullname . 'submit a review on your recipe'
+                    'message' => $user->present()->fullname . ' submit a review on your recipe'
                 ]);
 
-                event(new UserSubmittedReview($user->present()->fullname, $notification_added->user_id, $notification_added->url));
+                event(new UserSubmittedReview($user->present()->fullname, $notification_added->user_id,
+                    $notification_added->url,$notification_added->id,$notification_added->status));
 
                 return $review_added;
 

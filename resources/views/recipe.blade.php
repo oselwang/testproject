@@ -36,7 +36,7 @@
                             </div>
                         </div>
                     </div>
-                    @if($user->ownRecipe($recipe))
+                    @if($user->own($recipe))
                         <div class="upload-file-container fa fa-camera">
                             <form method="post" action="{{url('change-recipe-profile-photo')}}"
                                   id="change-profile-photo-form">
@@ -175,33 +175,35 @@
                     <div class="review-title-separator"></div>
                 </div>
                 <div class="review-user-text-container">
-                    <div class="review-user-photo">
-                        <img src="@if(empty(!Auth::check())) {{asset('images/blank-person.png')}}
-                        @elseif(empty(Auth::user()->getProfilePhoto())) {{asset('images/blank-person.png')}}
-                        @else {{asset($user->getProfilePhoto())}} @endif" class="user-pic" id="profile-photo">
-                        @if(!Auth::check())
-                            <div class="review-user-text">
-                                <a href="#" data-toggle="modal" data-target='#login-modal'>
+                    @if(!Auth::check() || !Auth::user()->own($recipe))
+                        <div class="review-user-photo">
+                            <img src="@if(!Auth::check()) {{asset('images/blank-person.png')}}
+                            @elseif(empty(Auth::user()->getProfilePhoto())) {{asset('images/blank-person.png')}}
+                            @else {{asset($user->getProfilePhoto())}} @endif" class="user-pic" id="profile-photo">
+                            @if(!Auth::check())
+                                <div class="review-user-text">
+                                    <a href="#" data-toggle="modal" data-target='#login-modal'>
                                 <span class="btn btn-default btn-arrow-left"
                                       style="width: 20%">Submit your review</span>
-                                </a>
-                            </div>
-                        @else
-                            <div class="review-user-text">
-                                <a href="#" data-toggle="modal" data-target='#review-modal'>
+                                    </a>
+                                </div>
+                            @elseif(!Auth::user()->own($recipe))
+                                <div class="review-user-text">
+                                    <a href="#" data-toggle="modal" data-target='#review-modal'>
                                 <span class="btn btn-default btn-arrow-left"
                                       style="width: 20%">Submit your review</span>
-                                </a>
-                            </div>
-                        @endif
-                    </div>
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="col-md-8 col-md-offset-2">
-                <a class="review-info-btn review-info-btn-active" id="helpful">Helpful</a>
-                <a class="review-info-btn" id="positive">Positive</a>
-                <a class="review-info-btn" id="least-positive">Least Positive</a>
-                <a class="review-info-btn" id="newest">Newest</a>
+                <button class="review-info-btn review-info-btn-active" id="helpful">Helpful</button>
+                <button class="review-info-btn" id="positive">Positive</button>
+                <button class="review-info-btn" id="least-positive">Least Positive</button>
+                <button class="review-info-btn" id="newest">Newest</button>
                 <input type="hidden" value="{{$recipe->id}}" id="recipe-id">
                 <i class="fa fa-spinner fa-pulse fa-3x fa-fw review-spinner hidden" id="review-spin"></i>
 

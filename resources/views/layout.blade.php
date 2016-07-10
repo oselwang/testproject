@@ -26,6 +26,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="{{asset('css/combobox-bootstrap.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('css/dropzone.css')}}" rel="stylesheet" media="all" type="text/css"/>
     <link href="{{asset('css/searchbox.css')}}" rel="stylesheet" media="all" type="text/css"/>
+    <link href="{{asset('css/layout.css')}}" rel="stylesheet" media="all" type="text/css"/>
+
     <!-- js -->
     <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
     <!-- //js -->
@@ -99,7 +101,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                    aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
                                     <input class="notification" readonly="readonly" value="@{{count}}"></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu notification-dropdown" id="notification-list">
                                     <center>
                                         <li>
                                             <i class="fa fa-spinner fa-pulse fa-3x fa-fw notification-spinner"

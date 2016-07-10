@@ -9,6 +9,7 @@
     use App\Events\UserForgotPassword;
     use App\Events\UserHasRegistered;
     use App\Http\Requests;
+    use App\Notification;
     use App\User;
     use Carbon\Carbon;
     use Auth;
@@ -20,12 +21,14 @@
         protected $request;
         protected $user;
         protected $user_service;
+        protected $notification;
 
-        public function __construct(Request $request, User $user, UserService $user_service)
+        public function __construct(Request $request, User $user, UserService $user_service,Notification $notification)
         {
             $this->request = $request;
             $this->user = $user;
             $this->user_service = $user_service;
+            $this->notification = $notification;
 
         }
 
@@ -166,5 +169,14 @@
             flash('Your review successfully added');
 
             return response()->json('success');
+        }
+        
+        public function getNotification(){
+            $notification = Auth::user()->notification()
+                            ->where('status','unread')
+                            ->orderBy('created_at','desc')
+                            ->get();
+            
+            return response()->json($notification);
         }
     }

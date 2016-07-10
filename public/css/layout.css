@@ -1,0 +1,15 @@
+.notification-dropdown {
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+.notification-text{
+    position: relative;
+    right: 10px !important;
+    width: 200px !important;
+}
+
+.notification-none{
+    color:white;
+    text-align: center;
+}

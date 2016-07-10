@@ -73,11 +73,6 @@
         {
             return $this->hasMany(Instruction::class);
         }
-        
-        public function coverphoto()
-        {
-            return $this->hasOne(RecipeCoverPhoto::class);
-        }
 
         public function photo()
         {
