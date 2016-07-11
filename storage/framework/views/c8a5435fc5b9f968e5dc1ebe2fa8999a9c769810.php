@@ -102,12 +102,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <i class="fa fa-bell"></i>
                                     <input class="notification" readonly="readonly" value="{{count}}"></a>
                                 <ul class="dropdown-menu notification-dropdown" id="notification-list">
-                                    <center>
-                                        <li>
-                                            <i class="fa fa-spinner fa-pulse fa-3x fa-fw notification-spinner"
-                                               id="notification-spinner"></i>
-                                        </li>
-                                    </center>
                                 </ul>
                             </li>
                             <li role="presentation" class="dropdown">
