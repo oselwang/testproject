@@ -27,6 +27,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.min.js"></script>
 
 <script type="text/javascript">
+    function getNotification(){
+        var url = 'http://testproject.net/notification';
+        $('#notification-list').text('');
+        $('#notification-list').append("<center><li><i class='fa fa-spinner fa-pulse fa-3x fa-fw notification-spinner' id='notification-spinner'></i> </li> </center>");
+        $(this).unbind('click');
+        $.ajax({
+            type:'get',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                if(data.length == 0){
+                    $('#notification-spinner').addClass('hidden');
+                    $('#notification-list').append("<li class='notification-list'><p class='notification-none'>No notification yet</p></li>");
+                }else{
+                    $('#notification-spinner').addClass('hidden');
+                    $.each(data,function (index,value) {
+                        var status = "<i class='fa fa-circle' style='margin-right: 10px;'></i>";
+                        var url = 'http://testproject.net/';
+                        $('#notification-list').append("<li class='notification-list'><a href="+url + value.url+"?notification_id="+value.id+"><div class='row'><div class='col-lg-1'>"+status +value.message+"</div></div></a></li>");
+                    })
+                }
+            }
+
+        })
+    }
+
     var socket = io('testproject.net:3000');
 
     Vue.transition('fade', {
@@ -68,6 +94,7 @@
                     this.url.push(data.notification_url + "?notification_id=" + data.notification_id);
                     this.show = true;
                     this.count += 1;
+                    $('#notification').on('click',getNotification());
                 }.bind(this));
             },
 

@@ -139,7 +139,7 @@
 .info {
     display: inline-block;
     position: relative;
-    bottom: 10px;
+    top: 5px;
     left: 10px;
     width: 100%;
     vertical-align: sub;
@@ -167,7 +167,7 @@
 
 .last-info{
     float: left;
-    margin: 0 25px 0 0;
+    margin: 2px 25px 0 0;
     color: #666;
     font-size: 12px;
 }
@@ -203,7 +203,6 @@
     display: inline-block;
     width: 100%;
     border-top: 1px solid #ddd;
-    padding: 15px 0 0;
 }
 
 .recipe-info{

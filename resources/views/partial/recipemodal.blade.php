@@ -7,8 +7,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <a href="#" class="active" id="register-form-link">Write Your Own Recipe !</a>
+                            <a href="#" id="close-recipe-modal" style="float: right"><i class="fa fa-remove"></i> </a>
                         </div>
                     </div>
+
                     <hr>
                 </div>
                 <div class="panel-body">
@@ -283,6 +285,10 @@
                 })
             }
         });
+    })
+
+    $('#close-recipe-modal').on('click',function () {
+        $('#recipe-modal').modal('hide');
     })
 
 </script>

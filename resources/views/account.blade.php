@@ -83,7 +83,7 @@
                             <div class="thumbnail">
                                 <img class="group list-group-image" src="{{asset($recipe->photo_name)}}" alt=""/>
                                 <div class="caption">
-                                    <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
+                                    <h4 class="= list-group-item-heading">
                                         <b>{{$recipe->name}}</b></h4>
                                     <div class="row">
                                         <div class="line-separator-account">
@@ -99,32 +99,6 @@
                                                 <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
                                             </div>
                                             <span class="fa fa-star last-info"> 112312</span>
-                                        </div>
-                                        <div class="line-separator-account">
-
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <div class="bottom-info-separator">
-                                                <center><i class="fa fa-tasks" style="font-size: 14px"></i><br>
-                                                    {{count($recipe)}}<br>
-                                                    Quantity
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <div class="bottom-info-separator-eye">
-                                                <center><i class="fa fa-eye" style="font-size: 16px;"></i><br>
-
-                                                    200<br>
-                                                    View
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <div class="bottom-last-info">
-                                                <center><i class="fa fa-comments"></i><br>{{count($recipe)}}<br>Comments
-                                                </center>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
