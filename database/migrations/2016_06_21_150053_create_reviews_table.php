@@ -18,6 +18,7 @@ class CreateReviewsTable extends Migration
             $table->integer('recipe_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
             $table->integer('rating');
+            $table->integer('helpful');
             $table->string('review',1000);
             $table->timestamps();
 

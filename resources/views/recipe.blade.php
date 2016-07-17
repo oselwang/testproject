@@ -20,16 +20,17 @@
                         <div class="description-separator">
                         </div>
                         <div class="miscellaneous-recipe-info">
-                            RATINGS : <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            RATINGS :
+                            @if($rating != null)
+                                {{$rating}}  / 5
+                            @else
+                                0
+                            @endif&nbsp;&nbsp;&nbsp;&nbsp;
                             POSTED :
-                            <o style="font-size: 14px">{{$recipe->created_at->toFormattedDateString()}}</o>
+                            {{$recipe->created_at->toFormattedDateString()}}
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            COMMENTS :
-                            <o style="font-size: 14px">2</o>
+                            REVIEWS :
+                            {{count($reviews)}}
                             <div class="print-recipe-btn">
                                 <button class="btn btn-primary"><i class="fa fa-print"> Print Ingredients & Recipe</i>
                                 </button>
@@ -169,173 +170,229 @@
             </div>
         </div>
         <div class="row" style="margin-right: 0 !important;">
-            <div class="col-md-12">
+            <div>
                 <div class="review-title" id="review-scroll">
                     REVIEWS
                     <div class="review-title-separator"></div>
                 </div>
                 <div class="review-user-text-container">
                     @if(!Auth::check() || !Auth::user()->own($recipe))
-                        <div class="review-user-photo">
-                            <img src="@if(!Auth::check()) {{asset('images/blank-person.png')}}
-                            @elseif(empty(Auth::user()->getProfilePhoto())) {{asset('images/blank-person.png')}}
-                            @else {{asset($user->getProfilePhoto())}} @endif" class="user-pic" id="profile-photo">
-                            @if(!Auth::check())
-                                <div class="review-user-text">
-                                    <a href="#" data-toggle="modal" data-target='#login-modal'>
+                        <div class="col-md-1">
+                            <div class="review-user-photo">
+                                <img src="@if(!Auth::check()) {{asset('images/blank-person.png')}}
+                                @elseif(empty(Auth::user()->getProfilePhoto())) {{asset('images/blank-person.png')}}
+                                @else {{asset($user->getProfilePhoto())}} @endif" class="user-pic" id="profile-photo">
+                            </div>
+                        </div>
+
+                        @if(!Auth::check())
+                            <div class="review-user-text">
+                                <a href="#" data-toggle="modal" data-target='#login-modal'>
                                 <span class="btn btn-default btn-arrow-left"
                                       style="width: 20%">Submit your review</span>
-                                    </a>
-                                </div>
-                            @elseif(!Auth::user()->own($recipe))
-                                <div class="review-user-text">
-                                    <a href="#" data-toggle="modal" data-target='#review-modal'>
+                                </a>
+                            </div>
+                        @elseif(!Auth::user()->own($recipe))
+                            @if(Auth::user()->submittedReviewOn($recipe))
+
+                                {{--*/ $user_review = Auth::user()->getReviewOn($recipe) /*--}}
+                                @include('partial.editreviewmodal')
+                                <div class="col-md-10" id="user-review">
+                                    <div class="user-review-edit hidden" id="user-review-hover">
+                                        <a href="#" data-toggle="modal" data-target="#edit-review-modal"><span
+                                                    class="fa fa-edit"></span></a>
+                                    </div>
+                                    <div class="user-review-info">
+
+                                        <div class="user-review-name">
+                                            <b>{{$user_review->getUserFullName()}}</b> -
+                                            <o style="font-size: 12px;">{{$user_review->created_at->diffForHumans()}}</o>
+                                            <div class="reviewer-rating">
+                                                @if($user_review->rating == 1)
+                                                    <span class="fa fa-star"></span><span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                @elseif($user_review->rating == 2)
+                                                    <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                @elseif($user_review->rating == 3)
+                                                    <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span><span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                @elseif($user_review->rating == 4)
+                                                    <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                @else
+                                                    <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                @endif
+                                            </div>
+                                            <div class="user-review">
+                                                {{$user_review->review}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @else
+                                        <div class="review-user-text">
+                                            <a href="#" data-toggle="modal" data-target='#review-modal'>
                                 <span class="btn btn-default btn-arrow-left"
                                       style="width: 20%">Submit your review</span>
-                                    </a>
+                                            </a>
+                                        </div>
+                                    @endif
+                                    @endif
                                 </div>
                             @endif
-                        </div>
-                    @endif
-                </div>
-            </div>
-            <div class="col-md-8 col-md-offset-2">
-                <button class="review-info-btn review-info-btn-active" id="helpful">Helpful</button>
-                <button class="review-info-btn" id="positive">Positive</button>
-                <button class="review-info-btn" id="least-positive">Least Positive</button>
-                <button class="review-info-btn" id="newest">Newest</button>
-                <input type="hidden" value="{{$recipe->id}}" id="recipe-id">
-                <i class="fa fa-spinner fa-pulse fa-3x fa-fw review-spinner hidden" id="review-spin"></i>
 
-                <div class="row hidden" id="review-positive">
 
                 </div>
-                <div class="row hidden" id="review-least-positive">
-                </div>
-                <div class="row hidden" id="review-newest">
-                </div>
-                <button class='btn btn-default show-more-button hidden' id='show-more-positive'>Show More</button>
-                <button class='btn btn-default show-more-button hidden' id='show-more-least-positive'>Show More</button>
-                <button class='btn btn-default show-more-button hidden' id='show-more-newest'>Show More</button>
-                <div id="review-helpful">
-                    @foreach($reviews as $review)
-                        <div class="row">
-                            <div class="col-md-1">
-                                <div class="reviewer-user-photo">
-                                    <img src="@if(empty($review->getUserProfilePhoto())) {{asset('images/blank-person.png')}}
-                                    @else {{asset($review->getUserProfilePhoto())}} @endif" class="user-pic"
-                                         id="profile-photo">
+                <div class="col-md-8 col-md-offset-2">
+                    <button class="review-info-btn review-info-btn-active" id="helpful">Helpful</button>
+                    <button class="review-info-btn" id="positive">Positive</button>
+                    <button class="review-info-btn" id="least-positive">Least Positive</button>
+                    <button class="review-info-btn" id="newest">Newest</button>
+                    <input type="hidden" value="{{$recipe->id}}" id="recipe-id">
+
+                    <div class="row hidden" id="review-positive">
+
+                    </div>
+                    <div class="row hidden" id="review-least-positive">
+                    </div>
+                    <div class="row hidden" id="review-newest">
+                    </div>
+                    <button class='btn btn-default show-more-button hidden' id='show-more-positive'>Show More</button>
+                    <button class='btn btn-default show-more-button hidden' id='show-more-least-positive'>Show More
+                    </button>
+                    <button class='btn btn-default show-more-button hidden' id='show-more-newest'>Show More</button>
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw review-spinner hidden" id="review-spin"></i>
+                    <div id="review-helpful">
+                        @foreach($reviews as $review)
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="reviewer-user-photo">
+                                        <img src="@if(empty($review->getUserProfilePhoto())) {{asset('images/blank-person.png')}}
+                                        @else {{asset($review->getUserProfilePhoto())}} @endif" class="user-pic"
+                                             id="profile-photo">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-11" style="padding-left: 0 !important;">
-                                <div class="reviewer-info">
-                                    <div class="reviewer-name">
-                                        <b>{{$review->getUserFullName()}}</b> -
-                                        <o style="font-size: 12px;">{{$review->created_at->diffForHumans()}}</o>
-                                        <div class="reviewer-rating">
-                                            @if($review->rating == 1)
-                                                <span class="fa fa-star"></span><span class="fa fa-star-o"></span><span
-                                                        class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
-                                                <span
-                                                        class="fa fa-star-o"></span>
-                                            @elseif($review->rating == 2)
-                                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                        class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
-                                                <span
-                                                        class="fa fa-star-o"></span>
-                                            @elseif($review->rating == 3)
-                                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span class="fa fa-star-o"></span>
-                                                <span
-                                                        class="fa fa-star-o"></span>
-                                            @elseif($review->rating == 4)
-                                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                        class="fa fa-star-o"></span>
-                                            @else
-                                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span>
-                                            @endif
-                                        </div>
-                                        <div class="reviewer-review">
-                                            {{$review->review}}
+                                <div class="col-md-11" style="padding-left: 0 !important;">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-name">
+                                            <b>{{$review->getUserFullName()}}</b> -
+                                            <o style="font-size: 12px;">{{$review->created_at->diffForHumans()}}</o>
+                                            <div class="reviewer-rating">
+                                                @if($review->rating == 1)
+                                                    <span class="fa fa-star"></span><span class="fa fa-star-o"></span>
+                                                    <span
+                                                            class="fa fa-star-o"></span><span
+                                                            class="fa fa-star-o"></span>
+                                                    <span
+                                                            class="fa fa-star-o"></span>
+                                                @elseif($review->rating == 2)
+                                                    <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span
+                                                            class="fa fa-star-o"></span><span
+                                                            class="fa fa-star-o"></span>
+                                                    <span
+                                                            class="fa fa-star-o"></span>
+                                                @elseif($review->rating == 3)
+                                                    <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span
+                                                            class="fa fa-star"></span><span class="fa fa-star-o"></span>
+                                                    <span
+                                                            class="fa fa-star-o"></span>
+                                                @elseif($review->rating == 4)
+                                                    <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span
+                                                            class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span
+                                                            class="fa fa-star-o"></span>
+                                                @else
+                                                    <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span
+                                                            class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                    <span
+                                                            class="fa fa-star"></span>
+                                                @endif
+                                            </div>
+                                            <div class="reviewer-review">
+                                                {{$review->review}}
+                                            </div>
+                                            <div>
+                                                @if(!Auth::check())
+                                                    <a href="#" class="review-helpful" data-toggle="modal"
+                                                       data-target="#login-modal"><span
+                                                                class="fa fa-thumbs-o-up"></span> This is helpful</a>
+                                                @else
+
+                                                        <div id="review-helpful-container">
+                                                            @if($review->isAlreadyLiked())
+                                                                <a href="{{$review->id}}" class="review-helpful-clicked"
+                                                                   id="review-helpful{{$review->id}}"><span
+                                                                            class="fa fa-thumbs-o-up"></span> {{$review->helpful}} This is
+                                                                    helpful</a>
+                                                            @else
+                                                            <a href="{{$review->id}}" class="review-helpful"
+                                                               id="review-helpful{{$review->id}}"><span
+                                                                        class="fa fa-thumbs-o-up"></span>{{$review->helpful != 0 ? $review->helpful : '' }} This is
+                                                                helpful</a>
+                                                            @endif
+                                                        </div>
+
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if($related_recipes != null)
+            <div class="related-container">
+                <div class="related-title">
+                    SIMILAR RECIPES
+                </div>
+                <div class="related-title-separator"></div>
+                <div class="row" style="margin-right: 0 !important;">
+                    @foreach($related_recipes as $recipe)
+                        <a href="{{url('recipe/'.$recipe->slug)}}" style="text-decoration: none;color:black;">
+                            <div class="related-item  col-xs-3 col-lg-3">
+                                <div class="related-thumbnail">
+                                    <img src="{{url($recipe->photo_name)}}" alt=""/>
+                                    <div class="caption">
+                                        <h4 style="margin-bottom: 20px">
+                                            <b>{{$recipe->name}}</b></h4>
+                                        <div class="row">
+                                            <div class="related-line-separator-account">
+
+                                            </div>
+                                            <div class="info" style="padding: 0.5em">
+                                                <div class="related-info-separator">
+                                                    &nbsp;&nbsp;
+                                                    <o style="margin-left: 20px"><span
+                                                                class="fa fa-user"></span> {{$user->present()->fullname}}
+                                                    </o>
+                                                </div>
+                                                <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
-        </div>
-    </div>
-    @if($related_recipes != null)
-        <div class="related-container">
-            <div class="related-title">
-                SIMILAR RECIPES
-            </div>
-            <div class="related-title-separator"></div>
-            <div class="row" style="margin-right: 0 !important;">
-                @foreach($related_recipes as $recipe)
-                    <a href="{{url('recipe/'.$recipe->slug)}}" style="text-decoration: none;color:black;">
-                        <div class="related-item  col-xs-3 col-lg-3">
-                            <div class="related-thumbnail">
-                                <img src="{{url($recipe->photo_name)}}" alt=""/>
-                                <div class="caption">
-                                    <h4 class="= list-group-item-heading" style="margin-bottom: 20px">
-                                        <b>{{$recipe->name}}</b></h4>
-                                    <div class="row">
-                                        <div class="related-line-separator-account">
-
-                                        </div>
-                                        <div class="info">
-                                            <div class="related-info-separator">
-                                                &nbsp;&nbsp;<span
-                                                        class="fa fa-user"></span> {{$user->present()->fullname}}
-                                            </div>
-                                            <div class="related-info-separator">
-                                                <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
-                                            </div>
-                                            <span class="fa fa-star related-last-info"> 112312</span>
-                                        </div>
-                                        <div class="related-line-separator-account">
-
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <div class="related-bottom-info-separator">
-                                                <center><i class="fa fa-tasks" style="font-size: 14px"></i><br>
-                                                    {{count($recipe)}}<br>
-                                                    Quantity
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <div class="related-bottom-info-separator-eye">
-                                                <center><i class="fa fa-eye" style="font-size: 16px;"></i><br>
-
-                                                    200<br>
-                                                    View
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <div class="related-bottom-last-info">
-                                                <center><i class="fa fa-comments"></i><br>{{count($recipe)}}<br>Comments
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    @endif
-    @include('partial.reviewmodal')
-    <script src="{{asset('js/recipe.js')}}"></script>
+        @endif
+        @include('partial.reviewmodal')
+        <script src="{{asset('js/recipe.js')}}"></script>
 
 @stop

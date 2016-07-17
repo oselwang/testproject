@@ -27,28 +27,6 @@ $("input:checkbox").change(function () {
 
 });
 
-$('#editheadline').click(function () {
-    $(this).addClass('hidden');
-    $('#user-headline').addClass('hidden');
-    $('#headline').removeClass('hidden');
-});
-
-$('#submit-headline').on('submit', function (e) {
-    e.preventDefault();
-    var url = $(this).attr('action');
-    $.ajax({
-        type: 'post',
-        url: url,
-        data: $(this).serializeArray(),
-        dataType: 'json',
-        success: function (data) {
-            location.reload();
-        },
-        error: function (data) {
-
-        }
-    })
-});
 
 $(".upload-file-container input:file").change(function () {
     readURL(this);
@@ -69,31 +47,6 @@ $(".upload-file-container input:file").change(function () {
         }
     });
 });
-
-$(".upload-file-container-cover-photo input:file").change(function () {
-    var url = $('#change-cover-photo-form').attr('action');
-    $.ajax({
-        type: 'post',
-        url: url,
-        data: new FormData($('#change-cover-photo-form')[0]),
-        contentType: false,
-        processData: false,
-        async: true,
-        dataType: 'json',
-        success: function (data) {
-            location.reload();
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
-});
-
-
-$('#cover-photo').hover(function () {
-    $(this).css('opacity', 1);
-});
-
 
 $('#review-scroll').bind('scroll', function () {
     if ($(this).scrollTop() + $(this).innerHeight() >= $(this).scrollHeight) {
@@ -476,3 +429,35 @@ $('#show-more-newest').on('click', function () {
         }
     });
 });
+
+$('#user-review').hover(function () {
+    $('#user-review-hover').removeClass('hidden');
+}, function () {
+    $('#user-review-hover').addClass('hidden');
+    }
+);
+
+for(i = 0;i < 9000;i++){
+    $('#review-helpful' + i).on('click',function (e) {
+        e.preventDefault();
+        var id = $(this).attr('href');
+        $(this).html('');
+        $(this).append("<span class='fa fa-spinner fa-pulse fa-fw' id='spinner-review-helpful"+id+"'>");
+        var url = 'http://testproject.net/review-helpful?review_id=' + id;
+        $.ajax({
+            type:'get',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+
+                var helpful = data.helpful;
+                var check_helpful = helpful != 0 ? helpful : '';
+                $('#spinner-review-helpful' + id).remove();
+                $('#review-helpful' + id).removeClass('review-helpful');
+                $('#review-helpful' + id).addClass('review-helpful-clicked');
+                $('#review-helpful' + id).append("<span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful");
+            }
+        })
+    });
+
+}

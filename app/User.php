@@ -66,5 +66,18 @@ class User extends Authenticatable
 
         return $profilephoto->photo_name;
     }
+    
+    public function submittedReviewOn($recipe){
+        $review = $recipe->review()->where('user_id',$this->id)->first();
+        if(!empty($review)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public function getReviewOn($recipe){
+        return $recipe->review()->where('user_id',$this->id)->first();
+    }
 
 }

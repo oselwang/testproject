@@ -106,8 +106,8 @@
 .info-separator {
     float: left;
     border-right: 1px solid #ddd;
-    padding: 0 5px 0 0;
-    margin: 0 10px 0 0;
+    padding: 0 25px 0 0;
+    margin: 0 25px 0 0;
     color: #666;
     font-size: 12px;
 }

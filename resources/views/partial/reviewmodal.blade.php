@@ -8,6 +8,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <a class="active">Rate and Review</a>
+                            <a href="#" id="close-review-modal" style="float: right"><i class="fa fa-remove"></i> </a>
                         </div>
                     </div>
                     <hr>

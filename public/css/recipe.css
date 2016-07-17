@@ -56,7 +56,7 @@
 
 .miscellaneous-recipe-info{
     padding: 3em;
-    font-size:12px;
+    font-size:14px;
 }
 
 .description-separator{
@@ -236,9 +236,11 @@
 
 .review-user-text{
     display: inline-block;
-    margin-left: 10px;
     width: 90%;
     margin-bottom: 50px;
+    position: relative;
+    top: 10px;
+    left: 2px;
 }
 
 .review-title-separator{
@@ -319,6 +321,27 @@
     color: white;
 }
 
+.review-helpful{
+    margin-top: 2px;
+    font-size: 13px;
+    font-family: 'Cabin', sans-serif;
+    color: #666666 !important;
+}
+
+.review-helpful-clicked{
+    font-size: 13px;
+    margin-top: 2px;
+    color:black !important;
+    font-family: 'Cabin', sans-serif;
+}
+
+.review-helpful:hover{
+    color: black !important;
+}
+
+.review-helpful-clicked:hover{
+    color:#666666 !important;
+}
 
 .reviewer-user-photo .user-pic{
     margin-bottom: 20px;
@@ -340,6 +363,27 @@
     left: 46%;
 }
 
+.user-review-info{
+    display: inline-block;
+    left: -1%;
+    position: relative;
+    top: 5px;
+    margin-bottom: 50px;
+}
+
+.user-review-name{
+    font-size: 16px;
+    display: inline-block;
+}
+
+.user-review{
+    margin-bottom: 10px;
+}
+
+.user-review-edit{
+    float: right;
+    font-size: 20px;
+}
 
 .show-more-button{
     background: rgba(255,255,255,0.5) !important;
@@ -380,8 +424,8 @@
 .related-info-separator {
     float: left;
     border-right: 1px solid #ddd;
-    padding: 0 15px 0 0;
-    margin: 0 15px 0 0;
+    padding: 0 25px 0 0;
+    margin: 0 25px 0 0;
     color: #666;
     font-size: 14px;
 }
@@ -393,12 +437,10 @@
 }
 
 .related-line-separator-account {
-    display: inline-block;
     position: relative;
     left: 8px;
     width: 95%;
     border-top: 1px solid #ddd;
-    padding: 15px 0 0;
 }
 
 .related-item{

@@ -37,14 +37,11 @@
                                             </div>
                                             <div class="info">
                                                 <div class="info-separator">
-                                                    <center><span
+                                                    <center style="margin-left: 20px"><span
                                                                 class="fa fa-user"></span> {{Auth::user()->present()->fullname}}
                                                     </center>
                                                 </div>
-                                                <div class="info-separator">
                                                     <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
-                                                </div>
-                                                <span class="fa fa-star last-info"> 112312</span>
                                             </div>
                                         </div>
                                     </div>

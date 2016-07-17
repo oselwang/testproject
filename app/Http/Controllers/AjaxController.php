@@ -4,12 +4,15 @@
 
     use App\Eatnshare\Request\AddRecipeForm;
     use App\Eatnshare\Request\AddReviewForm;
+    use App\Eatnshare\Request\EditReviewForm;
     use App\Eatnshare\Request\RegisterPostForm;
     use App\Eatnshare\Services\UserService;
     use App\Events\UserForgotPassword;
     use App\Events\UserHasRegistered;
     use App\Http\Requests;
     use App\Notification;
+    use App\Review;
+    use App\ReviewUserHelpful;
     use App\User;
     use Carbon\Carbon;
     use Auth;
@@ -22,13 +25,18 @@
         protected $user;
         protected $user_service;
         protected $notification;
+        protected $review;
+        protected $review_user_helpful;
 
-        public function __construct(Request $request, User $user, UserService $user_service,Notification $notification)
+        public function __construct(Request $request, User $user, UserService $user_service,
+                                    Notification $notification,Review $review,ReviewUserHelpful $reviewUserHelpful)
         {
             $this->request = $request;
             $this->user = $user;
             $this->user_service = $user_service;
             $this->notification = $notification;
+            $this->review = $review;
+            $this->review_user_helpful = $reviewUserHelpful;
 
         }
 
@@ -170,6 +178,14 @@
 
             return response()->json('success');
         }
+
+        public function editReview(EditReviewForm $editReviewForm){
+            $this->middleware('auth');
+            $editReviewForm->edit();
+            flash('Your review successfully edited');
+
+            return response()->json('success');
+        }
         
         public function getNotification(){
             $notification = Auth::user()->notification()
@@ -178,5 +194,17 @@
                             ->get();
             
             return response()->json($notification);
+        }
+
+        public function helpfulReview(){
+            $review_id = $this->request->query->get('review_id');
+            $review = $this->review->where('id',intval($review_id))->first();
+            if($review->isAlreadyLiked($review_id)){
+                $review->subHelpfulReview();
+            }else{
+                $review->addHelpfulReview();
+            }
+            
+            return response()->json($review);
         }
     }

@@ -27,6 +27,8 @@ Route::post('change-recipe-profile-photo', 'AjaxController@changeRecipeProfilePh
 Route::post('change-recipe-cover-photo', 'AjaxController@changeRecipeCoverPhoto');
 Route::post('suggest-search', 'AjaxController@suggestSearch');
 Route::post('review', 'AjaxController@addReview');
+Route::post('edit-review','AjaxController@editReview');
+
 
 
 //Recipe Controller
@@ -56,6 +58,7 @@ Route::get('auth/facebook/callback', 'Auth\SocialLoginController@facebookCallbac
 //Ajax Controller
 Route::get('recipeoftheday', 'AjaxController@recipeOfTheDay');
 Route::get('notification','AjaxController@getNotification');
+Route::get('review-helpful','AjaxController@helpfulReview');
 
 //Auth Controller
 Route::get('register/{token}', 'Auth\AuthController@confirmToken');

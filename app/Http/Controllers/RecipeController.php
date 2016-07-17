@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Eatnshare\Services\RecipeService;
+use App\Eatnshare\Services\ReviewService;
 use App\Http\Requests;
 use App\Notification;
 use App\Recipe;
@@ -12,32 +14,32 @@ class RecipeController extends BaseController
     protected $recipe;
     protected $request;
     protected $notification;
+    protected $recipe_service;
+    protected $review_service;
 
-    public function __construct(Recipe $recipe,Notification $notification,Request $request)
+    public function __construct(Recipe $recipe, Notification $notification, Request $request,
+                                RecipeService $recipeService, ReviewService $reviewService)
     {
         $this->request = $request;
         $this->notification = $notification;
         $this->recipe = $recipe;
+        $this->recipe_service = $recipeService;
+        $this->review_service = $reviewService;
         parent::__construct();
     }
 
-    public function suggestion(){
+    public function suggestion()
+    {
         $recipes = $this->recipe->all();
 
-        return view('suggestion',compact('recipes'));
+        return view('suggestion', compact('recipes'));
     }
 
     public function showRecipe($slug)
     {
-        $notification_id = $this->request->query->get('notification_id');
-        if(!empty($notification_id)){
-            $notification_id = intval($notification_id);
-            $notification = $this->notification->where('id',$notification_id)->first();
-            $notification->status = 'read';
-            $notification->save();
-        }
+        $notification = $this->recipe_service->checkNotification();
         $recipe = $this->recipe->whereSlug($slug)->first();
-        if(empty($recipe)){
+        if ( empty($recipe) ) {
             return redirect('/');
         }
         $user = $recipe->user()->first();
@@ -46,11 +48,16 @@ class RecipeController extends BaseController
         $categories = $recipe->categories()->get();
         $related_recipes = $this->recipe->paginate(3);
         $reviews = $recipe->review()->get();
-        return view('recipe',compact('user','recipe','ingredients','instructions','categories','related_recipes','reviews'));
+        $rating = $this->review_service->countRating($reviews);
+
+        return view('recipe', compact('user', 'recipe', 'ingredients', 'instructions', 'categories', 'related_recipes', 'reviews', 'rating'));
     }
 
-    public function buyIngredient(){
+    public function buyIngredient()
+    {
         dd($this->request->all());
     }
+
+
 
 }
