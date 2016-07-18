@@ -42,6 +42,6 @@ class UserSubmittedReview extends Event implements ShouldBroadcast,ShouldQueue
      */
     public function broadcastOn()
     {
-        return ['review-channel'];
+        return ['add-review-channel'];
     }
 }

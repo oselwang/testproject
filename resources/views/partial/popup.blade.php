@@ -85,9 +85,23 @@
         },
         methods: {
             takeDataReview: function () {
-                socket.on('review-channel:App\\Events\\UserSubmittedReview:{{Auth::user()->id}}', function (data) {
+                socket.on('add-review-channel:App\\Events\\UserSubmittedReview:{{Auth::user()->id}}', function (data) {
                     var defaulturl = 'http://testproject.net/';
-                    var message = data.name + ' submit a review on your recipe';
+                    var message = data.name + ' submits a review on your recipe';
+                    this.message = [];
+                    this.url = [];
+                    this.message.push(message);
+                    this.url.push(data.notification_url + "?notification_id=" + data.notification_id);
+                    this.show = true;
+                    this.count += 1;
+                    $('#notification').on('click',getNotification());
+                }.bind(this));
+            },
+
+            takeDataReviewHelpful: function () {
+                socket.on('review-helpful-channel:App\\Events\\UserFindedReviewHelpful:{{Auth::user()->id}}',function (data) {
+                    var defaulturl = 'http://testproject.net/';
+                    var message = data.name + ' finds your review helpful';
                     this.message = [];
                     this.url = [];
                     this.message.push(message);
@@ -109,7 +123,6 @@
                 }.bind(this));
             },
 
-
             refreshnotif: function (e) {
                 e.preventDefault();
                 this.show = false;
@@ -120,6 +133,7 @@
         },
         ready: function () {
             this.takeDataReview();
+            this.takeDataReviewHelpful();
             var vm = this;
             $.get('{{url('totalnotification')}}', function (data) {
                 vm.count = data;

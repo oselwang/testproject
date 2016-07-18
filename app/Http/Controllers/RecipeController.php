@@ -47,7 +47,7 @@ class RecipeController extends BaseController
         $instructions = $recipe->instruction()->get();
         $categories = $recipe->categories()->get();
         $related_recipes = $this->recipe->paginate(3);
-        $reviews = $recipe->review()->get();
+        $reviews = $recipe->review()->orderBy('helpful','desc')->get();
         $rating = $this->review_service->countRating($reviews);
 
         return view('recipe', compact('user', 'recipe', 'ingredients', 'instructions', 'categories', 'related_recipes', 'reviews', 'rating'));

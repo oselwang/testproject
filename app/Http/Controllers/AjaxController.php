@@ -205,6 +205,6 @@
                 $review->addHelpfulReview();
             }
             
-            return response()->json($review);
+            return response()->json($review->helpful);
         }
     }

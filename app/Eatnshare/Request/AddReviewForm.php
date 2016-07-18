@@ -9,6 +9,7 @@
     namespace App\Eatnshare\Request;
 
 
+    use App\Eatnshare\Traits\NotificationTraits;
     use App\Events\UserSubmittedReview;
     use App\Notification;
     use Auth;
@@ -17,6 +18,8 @@
 
     class AddReviewForm extends Form
     {
+        use NotificationTraits;
+        
         protected $rules = [
             'rating' => 'required'
         ];
@@ -38,15 +41,10 @@
 
                 $recipe = $review_added->recipe()->first();
 
-                $notification_added = $notification->create([
-                    'user_id' => $recipe->user_id,
-                    'url'     => 'recipe/' . $recipe->slug,
-                    'status'  => 'unread',
-                    'message' => $user->present()->fullname . ' submit a review on your recipe'
-                ]);
+                $notification = $this->addNotification($recipe);
 
-                event(new UserSubmittedReview($user->present()->fullname, $notification_added->user_id,
-                    $notification_added->url,$notification_added->id,$notification_added->status));
+                event(new UserSubmittedReview($user->present()->fullname, $notification->user_id,
+                    $notification->url,$notification->id,$notification->status));
 
                 return $review_added;
 

@@ -328,19 +328,28 @@
                                                                 class="fa fa-thumbs-o-up"></span> This is helpful</a>
                                                 @else
 
-                                                        <div id="review-helpful-container">
+                                                    <div id="review-helpful-container">
+                                                        @if(!$review->ownBy(Auth::user()->id))
                                                             @if($review->isAlreadyLiked())
                                                                 <a href="{{$review->id}}" class="review-helpful-clicked"
                                                                    id="review-helpful{{$review->id}}"><span
-                                                                            class="fa fa-thumbs-o-up"></span> {{$review->helpful}} This is
+                                                                            class="fa fa-thumbs-o-up"></span> {{$review->helpful}}
+                                                                    This is
                                                                     helpful</a>
                                                             @else
-                                                            <a href="{{$review->id}}" class="review-helpful"
-                                                               id="review-helpful{{$review->id}}"><span
-                                                                        class="fa fa-thumbs-o-up"></span>{{$review->helpful != 0 ? $review->helpful : '' }} This is
-                                                                helpful</a>
+                                                                <a href="{{$review->id}}" class="review-helpful"
+                                                                   id="review-helpful{{$review->id}}"><span
+                                                                            class="fa fa-thumbs-o-up"></span> {{$review->helpful != 0 ? $review->helpful : '' }}
+                                                                    This is
+                                                                    helpful</a>
                                                             @endif
-                                                        </div>
+                                                        @else
+                                                            <div class="review-helpful-clicked"><span
+                                                                        class="fa fa-thumbs-o-up"></span> {{$review->helpful}}
+                                                                This is
+                                                                helpful</div>
+                                                        @endif
+                                                    </div>
 
                                                 @endif
                                             </div>

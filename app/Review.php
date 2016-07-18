@@ -2,11 +2,15 @@
 
 namespace App;
 
+use App\Eatnshare\Traits\NotificationTraits;
+use App\Events\UserFindedReviewHelpful;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
+    use NotificationTraits;
+    
     protected $table = 'reviews';
 
     protected $fillable = [ 'recipe_id', 'user_id', 'rating', 'review', 'helpful' ];
@@ -50,10 +54,16 @@ class Review extends Model
         $review_helpful = new ReviewUserHelpful();
         $this->helpful += 1;
         $this->save();
+        
         $review_helpful = $review_helpful->create([
             'user_id' => Auth::user()->id,
             'review_id' => $this->id
         ]);
+        
+        $notification = $this->addNotification($this);
+        
+        event(new UserFindedReviewHelpful(Auth::user()->present()->fullname, $notification->user_id,
+            $notification->url,$notification->id,$notification->status));
 
         return $this;
     }
@@ -66,5 +76,13 @@ class Review extends Model
         $review_helpful->delete();
 
         return $this;
+    }
+
+    public function ownBy($user_id){
+        $review = $this->where(function($query) use ($user_id){
+            $query->where('user_id',$user_id);
+            $query->where('id',$this->id);
+        })->first();
+        return !empty($review) ? true : false;
     }
 }

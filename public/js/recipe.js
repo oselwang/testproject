@@ -441,6 +441,9 @@ for(i = 0;i < 9000;i++){
     $('#review-helpful' + i).on('click',function (e) {
         e.preventDefault();
         var id = $(this).attr('href');
+        var text = $(this).html();
+        var array_text = text.split(" ");
+        var total_helpful = array_text[3];
         $(this).html('');
         $(this).append("<span class='fa fa-spinner fa-pulse fa-fw' id='spinner-review-helpful"+id+"'>");
         var url = 'http://testproject.net/review-helpful?review_id=' + id;
@@ -449,12 +452,15 @@ for(i = 0;i < 9000;i++){
             url: url,
             dataType: 'json',
             success: function (data) {
-
-                var helpful = data.helpful;
-                var check_helpful = helpful != 0 ? helpful : '';
+                if(!isNaN(total_helpful) && data > total_helpful){
+                    $('#review-helpful' + id).removeClass('review-helpful');
+                    $('#review-helpful' + id).addClass('review-helpful-clicked');
+                }else {
+                    $('#review-helpful' + id).removeClass('review-helpful-clicked');
+                    $('#review-helpful' + id).addClass('review-helpful');
+                }
+                var check_helpful = data != 0 ? data : '';
                 $('#spinner-review-helpful' + id).remove();
-                $('#review-helpful' + id).removeClass('review-helpful');
-                $('#review-helpful' + id).addClass('review-helpful-clicked');
                 $('#review-helpful' + id).append("<span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful");
             }
         })
