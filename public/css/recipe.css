@@ -328,18 +328,15 @@
     color: #666666 !important;
 }
 
-.review-helpful-clicked{
-    font-size: 13px;
-    margin-top: 2px;
-    color:black !important;
-    font-family: 'Cabin', sans-serif;
+.review-helpful.clicked{
+    color : black !important;
 }
 
 .review-helpful:hover{
     color: black !important;
 }
 
-.review-helpful-clicked:hover{
+.review-helpful.clicked:hover{
     color:#666666 !important;
 }
 

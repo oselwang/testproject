@@ -75,6 +75,7 @@ Route::get('search', 'SearchController@show');
 Route::get('review/positive/{recipe_id}', 'ReviewController@getPositive');
 Route::get('review/least-positive/{recipe_id}', 'ReviewController@getLeastPositive');
 Route::get('review/newest/{recipe_id}', 'ReviewController@getNewest');
+    Route::get('review/helpful/{recipe_id}','ReviewController@getHelpful');
 
 
 Route::get('mapping', function () {

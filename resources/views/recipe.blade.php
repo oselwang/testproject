@@ -257,11 +257,12 @@
                     <input type="hidden" value="{{$recipe->id}}" id="recipe-id">
 
                     <div class="row hidden" id="review-positive">
-
                     </div>
                     <div class="row hidden" id="review-least-positive">
                     </div>
                     <div class="row hidden" id="review-newest">
+                    </div>
+                    <div class="row hidden" id="review-helpful-ajax">
                     </div>
                     <button class='btn btn-default show-more-button hidden' id='show-more-positive'>Show More</button>
                     <button class='btn btn-default show-more-button hidden' id='show-more-least-positive'>Show More
@@ -331,23 +332,23 @@
                                                     <div id="review-helpful-container">
                                                         @if(!$review->ownBy(Auth::user()->id))
                                                             @if($review->isAlreadyLiked())
-                                                                <a href="{{$review->id}}" class="review-helpful-clicked"
-                                                                   id="review-helpful{{$review->id}}"><span
+                                                                <a href="{{$review->id}}" class="review-helpful clicked"
+                                                                   id="review-helpful"><span
                                                                             class="fa fa-thumbs-o-up"></span> {{$review->helpful}}
                                                                     This is
                                                                     helpful</a>
                                                             @else
-                                                                <a href="{{$review->id}}" class="review-helpful"
-                                                                   id="review-helpful{{$review->id}}"><span
+                                                                <a href="{{$review->id}}" class="review-helpful" id='review-helpful'><span
                                                                             class="fa fa-thumbs-o-up"></span> {{$review->helpful != 0 ? $review->helpful : '' }}
                                                                     This is
                                                                     helpful</a>
                                                             @endif
                                                         @else
-                                                            <div class="review-helpful-clicked"><span
-                                                                        class="fa fa-thumbs-o-up"></span> {{$review->helpful}}
+                                                            <div class="review-helpful clicked" id='review-helpful'><span
+                                                                        class="fa fa-thumbs-o-up"></span> {{$review->helpful != 0 ? $review->helpful : '' }}
                                                                 This is
-                                                                helpful</div>
+                                                                helpful
+                                                            </div>
                                                         @endif
                                                     </div>
 
@@ -358,8 +359,14 @@
                                 </div>
                             </div>
                         @endforeach
+                            @if(count($reviews) > 2)
+                                <button class='btn btn-default show-more-button'
+                                        id='show-more-helpful2'>Show More
+                                </button>
+                            @endif
 
                     </div>
+                    <button class='btn btn-default show-more-button hidden' id='show-more-helpful'>Show More</button>
                 </div>
             </div>
         </div>

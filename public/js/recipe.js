@@ -1,5 +1,5 @@
 var page = 2;
-
+var defaultUrl = "http://testproject.net/";
 function redirect(url) {
     window.location = url;
 }
@@ -60,6 +60,7 @@ $('#positive').click(function (e) {
     e.preventDefault();
     $('#review-spin').removeClass('hidden');
     $('#review-helpful').addClass('hidden');
+    $('#review-helpful-ajax').addClass('hidden');
     $('#helpful').removeClass('review-info-btn-active');
     $('#helpful').attr('disabled',false);
     $(this).addClass('review-info-btn-active');
@@ -74,8 +75,9 @@ $('#positive').click(function (e) {
     $('#show-more-least-positive').addClass('hidden');
     $('#show-more-newest').addClass('hidden');
     $('#show-more-helpful').addClass('hidden');
+    $('#show-more-helpful2').addClass('hidden');
     var recipeid = $('#recipe-id').val();
-    var url = '../review/positive/' + recipeid;
+    var url = defaultUrl + 'review/positive/' + recipeid;
     $.ajax({
         type: 'get',
         url: url,
@@ -91,9 +93,26 @@ $('#positive').click(function (e) {
                 var review = value.review;
                 var rating = value.rating;
                 var time = value.diffForHumans;
+                var owner = value.owner;
+                var liked = value.liked;
+                var helpful = value.helpful;
+                var check_helpful = helpful != 0 ? helpful : '';
+                var divownerliked = '';
+                if(value.login == true){
+                    if(owner == true){
+                        divownerliked = "<div class='review-helpful clicked'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</div>"
+                    }else{
+                        if(liked == true){
+                            divownerliked = "<a href="+value.id+" class='review-helpful clicked' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+helpful+" This is helpful</a>"
+                        }else{
+                            divownerliked = "<a href="+value.id+" class='review-helpful' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</a>"
+                        }
+                    }
+                }else{
+                    divownerliked = "<a href='#' class='review-helpful' data-toggle='modal' data-target='#login-modal'><span class='fa fa-thumbs-o-up'></span>"+check_helpful+" This is helpful</a>"
+                }
                 var divrating = '';
-
-
+                
                 if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
                 } else if (rating == 2) {
@@ -106,7 +125,7 @@ $('#positive').click(function (e) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
 
-                $('#review-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+                $('#review-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> "+divownerliked+"</div> </div> </div> </div>");
                 if(data.length > 2){
                     $('#show-more-positive').removeClass('hidden');
                 }
@@ -122,7 +141,7 @@ $('#show-more-positive').on('click', function () {
 
     $('#review-spin').removeClass('hidden');
     var recipeid = $('#recipe-id').val();
-    var url = '../review/positive/' + recipeid + '?page=' + page;
+    var url = defaultUrl + '/review/positive/' + recipeid + '?page=' + page;
     $.ajax({
         type: 'get',
         url: url,
@@ -140,8 +159,25 @@ $('#show-more-positive').on('click', function () {
                 var review = value.review;
                 var rating = value.rating;
                 var time = value.diffForHumans;
+                var owner = value.owner;
+                var liked = value.liked;
+                var helpful = value.helpful;
+                var check_helpful = helpful != 0 ? helpful : '';
+                var divownerliked = '';
+                if(value.login == true){
+                    if(owner == true){
+                        divownerliked = "<div class='review-helpful clicked'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</div>"
+                    }else{
+                        if(liked == true){
+                            divownerliked = "<a href="+value.id+" class='review-helpful clicked' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+helpful+" This is helpful</a>"
+                        }else{
+                            divownerliked = "<a href="+value.id+" class='review-helpful' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</a>"
+                        }
+                    }
+                }else{
+                    divownerliked = "<a href='#' class='review-helpful' data-toggle='modal' data-target='#login-modal'><span class='fa fa-thumbs-o-up'></span>"+check_helpful+" This is helpful</a>"
+                }
                 var divrating = '';
-
 
                 if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
@@ -155,7 +191,7 @@ $('#show-more-positive').on('click', function () {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
 
-                $('#review-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+                $('#review-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> "+divownerliked+"</div> </div> </div> </div>");
 
             });
         }
@@ -166,7 +202,7 @@ $('#helpful').click(function (e) {
 
     e.preventDefault();
     $('#review-spin').removeClass('hidden');
-    $('#review-helpful').removeClass('hidden');
+    $('#review-helpful-ajax').removeClass('hidden');
     $(this).addClass('review-info-btn-active');
     $(this).attr('disabled',true);
     $('#positive').removeClass('review-info-btn-active');
@@ -178,23 +214,48 @@ $('#helpful').click(function (e) {
     $('#newest').removeClass('review-info-btn-active');
     $('#newest').attr('disabled',false);
     $('#review-positive').addClass('hidden');
+    $('#show-more-least-positive').addClass('hidden');
+    $('#show-more-positive').addClass('hidden');
+    $('#show-more-newest').addClass('hidden');
+    $('#show-more-helpful').addClass('hidden');
+    $('#show-more-helpful2').addClass('hidden');
     var recipeid = $('#recipe-id').val();
-    var url = '../review/helpful/' + recipeid;
+    var url = defaultUrl + 'review/helpful/' + recipeid;
     $.ajax({
         type: 'get',
         url: url,
         dataType: 'json',
         success: function (data) {
             $('#review-spin').addClass('hidden');
-            $('#review-helpful').text('');
+            $('#review-helpful-ajax').text('');
             $.each(data, function (index, value) {
+
                 var firstname = value.firstname;
                 var lastname = value.lastname;
                 var photo = value.photo_name;
                 var review = value.review;
                 var rating = value.rating;
                 var time = value.diffForHumans;
+                var owner = value.owner;
+                var liked = value.liked;
+                var helpful = value.helpful;
+                var check_helpful = helpful != 0 ? helpful : '';
+                var divownerliked = '';
+                if(value.login == true){
+                    if(owner == true){
+                        divownerliked = "<div class='review-helpful clicked'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</div>"
+                    }else{
+                        if(liked == true){
+                            divownerliked = "<a href="+value.id+" class='review-helpful clicked' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+helpful+" This is helpful</a>"
+                        }else{
+                            divownerliked = "<a href="+value.id+" class='review-helpful' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</a>"
+                        }
+                    }
+                }else{
+                    divownerliked = "<a href='#' class='review-helpful' data-toggle='modal' data-target='#login-modal'><span class='fa fa-thumbs-o-up'></span>"+check_helpful+" This is helpful</a>"
+                }
                 var divrating = '';
+
                 if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
                 } else if (rating == 2) {
@@ -206,13 +267,78 @@ $('#helpful').click(function (e) {
                 } else {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
-                $('#review-helpful').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
 
+                $('#review-helpful-ajax').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> "+divownerliked+"</div> </div> </div> </div>");
+                $('#show-more-helpful').removeClass('hidden');
             });
-
         },
         error: function (data) {
 
+        }
+    });
+});
+
+$('#show-more-helpful').on('click', function () {
+
+    $('#review-spin').removeClass('hidden');
+    var recipeid = $('#recipe-id').val();
+    var url = defaultUrl + 'review/helpful/' + recipeid + '?page=' + page;
+    $.ajax({
+        type: 'get',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+            if (data.length == 0) {
+                $('#show-more-helpful').addClass('hidden');
+            }
+            page += 1;
+            $('#review-spin').addClass('hidden');
+            $.each(data, function (index, value) {
+                var firstname = value.firstname;
+                var lastname = value.lastname;
+                var photo = value.photo_name;
+                var review = value.review;
+                var rating = value.rating;
+                var time = value.diffForHumans;
+                var owner = value.owner;
+                var liked = value.liked;
+                var helpful = value.helpful;
+                var check_helpful = helpful != 0 ? helpful : '';
+                var divownerliked = '';
+                if(value.login == true){
+                    if(owner == true){
+                        divownerliked = "<div class='review-helpful clicked'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</div>"
+                    }else{
+                        if(liked == true){
+                            divownerliked = "<a href="+value.id+" class='review-helpful clicked' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+helpful+" This is helpful</a>"
+                        }else{
+                            divownerliked = "<a href="+value.id+" class='review-helpful' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</a>"
+                        }
+                    }
+                }else{
+                    divownerliked = "<a href='#' class='review-helpful' data-toggle='modal' data-target='#login-modal'><span class='fa fa-thumbs-o-up'></span>"+check_helpful+" This is helpful</a>"
+                }
+                var divrating = '';
+
+                if (rating == 1) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 2) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 3) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
+                } else if (rating == 4) {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span></div>';
+                } else {
+                    divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
+                }
+
+                $('#review-helpful').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> "+divownerliked+"</div> </div> </div> </div>");
+                $('#show-more-positive').addClass('hidden');
+                $('#show-more-least-positive').addClass('hidden');
+                $('#show-more-newest').addClass('hidden');
+                $('#show-more-helpful').removeClass('hidden');
+
+            });
         }
     });
 });
@@ -222,6 +348,7 @@ $('#least-positive').click(function (e) {
     e.preventDefault();
     $('#review-spin').removeClass('hidden');
     $('#review-helpful').addClass('hidden');
+    $('#review-helpful-ajax').addClass('hidden');
     $('#helpful').removeClass('review-info-btn-active');
     $('#helpful').attr('disabled',false);
     $('#positive').removeClass('review-info-btn-active');
@@ -236,8 +363,9 @@ $('#least-positive').click(function (e) {
     $('#show-more-positive').addClass('hidden');
     $('#show-more-newest').addClass('hidden');
     $('#show-more-helpful').addClass('hidden');
+    $('#show-more-helpful2').addClass('hidden');
     var recipeid = $('#recipe-id').val();
-    var url = '../review/least-positive/' + recipeid;
+    var url = defaultUrl + 'review/least-positive/' + recipeid;
     $.ajax({
         type: 'get',
         url: url,
@@ -253,7 +381,26 @@ $('#least-positive').click(function (e) {
                 var review = value.review;
                 var rating = value.rating;
                 var time = value.diffForHumans;
+                var owner = value.owner;
+                var liked = value.liked;
+                var helpful = value.helpful;
+                var check_helpful = helpful != 0 ? helpful : '';
+                var divownerliked = '';
+                if(value.login == true){
+                    if(owner == true){
+                        divownerliked = "<div class='review-helpful clicked'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</div>"
+                    }else{
+                        if(liked == true){
+                            divownerliked = "<a href="+value.id+" class='review-helpful clicked' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+helpful+" This is helpful</a>"
+                        }else{
+                            divownerliked = "<a href="+value.id+" class='review-helpful' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</a>"
+                        }
+                    }
+                }else{
+                    divownerliked = "<a href='#' class='review-helpful' data-toggle='modal' data-target='#login-modal'><span class='fa fa-thumbs-o-up'></span>"+check_helpful+" This is helpful</a>"
+                }
                 var divrating = '';
+
                 if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
                 } else if (rating == 2) {
@@ -265,7 +412,8 @@ $('#least-positive').click(function (e) {
                 } else {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
-                $('#review-least-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+
+                $('#review-least-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> "+divownerliked+"</div> </div> </div> </div>");
 
                 if(data.length > 2) {
                     $('#show-more-least-positive').removeClass('hidden');
@@ -283,7 +431,7 @@ $('#show-more-least-positive').on('click', function () {
 
     $('#review-spin').removeClass('hidden');
     var recipeid = $('#recipe-id').val();
-    var url = '../review/least-positive/' + recipeid + '?page=' + page;
+    var url = defaultUrl + 'review/least-positive/' + recipeid + '?page=' + page;
     $.ajax({
         type: 'get',
         url: url,
@@ -301,8 +449,25 @@ $('#show-more-least-positive').on('click', function () {
                 var review = value.review;
                 var rating = value.rating;
                 var time = value.diffForHumans;
+                var owner = value.owner;
+                var liked = value.liked;
+                var helpful = value.helpful;
+                var check_helpful = helpful != 0 ? helpful : '';
+                var divownerliked = '';
+                if(value.login == true){
+                    if(owner == true){
+                        divownerliked = "<div class='review-helpful clicked'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</div>"
+                    }else{
+                        if(liked == true){
+                            divownerliked = "<a href="+value.id+" class='review-helpful clicked' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+helpful+" This is helpful</a>"
+                        }else{
+                            divownerliked = "<a href="+value.id+" class='review-helpful' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</a>"
+                        }
+                    }
+                }else{
+                    divownerliked = "<a href='#' class='review-helpful' data-toggle='modal' data-target='#login-modal'><span class='fa fa-thumbs-o-up'></span>"+check_helpful+" This is helpful</a>"
+                }
                 var divrating = '';
-
 
                 if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
@@ -316,7 +481,7 @@ $('#show-more-least-positive').on('click', function () {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
 
-                $('#review-least-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+                $('#review-least-positive').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> "+divownerliked+"</div> </div> </div> </div>");
 
             });
         }
@@ -327,6 +492,7 @@ $('#newest').click(function (e) {
     e.preventDefault();
     $('#review-spin').removeClass('hidden');
     $('#review-helpful').addClass('hidden');
+    $('#review-helpful-ajax').addClass('hidden');
     $('#helpful').removeClass('review-info-btn-active');
     $('#helpful').attr('disabled',false);
     $('#positive').removeClass('review-info-btn-active');
@@ -342,8 +508,9 @@ $('#newest').click(function (e) {
     $('#show-more-positive').addClass('hidden');
     $('#show-more-least-positive').addClass('hidden');
     $('#show-more-helpful').addClass('hidden');
+    $('#show-more-helpful2').addClass('hidden');
     var recipeid = $('#recipe-id').val();
-    var url = '../review/newest/' + recipeid;
+    var url = defaultUrl + 'review/newest/' + recipeid;
     $.ajax({
         type: 'get',
         url: url,
@@ -358,7 +525,26 @@ $('#newest').click(function (e) {
                 var review = value.review;
                 var rating = value.rating;
                 var time = value.diffForHumans;
+                var owner = value.owner;
+                var liked = value.liked;
+                var helpful = value.helpful;
+                var check_helpful = helpful != 0 ? helpful : '';
+                var divownerliked = '';
+                if(value.login == true){
+                    if(owner == true){
+                        divownerliked = "<div class='review-helpful clicked'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</div>"
+                    }else{
+                        if(liked == true){
+                            divownerliked = "<a href="+value.id+" class='review-helpful clicked' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+helpful+" This is helpful</a>"
+                        }else{
+                            divownerliked = "<a href="+value.id+" class='review-helpful' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</a>"
+                        }
+                    }
+                }else{
+                    divownerliked = "<a href='#' class='review-helpful' data-toggle='modal' data-target='#login-modal'><span class='fa fa-thumbs-o-up'></span>"+check_helpful+" This is helpful</a>"
+                }
                 var divrating = '';
+
                 if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
                 } else if (rating == 2) {
@@ -370,7 +556,8 @@ $('#newest').click(function (e) {
                 } else {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
-                $('#review-newest').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+
+                $('#review-newest').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> "+divownerliked+"</div> </div> </div> </div>");
             });
             if(data.length > 2) {
                 $('#show-more-newest').removeClass('hidden');
@@ -387,7 +574,7 @@ $('#show-more-newest').on('click', function () {
 
     $('#review-spin').removeClass('hidden');
     var recipeid = $('#recipe-id').val();
-    var url = '../review/newest/' + recipeid + '?page=' + page;
+    var url = defaultUrl + 'review/newest/' + recipeid + '?page=' + page;
     $.ajax({
         type: 'get',
         url: url,
@@ -405,8 +592,25 @@ $('#show-more-newest').on('click', function () {
                 var review = value.review;
                 var rating = value.rating;
                 var time = value.diffForHumans;
+                var owner = value.owner;
+                var liked = value.liked;
+                var helpful = value.helpful;
+                var check_helpful = helpful != 0 ? helpful : '';
+                var divownerliked = '';
+                if(value.login == true){
+                    if(owner == true){
+                        divownerliked = "<div class='review-helpful clicked'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</div>"
+                    }else{
+                        if(liked == true){
+                            divownerliked = "<a href="+value.id+" class='review-helpful clicked' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+helpful+" This is helpful</a>"
+                        }else{
+                            divownerliked = "<a href="+value.id+" class='review-helpful' id='review-helpful'><span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful</a>"
+                        }
+                    }
+                }else{
+                    divownerliked = "<a href='#' class='review-helpful' data-toggle='modal' data-target='#login-modal'><span class='fa fa-thumbs-o-up'></span>"+check_helpful+" This is helpful</a>"
+                }
                 var divrating = '';
-
 
                 if (rating == 1) {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>';
@@ -420,7 +624,7 @@ $('#show-more-newest').on('click', function () {
                     divrating = '<div class="reviewer-rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>';
                 }
 
-                $('#review-newest').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> </div> </div> </div> </div>");
+                $('#review-newest').append("<div class='row'><div class='col-md-1'><div class='reviewer-user-photo'><img src='" + (photo != null ? '../' + photo : '../images/blank-person.png') + "' class='user-pic' id='profile-photo'> </div> </div> <div class='col-md-11' style='padding-left: 0 !important;'> <div class='reviewer-info'> <div class='reviewer-name'> <b>" + firstname + ' ' + lastname + "</b> - <o style='font-size: 12px;'>" + time + "</o>&nbsp;" + divrating + "<div class='reviewer-review'>" + review + "</div> "+divownerliked+"</div> </div> </div> </div>");
                 $('#show-more-positive').addClass('hidden');
                 $('#show-more-least-positive').addClass('hidden');
                 $('#show-more-newest').removeClass('hidden');
@@ -437,33 +641,115 @@ $('#user-review').hover(function () {
     }
 );
 
-for(i = 0;i < 9000;i++){
-    $('#review-helpful' + i).on('click',function (e) {
+
+$('#review-helpful').on('click','#review-helpful',function (e) {
         e.preventDefault();
         var id = $(this).attr('href');
         var text = $(this).html();
         var array_text = text.split(" ");
         var total_helpful = array_text[3];
+        var _ = $(this);
         $(this).html('');
         $(this).append("<span class='fa fa-spinner fa-pulse fa-fw' id='spinner-review-helpful"+id+"'>");
-        var url = 'http://testproject.net/review-helpful?review_id=' + id;
+        var url = defaultUrl + 'review-helpful?review_id=' + id;
         $.ajax({
             type:'get',
             url: url,
             dataType: 'json',
             success: function (data) {
                 if(!isNaN(total_helpful) && data > total_helpful){
-                    $('#review-helpful' + id).removeClass('review-helpful');
-                    $('#review-helpful' + id).addClass('review-helpful-clicked');
+                    _.addClass('clicked');
                 }else {
-                    $('#review-helpful' + id).removeClass('review-helpful-clicked');
-                    $('#review-helpful' + id).addClass('review-helpful');
+                    _.removeClass('clicked');
                 }
                 var check_helpful = data != 0 ? data : '';
                 $('#spinner-review-helpful' + id).remove();
-                $('#review-helpful' + id).append("<span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful");
+                _.append("<span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful");
             }
         })
     });
 
-}
+$('#review-positive').on('click','#review-helpful',function (e) {
+    e.preventDefault();
+    var id = $(this).attr('href');
+    var text = $(this).html();
+    var array_text = text.split(" ");
+    var total_helpful = array_text[3];
+    var _ = $(this);
+    $(this).html('');
+    $(this).append("<span class='fa fa-spinner fa-pulse fa-fw' id='spinner-review-helpful"+id+"'>");
+    var url = defaultUrl + 'review-helpful?review_id=' + id;
+    $.ajax({
+        type:'get',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+            if(!isNaN(total_helpful) && data > total_helpful){
+                _.addClass('clicked');
+            }else {
+                _.removeClass('clicked');
+            }
+            var check_helpful = data != 0 ? data : '';
+            $('#spinner-review-helpful' + id).remove();
+            _.append("<span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful");
+        }
+    })
+});
+
+$('#review-least-positive').on('click','#review-helpful',function (e) {
+    e.preventDefault();
+    var id = $(this).attr('href');
+    var text = $(this).html();
+    var array_text = text.split(" ");
+    var total_helpful = array_text[3];
+    var _ = $(this);
+    $(this).html('');
+    $(this).append("<span class='fa fa-spinner fa-pulse fa-fw' id='spinner-review-helpful"+id+"'>");
+    var url = defaultUrl + 'review-helpful?review_id=' + id;
+    $.ajax({
+        type:'get',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+            if(!isNaN(total_helpful) && data > total_helpful){
+                _.addClass('clicked');
+            }else {
+                _.removeClass('clicked');
+            }
+            var check_helpful = data != 0 ? data : '';
+            $('#spinner-review-helpful' + id).remove();
+            _.append("<span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful");
+        }
+    })
+});
+
+$('#review-newest').on('click','#review-helpful',function (e) {
+    e.preventDefault();
+    var id = $(this).attr('href');
+    alert(id);
+    var text = $(this).html();
+    var array_text = text.split(" ");
+    var total_helpful = array_text[3];
+    var _ = $(this);
+    $(this).html('');
+    $(this).append("<span class='fa fa-spinner fa-pulse fa-fw' id='spinner-review-helpful"+id+"'>");
+    var url = defaultUrl + 'review-helpful?review_id=' + id;
+    $.ajax({
+        type:'get',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+            if(!isNaN(total_helpful) && data > total_helpful){
+                _.addClass('clicked');
+            }else {
+                _.removeClass('clicked');
+            }
+            var check_helpful = data != 0 ? data : '';
+            $('#spinner-review-helpful' + id).remove();
+            _.append("<span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful");
+        }
+    })
+});
+
+
+

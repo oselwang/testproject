@@ -199,6 +199,7 @@
         public function helpfulReview(){
             $review_id = $this->request->query->get('review_id');
             $review = $this->review->where('id',intval($review_id))->first();
+            
             if($review->isAlreadyLiked($review_id)){
                 $review->subHelpfulReview();
             }else{
