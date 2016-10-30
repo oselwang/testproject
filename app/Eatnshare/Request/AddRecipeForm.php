@@ -11,6 +11,7 @@
 
     use App\Ingredient;
     use App\Instruction;
+    use App\PivotIngredientRecipe;
     use App\PivotRecipeCategory;
     use App\Recipe;
     use App\RecipeProfilePhoto;
@@ -40,6 +41,7 @@
             $ingredients = new Ingredient();
             $instructions = new Instruction();
             $pivot_recipe_category = new PivotRecipeCategory();
+            $pivot_ingredient_recipe = new PivotIngredientRecipe();
 
 
             if ($this->isValid()) {

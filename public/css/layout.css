@@ -3,13 +3,34 @@
     overflow-x: hidden;
     overflow-y: visible;
 }
-.notification-text{
+
+.notification-text {
     position: relative;
     right: 10px !important;
     width: 200px !important;
 }
 
-.notification-none{
-    color:white;
+.notification-none {
+    color: white;
     text-align: center;
+}
+
+.ingredient-suggestion-container-recipe-modal {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color:black;
+    position: absolute;
+    width: 45.5%;
+    z-index: 2;
+}
+
+.ingredient-suggestion-list-recipe-modal{
+    padding: 0.5em;
+    font-size: 14px;
+}
+
+.ingredient-suggestion-list-recipe-modal:hover{
+    background: grey;
+    cursor: pointer;
 }

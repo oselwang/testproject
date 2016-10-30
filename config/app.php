@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => 'http://testproject.net',
+    'url' => 'http://testproject.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -162,6 +162,8 @@ return [
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
 
     ],
@@ -211,7 +213,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Flash' => Laracasts\Flash\Flash::class,
-        'Es' => Elasticquent\ElasticquentElasticsearchFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

@@ -55,6 +55,10 @@ class User extends Authenticatable
         return $this->id == $property->user_id;
     }
 
+    public function is($user){
+        return $this->id == $user->id;
+    }
+
     public function getProfilePhoto()
     {
 
@@ -78,6 +82,19 @@ class User extends Authenticatable
     
     public function getReviewOn($recipe){
         return $recipe->review()->where('user_id',$this->id)->first();
+    }
+
+    public function alreadyFollowed($user_id){
+        $follow = Follow::where(function ($query) use ($user_id){
+            $query->where('user_id',intval($user_id));
+            $query->where('follower_id',\Auth::id());
+        })->first(['user_id']);
+
+        if(empty($follow)){
+            return false;
+        }else{
+            return true;
+        }
     }
 
 }

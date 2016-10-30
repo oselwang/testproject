@@ -18,11 +18,12 @@ $('#search').keyup(function () {
     $('.suggestion-list').parent().remove();
     delay(function () {
         var data = $('#search').val();
-        var url = 'http://testproject.net/suggest-search';
+        var url = 'http://testproject.com/suggest-search';
         $.ajax({
             type: 'post',
             url: url,
             data: {
+                _token: $("#search-form input[name='_token']").val(),
                 search: data
             },
             dataType: 'json',
@@ -30,8 +31,8 @@ $('#search').keyup(function () {
                 $.each(data, function (index, value) {
                     var src_str = data[index]['_source']['name'];
                     var term = $('#search').val();
-                    var urlhref = 'http://testproject.net/recipe/';
-                    var urlphoto = 'http://testproject.net/';
+                    var urlhref = 'http://testproject.com/recipe/';
+                    var urlphoto = 'http://testproject.com/';
                     term = term.replace(/(\s+)/, "(<[^>]+>)*$1(<[^>]+>)*");
                     var pattern = new RegExp("(" + term + ")", "gi");
                     src_str = src_str.replace(pattern, "<b>$1</b>");
@@ -48,7 +49,9 @@ $('#search').keyup(function () {
 });
 
 $('#notification').on('click',function () {
-    var url = 'http://testproject.net/notification';
+    var url = "http://testproject.com/notification";
+    $('.notification').addClass('hidden');
+    vm.count = 0;
     $('#notification-list').text('');
     $('#notification-list').append("<center><li><i class='fa fa-spinner fa-pulse fa-3x fa-fw notification-spinner' id='notification-spinner'></i> </li> </center>");
     $(this).unbind('click');
@@ -57,6 +60,7 @@ $('#notification').on('click',function () {
             url: url,
             dataType: 'json',
             success: function (data) {
+                $(this).bind('click');
                 if(data.length == 0){
                     $('#notification-spinner').addClass('hidden');
                     $('#notification-list').append("<li class='notification-list'><p class='notification-none'>No notification yet</p></li>");
@@ -64,7 +68,7 @@ $('#notification').on('click',function () {
                     $('#notification-spinner').addClass('hidden');
                     $.each(data,function (index,value) {
                         var status = "<i class='fa fa-circle' style='margin-right: 10px;'></i>";
-                        var url = 'http://testproject.net/';
+                        var url = 'http://testproject.com/';
                         $('#notification-list').append("<li class='notification-list'><a href="+url + value.url+"?notification_id="+value.id+"><div class='row'><div class='col-lg-1'>"+status +value.message+"</div></div></a></li>");
                     })
                 }

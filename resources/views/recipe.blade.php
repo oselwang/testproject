@@ -32,8 +32,14 @@
                             REVIEWS :
                             {{count($reviews)}}
                             <div class="print-recipe-btn">
-                                <button class="btn btn-primary"><i class="fa fa-print"> Print Ingredients & Recipe</i>
-                                </button>
+                                <form method="post" action="print-recipe">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="recipe-slug" value="{{$recipe->slug}}">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-print"> Print
+                                            Ingredients &
+                                            Recipe</i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -118,7 +124,8 @@
                         <div class="ingredient-title-separator">
                         </div>
                     </div>
-                    <form method="post" action="{{url('http://testproject.net/recipe/buy-ingredient')}}">
+                    <form method="post" action="{{url('http://testproject.com/recipe/buy-ingredient')}}">
+                        {{csrf_field()}}
                         @foreach($ingredients as $ingredient)
                             <div class="ingredient-list">
                                 <label class="control control--checkbox">1/2 cup low-sodium chicken broth
@@ -338,13 +345,15 @@
                                                                     This is
                                                                     helpful</a>
                                                             @else
-                                                                <a href="{{$review->id}}" class="review-helpful" id='review-helpful'><span
+                                                                <a href="{{$review->id}}" class="review-helpful"
+                                                                   id='review-helpful'><span
                                                                             class="fa fa-thumbs-o-up"></span> {{$review->helpful != 0 ? $review->helpful : '' }}
                                                                     This is
                                                                     helpful</a>
                                                             @endif
                                                         @else
-                                                            <div class="review-helpful clicked" id='review-helpful'><span
+                                                            <div class="review-helpful clicked"
+                                                                 id='review-helpful'><span
                                                                         class="fa fa-thumbs-o-up"></span> {{$review->helpful != 0 ? $review->helpful : '' }}
                                                                 This is
                                                                 helpful
@@ -359,11 +368,11 @@
                                 </div>
                             </div>
                         @endforeach
-                            @if(count($reviews) > 2)
-                                <button class='btn btn-default show-more-button'
-                                        id='show-more-helpful2'>Show More
-                                </button>
-                            @endif
+                        @if(count($reviews) > 2)
+                            <button class='btn btn-default show-more-button'
+                                    id='show-more-helpful2'>Show More
+                            </button>
+                        @endif
 
                     </div>
                     <button class='btn btn-default show-more-button hidden' id='show-more-helpful'>Show More</button>
@@ -407,8 +416,9 @@
                     @endforeach
                 </div>
             </div>
-        @endif
-        @include('partial.reviewmodal')
-        <script src="{{asset('js/recipe.js')}}"></script>
+    </div>
+    @endif
+    @include('partial.reviewmodal')
+    <script src="{{asset('js/recipe.js')}}"></script>
 
 @stop

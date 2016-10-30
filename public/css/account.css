@@ -1,7 +1,7 @@
 .current-profile .user-bg {
     background-position: bottom center;
     background-size: cover;
-    height: 280px;
+    height: 300px;
 }
 
 .current-profile .user-pic {
@@ -22,14 +22,15 @@
 .current-profile .recipe-bg {
     background-position: bottom left;
     background-size: cover;
-    height: 460px;
+    min-height: 400px;
+    max-height:500px;
 }
 
 .current-profile .recipe-pic {
     background-position: center center !important;
     background-size: cover !important;
-    height: 420px;
-    width: 420px;
+    height: 362px;
+    width: 530px;
     position: relative;
     right: 110px;
     float: right;
@@ -84,7 +85,7 @@
 .upload-file-container {
     position:absolute;
     left:61%;
-    top:5%;
+    top:6%;
     font-size: 18px;
     z-index: 999;
 }
@@ -129,11 +130,11 @@
 }
 
 .cover-photo {
-    background: url(http://testproject.net/images/3.jpg) no-repeat
+    background: url(http://testproject.com/images/3.jpg) no-repeat
 }
 
 .recipe-cover-photo{
-    background: url(http://testproject.net/images/recipe-container-background.jpg) no-repeat
+    background: url(http://testproject.com/images/recipe-container-background.jpg) no-repeat
 }
 
 .info {
@@ -211,13 +212,42 @@
     font-size: 13px;
 }
 
+.follow-button{
+    padding-left: 2em !important;
+    padding-right: 2em !important;
+    margin-bottom: 20px !important;
+}
+
+.follow-modal{
+    height: 500px !important;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+.follow-button-modal{
+    float:right;
+    height: 30px;
+    position:relative;
+    bottom: 5px;
+}
+
+.followed-button-modal{
+    float:right;
+    height: 30px;
+    position:relative;
+    bottom: 5px;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c
+}
+
 @media (max-width: 767px) {
     .current-profile .user-bg {
-        height: 260px;
+        height: 300px;
     }
 
     .cover-photo {
-        background: url(http://testproject.net/images/account-coverphoto767.jpg) no-repeat
+        background: url(http://testproject.com/images/account-coverphoto767.jpg) no-repeat
     }
 
     .current-profile .user-pic {

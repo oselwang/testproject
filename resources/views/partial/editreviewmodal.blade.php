@@ -15,7 +15,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12" style="padding:1em;">
-                            <form id="edit-review-form" action="{{url('http://testproject.net/edit-review')}}" method="post"
+                            <form id="edit-review-form" action="{{url('http://testproject.com/edit-review')}}" method="post"
                                   role="form" style="display: block;" autocomplete="off">
                                 <input type="hidden" name="review_id" value="{{$user_review->id}}">
 

@@ -18,20 +18,40 @@
                             </div>
                         </form>
                     </div>
-                    <div class="upload-file-container fa fa-camera"
-                         style="position:absolute;left:46%;top:10%;z-index: 100">
-                        <form method="post" action="{{url('change-profile-photo')}}" id="change-profile-photo-form">
-                            <input type="file" name="profilephoto" style="width: 10px"
-                                   accept="image/png, image/jpeg, image/gif">
-                        </form>
-                    </div>
+                    @if(!Auth::check()))
+                    @elseif(Auth::user()->is($user))
+                        <div class="upload-file-container fa fa-camera"
+                             style="position:absolute;left:46%;top:10%;z-index: 100">
+                            <form method="post" action="{{url('change-profile-photo')}}" id="change-profile-photo-form">
+                                <input type="file" name="profilephoto" style="width: 10px"
+                                       accept="image/png, image/jpeg, image/gif">
+                            </form>
+                        </div>
+                    @endif
                     <img src="@if(empty($profile_photo->photo_name)) {{asset('images/blank-person.png')}} @else {{asset($profile_photo->photo_name)}} @endif"
                          class="user-pic" id="profile-photo">
                     <div class="user-details" id="load-headline">
                         <h3 class="user-name">{{$user->present()->fullname}}<i>!</i></h3>
-                        <h4 class="description">@if(empty($user->headline))<a id="editheadline"
-                                                                              class="fa fa-edit"
-                                                                              style="cursor:pointer;">Edit
+                        <h4 class="description">
+                            @if(!Auth::check())
+                            @elseif(!Auth::user()->is($user))
+                                <form method="post" action="{{url('account/follow-user')}}" id="follow-user-form">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="user_id" value="{{$user->id}}">
+                                    <span class="follow-wrap">
+                                        <button class="btn btn-success follow-button @if($already_followed = Auth::user()->alreadyFollowed($user->id)) followed @endif"
+                                                id="follow-button">
+                                            @if($already_followed)
+                                                Following
+                                            @else
+                                                Follow
+                                            @endif
+                                        </button>
+                                    </span>
+                                </form>
+                            @elseif(empty($user->headline))<a id="editheadline"
+                                                              class="fa fa-edit"
+                                                              style="cursor:pointer;">Edit
                                 Headline</a>@else <p id="user-headline">{{$user->headline}}&nbsp;&nbsp;&nbsp;<a
                                         id="editheadline" class="fa fa-edit" style="cursor:pointer;"> </a></p>@endif
                         </h4>
@@ -49,17 +69,55 @@
                                     <small>Recipes</small>
                                 </center>
                             </div>
+
                             <div class="col-md-4 col-sm-5 col-xs-5 center-align-text">
-                                <center><h3>{{count($recipes)}}</h3></center>
-                                <center>
-                                    <small>Followers</small>
-                                </center>
+                                @if(!Auth::check())
+                                    <center><h3>{{count($followers)}}</h3></center>
+                                    <center>
+                                        <small>Follower</small>
+                                    </center>
+                                @else
+                                    @if(count($followers) != 0)
+                                        <a href="#" data-toggle="modal" data-target='#follower-modal'
+                                           id="follower-modal-click">
+                                            <center><h3>{{count($followers)}}</h3></center>
+                                            <center>
+                                                <small>Follower</small>
+                                            </center>
+                                        </a>
+                                        @include('partial.followermodal')
+                                    @else
+                                        <center><h3>{{count($followers)}}</h3></center>
+                                        <center>
+                                            <small>Follower</small>
+                                        </center>
+                                    @endif
+                                @endif
                             </div>
+
                             <div class="col-md-4 col-sm-5 col-xs-5 center-align-text">
-                                <center><h3>{{count($recipes)}}</h3></center>
-                                <center>
-                                    <small>Following</small>
-                                </center>
+                                @if(!Auth::check())
+                                    <center><h3>{{count($followings)}}</h3></center>
+                                    <center>
+                                        <small>Following</small>
+                                    </center>
+                                @else
+                                    @if(count($followings) != 0)
+                                        <a href="#" data-toggle="modal" data-target='#following-modal'
+                                           id="following-modal-click">
+                                            <center><h3>{{count($followings)}}</h3></center>
+                                            <center>
+                                                <small>Following</small>
+                                            </center>
+                                        </a>
+                                        @include('partial.followingmodal')
+                                    @else
+                                        <center><h3>{{count($followings)}}</h3></center>
+                                        <center>
+                                            <small>Following</small>
+                                        </center>
+                                    @endif
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -95,7 +153,7 @@
                                                             class="fa fa-user"></span> {{$user->present()->fullname}}
                                                 </center>
                                             </div>
-                                                <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
+                                            <span class="fa fa-calendar"> {{$recipe->created_at->toFormattedDateString()}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -111,6 +169,19 @@
     <script>
         function redirect(url) {
             window.location = url;
+        }
+
+        function unfollow(x) {
+            x.style.backgroundColor = 'red';
+            x.style.borderColor = 'red';
+            x.textContent = "Unfollow";
+        }
+
+        function following(x) {
+            x.style.color = '#fff';
+            x.style.backgroundColor = '#449d44';
+            x.style.borderColor = '#398439';
+            x.textContent = 'Following';
         }
 
         function readURL(input) {
@@ -191,6 +262,65 @@
         $('#cover-photo').hover(function () {
             $(this).css('opacity', 1);
         });
+
+        $('#follow-button').click(function (e) {
+            e.preventDefault();
+            var _ = $(this);
+            _.html("<div style='padding-left: 1.3em;padding-right: 1.3em'><i class='fa fa-spinner fa-pulse fa-1x fa-fw'></i></div>");
+            _.prop('disabled', true);
+            var url = $('#follow-user-form').attr('action');
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: {
+                    'user_id' : $('#follow-user-form input[name=user_id]').val(),
+                    '_token' : $("#follow-user-form input[name='_token']").val()
+                },
+                dataType: 'json',
+                success: function (data) {
+                    _.prop('disabled', false);
+                    if (data == 'Following') {
+                        _.css({'color': '#fff', 'background-color': '#5cb85c', 'border-color': '#4cae4c'});
+                        _.mouseenter(function () {
+                            _.css({'background-color': 'red', 'border-color': 'red'});
+                            _.html('Unfollow');
+                        }).mouseleave(function () {
+                            _.css({'color': '#fff', 'background-color': '#5cb85c', 'border-color': '#4cae4c'});
+                            _.html('Following');
+                        });
+                        _.html(data);
+                    } else if (data = 'Follow') {
+                        _.html(data);
+                        _.css({'color': '#fff', 'background-color': '#5cb85c', 'border-color': '#4cae4c'});
+                        _.mouseenter(function () {
+                            _.css({'color': '#fff', 'background-color': '#449d44', 'border-color': '#398439'});
+                            _.html(data);
+                        }).mouseleave(function () {
+                            _.css({'color': '#fff', 'background-color': '#5cb85c', 'border-color': '#4cae4c'});
+                            _.html(data);
+                        })
+
+                    }
+                },
+                error: function (data) {
+
+                }
+
+            });
+        });
+
+        $('.followed').on({
+            mouseenter: function () {
+                var _ = $(this);
+                _.css({'background-color': 'red', 'border-color': 'red'});
+                _.html('Unfollow');
+            },
+            mouseleave: function () {
+                var _ = $(this);
+                _.css({'color': '#fff', 'background-color': '#5cb85c', 'border-color': '#4cae4c'});
+                _.html('Following');
+            }
+        })
 
 
     </script>

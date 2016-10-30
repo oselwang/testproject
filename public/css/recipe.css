@@ -1,5 +1,4 @@
 .recipe-info2{
-    background-color: #333333;
     min-height: 200px;
     color: #888888;
 }
@@ -28,7 +27,7 @@
 }
 
 .recipe-all-info{
-    background: url(http://testproject.net/images/recipe-container-background.jpg) no-repeat;
+    background: url(http://testproject.com/images/recipe-container-background.jpg) no-repeat;
     background-size: cover;
 }
 

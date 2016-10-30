@@ -16,8 +16,9 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12" style="padding:1em;">
-                            <form id="review-form" action="{{url('http://testproject.net/review')}}" method="post"
+                            <form id="review-form" action="{{url('http://testproject.com/review')}}" method="post"
                                   role="form" style="display: block;" autocomplete="off">
+                                {{csrf_field()}}
                                 <input type="hidden" name="recipe_id" value="{{$recipe->id}}">
 
                                 <div id="flash-error-review" class="alert alert-danger hidden">

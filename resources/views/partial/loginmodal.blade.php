@@ -22,7 +22,7 @@
                         <div class="col-lg-12">
                             <form id="login-form" action="{{url('login')}}" method="post" role="form"
                                   style="display: block;">
-
+                                {{csrf_field()}}
                                 <div class="col-xs-12 col-sm-12">
                                     <a href="{{url('auth/facebook')}}" class="btn btn-block btn-social btn-facebook">
                                         <i class="fa fa-facebook"></i> Sign in with Facebook
@@ -36,8 +36,6 @@
                                 <div class="col-xs-5 col-sm-5 line-separator">
 
                                 </div>
-                                <input type="hidden" name="_token" value="{{str_random(40)}}">
-
                                 <div id="flash-error-login" class="alert alert-danger hidden col-lg-12">
                                     <ul id="error-login" style="margin-left: 1em">
                                     </ul>
@@ -76,26 +74,26 @@
                             </form>
                             <form id="register-form" action="{{url('register')}}" method="post"
                                   role="form" style="display: none;">
-                                <input type="hidden" name="_token" value="{{str_random(40)}}">
+                                {{csrf_field()}}
                                 <div id="flash-error-register" class="alert alert-danger hidden">
                                     <ul id="error-register" style="margin-left: 1em">
                                     </ul>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="firstname" tabindex="1" class="form-control"
-                                           placeholder="Firstname" value="{{old('firstname')}}">
+                                           placeholder="Firstname">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="lastname" tabindex="1" class="form-control"
-                                           placeholder="Lastname" value="{{old('lastname')}}">
+                                           placeholder="Lastname">
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" tabindex="1" class="form-control"
-                                           placeholder="Email Address" value="{{old('email')}}">
+                                           placeholder="Email Address">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="phone" id="phone" tabindex="1" class="form-control"
-                                           placeholder="Phone" value="{{old('phone')}}">
+                                           placeholder="Phone">
                                 </div>
 
                                 <div class="form-group" data-toggle="buttons">
@@ -113,7 +111,7 @@
 
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control"
-                                           placeholder="Username" value="{{old('username')}}">
+                                           placeholder="Username">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="1"
@@ -136,7 +134,7 @@
                             </form>
                             <form id="forgot-form" action="{{url('forgot')}}" method="post" role="form"
                                   style="display: none;">
-                                <input type="hidden" name="_token" value="{{str_random(40)}}">
+                                {{csrf_field()}}
                                 <div id="flash-success-forgot" class="alert alert-success hidden">
                                     <ul id="success-forgot" style="margin-left: 1em">
                                     </ul>
@@ -152,7 +150,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" tabindex="1" class="form-control"
-                                           placeholder="Email Address" value="{{old('email')}}">
+                                           placeholder="Email Address">
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
@@ -178,12 +176,15 @@
     $('#login-submit').click(function (e) {
         e.preventDefault();
         $('#error-login').text('');
-        var data = $('#login-form').serializeArray();
         var url = $('#login-form').attr('action');
         $.ajax({
             type: 'post',
             url: url,
-            data: data,
+            data: {
+                _token: $("input[name='_token']").val(),
+                username: $('#login-form #username').val(),
+                password: $('#login-form #password').val()
+            },
             dataType: 'json',
             success: function (data) {
                 redirect(window.location.href);
@@ -196,13 +197,22 @@
     });
     $('#register-submit').click(function (e) {
         e.preventDefault();
-        $('#error-regiter').text('');
-        var data = $('#register-form').serializeArray();
+        $('#error-register').text('');
         var url = $('#register-form').attr('action');
         $.ajax({
             type: 'post',
             url: url,
-            data: data,
+            data: {
+                _token: $("input[name='_token']").val(),
+                firstname: $("input[name='firstname']").val(),
+                lastname: $("input[name='lastname']").val(),
+                email: $("input[name='email']").val(),
+                username: $("#register-form input[name=username]").val(),
+                password: $("#register-form input[name=password]").val(),
+                password_confirmation: $("input[name='password_confirmation']").val(),
+                phone: $("input[name='phone']").val(),
+                gender: $("input[name='gender']").val(),
+            },
             dataType: 'json',
             success: function (data) {
                 redirect(window.location.href);

@@ -6,8 +6,6 @@ use App\Notification;
 use App\Recipe;
 use Auth;
 
-use App\Http\Requests;
-
 class LandingPageController extends BaseController
 {
 
@@ -26,11 +24,11 @@ class LandingPageController extends BaseController
     }
     
     public function totalNotification(){
-        $notification = $this->notification->where('status','unread')
+        $notification = $this->notification->where('viewed',false)
                                             ->where('user_id',Auth::user()->id)
                                             ->get(['id']);
 
-        $total = count($notification);
+        $total = count($notification) != 0 ? count($notification) : '';
         
         return response()->json($total);
     }

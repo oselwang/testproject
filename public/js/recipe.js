@@ -1,5 +1,5 @@
 var page = 2;
-var defaultUrl = "http://testproject.net/";
+var defaultUrl = "http://testproject.com/";
 function redirect(url) {
     window.location = url;
 }
@@ -16,10 +16,9 @@ function readURL(input) {
     }
 }
 
-$("input:checkbox").change(function () {
-    var $this = $(this);
-
-    if ($this.is(":checked")) {
+$("input[name='ingredient[]']").change(function () {
+    var len = $("input[name='ingredient[]']:checked").length;
+    if (len >= 1) {
         $('#buy-ingredient').removeClass('disabled');
     } else {
         $('#buy-ingredient').addClass('disabled');
@@ -668,6 +667,33 @@ $('#review-helpful').on('click','#review-helpful',function (e) {
             }
         })
     });
+
+$('#review-helpful-ajax').on('click','#review-helpful',function (e) {
+    e.preventDefault();
+    var id = $(this).attr('href');
+    var text = $(this).html();
+    var array_text = text.split(" ");
+    var total_helpful = array_text[3];
+    var _ = $(this);
+    $(this).html('');
+    $(this).append("<span class='fa fa-spinner fa-pulse fa-fw' id='spinner-review-helpful"+id+"'>");
+    var url = defaultUrl + 'review-helpful?review_id=' + id;
+    $.ajax({
+        type:'get',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+            if(!isNaN(total_helpful) && data > total_helpful){
+                _.addClass('clicked');
+            }else {
+                _.removeClass('clicked');
+            }
+            var check_helpful = data != 0 ? data : '';
+            $('#spinner-review-helpful' + id).remove();
+            _.append("<span class='fa fa-thumbs-o-up'></span> "+check_helpful+" This is helpful");
+        }
+    })
+});
 
 $('#review-positive').on('click','#review-helpful',function (e) {
     e.preventDefault();

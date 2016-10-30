@@ -1,10 +1,9 @@
-
 $(':radio').change(function () {
         $('.choice').text(this.value + ' stars');
     }
 );
 
-$('#submit-review').on('click',function (e) {
+$('#submit-review').on('click', function (e) {
     e.preventDefault();
     $('#error-review').text('');
     var url = $('#review-form').attr('action');
@@ -25,18 +24,23 @@ $('#submit-review').on('click',function (e) {
             })
         }
     });
-    
+
 });
 
 $('#edit-review-form').submit(function (e) {
     e.preventDefault();
     $('#error-review').text('');
     var url = $(this).attr('action');
-    var data = $(this).serializeArray();
     $.ajax({
         type: 'post',
         url: url,
-        data: data,
+        data: {
+            recipe_id: $("input[name='recipe_id']").val(),
+            rating: $("input[name='rating']").val(),
+            review: $("input[name='review']").val(),
+            _token: $("input[name='_token']").val()
+
+        },
         dataType: 'json',
         success: function (data) {
             redirect(window.location.href);
@@ -51,12 +55,12 @@ $('#edit-review-form').submit(function (e) {
     });
 });
 
-$('#close-edit-review-modal').on('click',function (e) {
+$('#close-edit-review-modal').on('click', function (e) {
     e.preventDefault();
     $('#edit-review-modal').modal('hide');
 });
 
-$('#close-review-modal').on('click',function (e) {
+$('#close-review-modal').on('click', function (e) {
     e.preventDefault();
     $('#review-modal').modal('hide');
 });

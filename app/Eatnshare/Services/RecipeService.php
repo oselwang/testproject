@@ -15,16 +15,4 @@ class RecipeService
         $this->request = $request;
     }
 
-    public function checkNotification()
-    {
-        $notification_id = $this->request->query->get('notification_id');
-        if ( !empty($notification_id) ) {
-            $notification_id = intval($notification_id);
-            $notification = $this->notification->where('id', $notification_id)->first();
-            $notification->status = 'read';
-            $notification->save();
-        }
-        
-        return true;
-    }
 }

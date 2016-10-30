@@ -16,7 +16,7 @@ class CreateIngredientsTable extends Migration
             $table->increments('id');
             $table->integer('recipe_id')->unsigned();
             $table->string('name')->index();
-            $table->string('amount');
+            $table->string('unit');
             $table->timestamps();
 
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');

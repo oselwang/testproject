@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\RecipeCategory;
 use View;
-
+use Cache;
 use App\Http\Requests;
 
 class BaseController extends Controller
@@ -14,8 +14,11 @@ class BaseController extends Controller
     public function __construct()
     {
         $recipe_category = new RecipeCategory();
-        $this->all_category = $recipe_category->all();
-        
-        View::share('all_category', $this->all_category);
+        if(Cache::get('category') == null){
+            $category = $recipe_category->all();
+            Cache::forever('category',$category);
+        }
+
+        View::share('all_category', Cache::get('category'));
     }
 }

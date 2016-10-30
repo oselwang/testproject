@@ -29,6 +29,8 @@
     25 => 'App\\Providers\\RouteServiceProvider',
     26 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
     27 => 'Intervention\\Image\\ImageServiceProvider',
+    28 => 'Barryvdh\\Debugbar\\ServiceProvider',
+    29 => 'Barryvdh\\DomPDF\\ServiceProvider',
   ),
   'eager' => 
   array (
@@ -47,6 +49,8 @@
     12 => 'App\\Providers\\EventServiceProvider',
     13 => 'App\\Providers\\RouteServiceProvider',
     14 => 'Intervention\\Image\\ImageServiceProvider',
+    15 => 'Barryvdh\\Debugbar\\ServiceProvider',
+    16 => 'Barryvdh\\DomPDF\\ServiceProvider',
   ),
   'deferred' => 
   array (

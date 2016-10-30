@@ -26,13 +26,16 @@ Route::post('change-cover-photo', 'AjaxController@changeCoverPhoto');
 Route::post('change-recipe-profile-photo', 'AjaxController@changeRecipeProfilePhoto');
 Route::post('change-recipe-cover-photo', 'AjaxController@changeRecipeCoverPhoto');
 Route::post('suggest-search', 'AjaxController@suggestSearch');
+Route::post('ingredient-search', 'AjaxController@searchIngredient');
 Route::post('review', 'AjaxController@addReview');
-Route::post('edit-review','AjaxController@editReview');
-
+Route::post('edit-review', 'AjaxController@editReview');
+Route::post('account/follow-user', 'AjaxController@followUser');
 
 
 //Recipe Controller
 Route::post('recipe/buy-ingredient', 'RecipeController@buyIngredient');
+Route::post('recipe/finish-buy-ingredient','RecipeController@finishBuyIngredient');
+Route::post('recipe/print-recipe', 'RecipeController@printRecipe');
 
 //Account Controller
 Route::post('headline', 'AccountController@editHeadline');
@@ -57,8 +60,11 @@ Route::get('auth/facebook/callback', 'Auth\SocialLoginController@facebookCallbac
 
 //Ajax Controller
 Route::get('recipeoftheday', 'AjaxController@recipeOfTheDay');
-Route::get('notification','AjaxController@getNotification');
-Route::get('review-helpful','AjaxController@helpfulReview');
+Route::get('notification', 'AjaxController@getNotification');
+Route::get('review-helpful', 'AjaxController@helpfulReview');
+Route::get('account/follower/{username}', 'AjaxController@getFollower');
+Route::get('account/following/{username}', 'AjaxController@getFollowing');
+Route::get('testconvert','AjaxController@testConvertImage');
 
 //Auth Controller
 Route::get('register/{token}', 'Auth\AuthController@confirmToken');
@@ -75,39 +81,41 @@ Route::get('search', 'SearchController@show');
 Route::get('review/positive/{recipe_id}', 'ReviewController@getPositive');
 Route::get('review/least-positive/{recipe_id}', 'ReviewController@getLeastPositive');
 Route::get('review/newest/{recipe_id}', 'ReviewController@getNewest');
-    Route::get('review/helpful/{recipe_id}','ReviewController@getHelpful');
+Route::get('review/helpful/{recipe_id}', 'ReviewController@getHelpful');
 
 
 Route::get('mapping', function () {
     $client = \Elasticsearch\ClientBuilder::create()
-        ->setHosts([ 'http://localhost:9200' ])
+        ->setHosts(['http://localhost:9200'])
         ->build();
 
     $paramsdel = [
-        'index' => 'recipe',
+        'index' => 'recipe'
     ];
-    $params = [
+    $client->indices()->delete($paramsdel);
+
+    $recipe = [
         'index' => 'recipe',
-        'body'  => [
+        'body' => [
             'settings' => [
-                'number_of_shards'   => 1,
+                'number_of_shards' => 1,
                 'number_of_replicas' => 0,
-                "analysis"           => [
-                    "analyzer"        => [
+                "analysis" => [
+                    "analyzer" => [
                         "ngram_analyzer" => [
-                            "type"      => "custom",
+                            "type" => "custom",
                             "tokenizer" => "mynGram"
                         ]
                     ],
                     "search_analyzer" => [
                         "my_search_analyzer" => [
-                            "type"      => "custom",
+                            "type" => "custom",
                             "tokenizer" => "mynGram",
                         ]
                     ],
-                    "tokenizer"       => [
+                    "tokenizer" => [
                         "mynGram" => [
-                            "type"     => "nGram",
+                            "type" => "nGram",
                             "min_gram" => 2,
                             "max_gram" => 5
                         ]
@@ -117,29 +125,79 @@ Route::get('mapping', function () {
             'mappings' => [
                 'recipe' => [
                     'properties' => [
-                        'name'        => [
-                            'type'     => 'string',
+                        'name' => [
+                            'type' => 'string',
                             'analyzer' => 'ngram_analyzer'
                         ],
                         'description' => [
-                            'type'     => 'string',
+                            'type' => 'string',
                             'analyzer' => 'ngram_analyzer'
                         ],
-                        'difficulty'  => [
-                            'type'     => 'string',
+                        'difficulty' => [
+                            'type' => 'string',
                             'analyzer' => 'ngram_analyzer'
                         ],
-                        "timestamp"   => [
-                            "type"   => "date",
+                        "timestamp" => [
+                            "type" => "date",
                             "format" => "yyyy-MM-dd HH=>mm=>ss.SSS",
                         ]
                     ],
                 ]
-            ],
+            ]
         ]
     ];
-    $client->indices()->delete($paramsdel);
+    $client->indices()->create($recipe);
 
-    $client->indices()->create($params);
+    $paramsdel = [
+        'index' => 'ingredient'
+    ];
+    $client->indices()->delete($paramsdel);
+    $ingredient = [
+        'index' => 'ingredient',
+        'body' => [
+            'settings' => [
+                'number_of_shards' => 1,
+                'number_of_replicas' => 0,
+                "analysis" => [
+                    "analyzer" => [
+                        "ngram_analyzer" => [
+                            "type" => "custom",
+                            "tokenizer" => "mynGram"
+                        ]
+                    ],
+                    "search_analyzer" => [
+                        "my_search_analyzer" => [
+                            "type" => "custom",
+                            "tokenizer" => "mynGram",
+                        ]
+                    ],
+                    "tokenizer" => [
+                        "mynGram" => [
+                            "type" => "nGram",
+                            "min_gram" => 2,
+                            "max_gram" => 5
+                        ]
+                    ]
+                ]
+            ],
+            'mappings' => [
+                'ingredient' => [
+                    'properties' => [
+                        'name' => [
+                            'type' => 'string',
+                            'analyzer' => 'ngram_analyzer'
+                        ],
+                        "timestamp" => [
+                            "type" => "date",
+                            "format" => "yyyy-MM-dd HH=>mm=>ss.SSS",
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ];
+    $client->indices()->create($ingredient);
+
+
 });
 

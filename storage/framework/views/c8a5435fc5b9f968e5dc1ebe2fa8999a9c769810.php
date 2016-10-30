@@ -68,13 +68,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav">
-                        <li><a href="<?php echo e(url('http://testproject.net//')); ?>" <?php echo e((Request::is('/') ? 'class=active' : '')); ?>>Home</a>
+                        <li><a href="<?php echo e(url('http://testproject.com//')); ?>" <?php echo e((Request::is('/') ? 'class=active' : '')); ?>>Home</a>
                         </li>
                         <li>
-                            <a href="<?php echo e(url('http://testproject.net/recipes')); ?>" <?php echo e((Request::is('recipes') ? 'class=active' : '')); ?>>Recipes</a>
+                            <a href="<?php echo e(url('http://testproject.com/recipes')); ?>" <?php echo e((Request::is('recipes') ? 'class=active' : '')); ?>>Recipes</a>
                         </li>
                         <li>
-                            <a href="<?php echo e(url('http://testproject.net/suggestion')); ?>" <?php echo e((Request::is('suggestion') ? 'class=active' : '')); ?>>Suggestion</a>
+                            <a href="<?php echo e(url('http://testproject.com/suggestion')); ?>" <?php echo e((Request::is('suggestion') ? 'class=active' : '')); ?>>Suggestion</a>
                         </li>
                         <li role="presentation" class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
@@ -116,10 +116,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <li><a href=""><span class="glyphicon glyphicon-tasks"
                                                          style="margin-right: 20px"></span>Order</a></li>
                                     <li>
-                                        <a href="<?php echo e(url('http://testproject.net/account/'.Auth::user()->present()->accountname)); ?>" <?php echo e((Request::is('account') ? 'class=active' : '')); ?>><span
+                                        <a href="<?php echo e(url('http://testproject.com/account/'.Auth::user()->present()->accountname)); ?>" <?php echo e((Request::is('account') ? 'class=active' : '')); ?>><span
                                                     class="fa fa-user" style="margin-right: 20px"></span>Account</a>
                                     </li>
-                                    <li><a href="<?php echo e(url('http://testproject.net/logout')); ?>"><span
+                                    <li><a href="<?php echo e(url('http://testproject.com/logout')); ?>"><span
                                                     class="glyphicon glyphicon-off"
                                                     style="margin-right: 20px"></span>Logout</a></li>
 
@@ -134,7 +134,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </nav>
     </div>
 </div>
-<form method="get" action="<?php echo e(url('http://testproject.net/search')); ?>" id="search-form" autocomplete="off">
+<form method="get" action="<?php echo e(url('http://testproject.com/search')); ?>" id="search-form" autocomplete="off">
+    <?php echo e(csrf_field()); ?>
+
     <div class="search-container" style="<?php echo e(Request::is('search') ?: 'display: none'); ?>">
         <div class="search-input">
             <input type="text" class="search-box" value="<?php echo e(Request::is('search') ? $search : ''); ?>" name="q"

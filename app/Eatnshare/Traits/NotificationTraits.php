@@ -2,10 +2,11 @@
     namespace App\Eatnshare\Traits;
     
     
+    use App\Follow;
     use App\Notification;
     use App\Recipe;
     use App\Review;
-    use App\ReviewUserHelpful;
+    use App\User;
     use Auth;
 
     trait NotificationTraits
@@ -29,6 +30,8 @@
                 $message = 'submits a review on your recipe';
             }elseif ($model instanceof Review){
                 $message = 'finds your review helpful';
+            }elseif ($model instanceof Follow){
+                $message = 'started following you';
             }
 
             return $message;
@@ -41,6 +44,11 @@
             }elseif ($model instanceof Review){
                 $recipe = $model->recipe()->first();
                 $url = 'recipe/' . $recipe->slug;
+            }elseif($model instanceof Follow){
+                $user = new User();
+                $user = $user->where('id',$model->follower_id)->first();
+                $user = empty($user->facebook_id) ? $user->username : intval($user->facebook_id);
+                $url = 'account/' . $user;
             }
 
             return $url;

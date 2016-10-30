@@ -68,13 +68,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                 <nav class="cl-effect-13" id="cl-effect-13">
                     <ul class="nav navbar-nav">
-                        <li><a href="{{url('http://testproject.net//')}}" {{(Request::is('/') ? 'class=active' : '')}}>Home</a>
+                        <li><a href="{{url('http://testproject.com//')}}" {{(Request::is('/') ? 'class=active' : '')}}>Home</a>
                         </li>
                         <li>
-                            <a href="{{url('http://testproject.net/recipes')}}" {{(Request::is('recipes') ? 'class=active' : '')}}>Recipes</a>
+                            <a href="{{url('http://testproject.com/recipes')}}" {{(Request::is('recipes') ? 'class=active' : '')}}>Recipes</a>
                         </li>
                         <li>
-                            <a href="{{url('http://testproject.net/suggestion')}}" {{(Request::is('suggestion') ? 'class=active' : '')}}>Suggestion</a>
+                            <a href="{{url('http://testproject.com/suggestion')}}" {{(Request::is('suggestion') ? 'class=active' : '')}}>Suggestion</a>
                         </li>
                         <li role="presentation" class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
@@ -116,10 +116,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <li><a href=""><span class="glyphicon glyphicon-tasks"
                                                          style="margin-right: 20px"></span>Order</a></li>
                                     <li>
-                                        <a href="{{url('http://testproject.net/account/'.Auth::user()->present()->accountname)}}" {{(Request::is('account') ? 'class=active' : '')}}><span
+                                        <a href="{{url('http://testproject.com/account/'.Auth::user()->present()->accountname)}}" {{(Request::is('account') ? 'class=active' : '')}}><span
                                                     class="fa fa-user" style="margin-right: 20px"></span>Account</a>
                                     </li>
-                                    <li><a href="{{url('http://testproject.net/logout')}}"><span
+                                    <li><a href="{{url('http://testproject.com/logout')}}"><span
                                                     class="glyphicon glyphicon-off"
                                                     style="margin-right: 20px"></span>Logout</a></li>
 
@@ -134,7 +134,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </nav>
     </div>
 </div>
-<form method="get" action="{{url('http://testproject.net/search')}}" id="search-form" autocomplete="off">
+<form method="get" action="{{url('http://testproject.com/search')}}" id="search-form" autocomplete="off">
+    {{csrf_field()}}
     <div class="search-container" style="{{Request::is('search') ?: 'display: none' }}">
         <div class="search-input">
             <input type="text" class="search-box" value="{{Request::is('search') ? $search : ''}}" name="q"

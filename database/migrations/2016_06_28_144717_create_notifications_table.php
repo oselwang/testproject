@@ -18,6 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->string('url');
             $table->string('message');
             $table->string('status');
+            $table->boolean('viewed');
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

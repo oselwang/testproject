@@ -35,12 +35,11 @@ class SocialLoginController extends Controller
 
     public function redirectFacebook()
     {
-
         $helper = $this->facebook->getRedirectLoginHelper();
 
         $permissions = [ 'email' ];
 
-        $facebookUrl = $helper->getLoginUrl('http://testproject.net/auth/facebook/callback', $permissions);
+        $facebookUrl = $helper->getLoginUrl('http://testproject.com/auth/facebook/callback', $permissions);
 
         return redirect($facebookUrl);
     }
